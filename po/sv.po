@@ -1,0 +1,249 @@
+# Swedish translation for debconf-translation-manager
+# Copyright (C) 2024–2026 Danne L10n Suite
+# This file is distributed under the same license as the
+# debconf-translation-manager package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: debconf-translation-manager 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-04 00:00+0000\n"
+"PO-Revision-Date: 2026-03-04 00:00+0000\n"
+"Last-Translator: Danne L10n Suite <noreply@example.com>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Ready"
+msgstr "Redo"
+
+msgid "Navigation"
+msgstr "Navigering"
+
+msgid "Templates"
+msgstr "Mallar"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "PO Editor"
+msgstr "PO-redigerare"
+
+msgid "Review Board"
+msgstr "Granskningstavla"
+
+msgid "Diff View"
+msgstr "Diff-vy"
+
+msgid "Statistics"
+msgstr "Statistik"
+
+msgid "Coordination"
+msgstr "Samordning"
+
+msgid "BTS Bugs"
+msgstr "BTS-buggar"
+
+msgid "DDTSS"
+msgstr "DDTSS"
+
+msgid "Toggle theme (Ctrl+T)"
+msgstr "Växla tema (Ctrl+T)"
+
+msgid "Keyboard Shortcuts"
+msgstr "Tangentbordsgenvägar"
+
+msgid "Copy Debug Info"
+msgstr "Kopiera felsökningsinfo"
+
+msgid "About"
+msgstr "Om"
+
+msgid "Search…"
+msgstr "Sök…"
+
+msgid "Template Browser"
+msgstr "Mallbläddrare"
+
+msgid "Search templates…"
+msgstr "Sök mallar…"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Priority"
+msgstr "Prioritet"
+
+msgid "Package"
+msgstr "Paket"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Choices: "
+msgstr "Val: "
+
+msgid "Translation Status"
+msgstr "Översättningsstatus"
+
+msgid "Filter packages…"
+msgstr "Filtrera paket…"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "Total"
+msgstr "Totalt"
+
+msgid "Translated"
+msgstr "Översatt"
+
+msgid "Fuzzy"
+msgstr "Fuzzy"
+
+msgid "Untranslated"
+msgstr "Oöversatt"
+
+msgid "Coverage"
+msgstr "Täckning"
+
+msgid "Search strings…"
+msgstr "Sök strängar…"
+
+msgid "Show"
+msgstr "Visa"
+
+msgid "Source (English)"
+msgstr "Källa (engelska)"
+
+msgid "Translation"
+msgstr "Översättning"
+
+msgid "Copy Source"
+msgstr "Kopiera källa"
+
+msgid "Clear Translation"
+msgstr "Rensa översättning"
+
+msgid "Validate"
+msgstr "Validera"
+
+msgid "Translator Comment"
+msgstr "Översättarkommentar"
+
+msgid "Add a comment…"
+msgstr "Lägg till en kommentar…"
+
+msgid "Translation is empty"
+msgstr "Översättningen är tom"
+
+msgid "Validation passed"
+msgstr "Validering godkänd"
+
+msgid "Saved"
+msgstr "Sparad"
+
+msgid "PO entries saved"
+msgstr "PO-poster sparade"
+
+msgid "Refresh from l10n.debian.org"
+msgstr "Uppdatera från l10n.debian.org"
+
+msgid "Needs Review"
+msgstr "Behöver granskning"
+
+msgid "Pending Review"
+msgstr "Väntar på granskning"
+
+msgid "Select a change"
+msgstr "Välj en ändring"
+
+msgid "Old"
+msgstr "Gammal"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Template Diff View"
+msgstr "Malldiff-vy"
+
+msgid "Check for Changes"
+msgstr "Sök efter ändringar"
+
+msgid "Template"
+msgstr "Mall"
+
+msgid "Change"
+msgstr "Ändring"
+
+msgid "Welcome"
+msgstr "Välkommen"
+
+msgid "Get Started"
+msgstr "Kom igång"
+
+msgid "Debug info copied to clipboard"
+msgstr "Felsökningsinfo kopierad till urklipp"
+
+msgid "l10n Coordination"
+msgstr "l10n-samordning"
+
+msgid "Claim (ITT)"
+msgstr "Gör anspråk (ITT)"
+
+msgid "Submit (RFR)"
+msgstr "Skicka in (RFR)"
+
+msgid "Mark Done"
+msgstr "Markera klar"
+
+msgid "Unclaim"
+msgstr "Avbryt anspråk"
+
+msgid "DDTSS Workflow"
+msgstr "DDTSS-arbetsflöde"
+
+msgid "Login to DDTSS"
+msgstr "Logga in på DDTSS"
+
+msgid "Submit Translation"
+msgstr "Skicka översättning"
+
+msgid "Approve"
+msgstr "Godkänn"
+
+msgid "Reject"
+msgstr "Avvisa"
+
+msgid "BTS Bug Filing"
+msgstr "BTS-buggrapportering"
+
+msgid "Compose Bug Report"
+msgstr "Skriv buggrapport"
+
+msgid "Subject:"
+msgstr "Ämne:"
+
+msgid "Body:"
+msgstr "Brödtext:"
+
+msgid "Preview"
+msgstr "Förhandsvisa"
+
+msgid "Copy to Clipboard"
+msgstr "Kopiera till urklipp"
+
+msgid "Open in Mail Client"
+msgstr "Öppna i e-postklient"
+
+msgid "Filed Bugs"
+msgstr "Rapporterade buggar"
+
+msgid "Severity:"
+msgstr "Allvarlighetsgrad:"
+
+msgid "Tags:"
+msgstr "Taggar:"

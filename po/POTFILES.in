@@ -1,0 +1,14 @@
+debconf_translation_manager/app.py
+debconf_translation_manager/window.py
+debconf_translation_manager/views/template_browser.py
+debconf_translation_manager/views/translation_status.py
+debconf_translation_manager/views/po_editor.py
+debconf_translation_manager/views/review_board.py
+debconf_translation_manager/views/diff_view.py
+debconf_translation_manager/views/statistics.py
+debconf_translation_manager/views/bts_workflow.py
+debconf_translation_manager/views/ddtss_workflow.py
+debconf_translation_manager/views/coordination.py
+debconf_translation_manager/widgets/diff_widget.py
+debconf_translation_manager/widgets/status_badge.py
+debconf_translation_manager/widgets/filter_bar.py

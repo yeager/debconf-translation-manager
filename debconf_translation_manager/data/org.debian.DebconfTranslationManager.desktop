@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Debconf Translation Manager
+Comment=Manage translations of Debian debconf templates
+Exec=debconf-translation-manager
+Icon=org.debian.DebconfTranslationManager
+Terminal=false
+Type=Application
+Categories=Development;Translation;GTK;
+Keywords=debian;debconf;translation;l10n;gettext;
+StartupWMClass=org.debian.DebconfTranslationManager
+StartupNotify=true

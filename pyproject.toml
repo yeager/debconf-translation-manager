@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools >= 68.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "debconf-translation-manager"
+version = "0.1.0"
+description = "Manage translations of Debian debconf templates"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.10"
+authors = [
+    { name = "Danne L10n Suite", email = "noreply@example.com" },
+]
+keywords = ["debian", "debconf", "translation", "l10n", "gettext", "gtk4"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: X11 Applications :: GTK",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Localization",
+]
+dependencies = [
+    "PyGObject>=3.42",
+    "requests>=2.28",
+    "beautifulsoup4>=4.11",
+]
+
+[project.urls]
+Homepage = "https://github.com/yeager/debconf-translation-manager"
+Repository = "https://github.com/yeager/debconf-translation-manager"
+"Bug Tracker" = "https://github.com/yeager/debconf-translation-manager/issues"
+
+[project.scripts]
+debconf-translation-manager = "debconf_translation_manager.__main__:main"
+
+[project.gui-scripts]
+debconf-translation-manager-gui = "debconf_translation_manager.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["debconf_translation_manager*"]
+
+[tool.setuptools.package-data]
+debconf_translation_manager = ["data/*"]

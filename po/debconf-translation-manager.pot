@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: debconf-translation-manager 0.1.0\n"
+"Project-Id-Version: debconf-translation-manager 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 07:00+0100\n"
+"POT-Creation-Date: 2026-03-05 07:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: debconf_translation_manager/app.py:95
+#: debconf_translation_manager/app.py:103
 msgid "Manage translations of Debian debconf templates.\n"
 msgstr ""
 
-#: debconf_translation_manager/app.py:99
+#: debconf_translation_manager/app.py:107
 msgid "Translate on Transifex"
 msgstr ""
 
-#: debconf_translation_manager/app.py:140
+#: debconf_translation_manager/app.py:148
 msgid "Debug info copied to clipboard"
 msgstr ""
 
-#: debconf_translation_manager/app.py:160
+#: debconf_translation_manager/app.py:168
 msgid "Welcome"
 msgstr ""
 
-#: debconf_translation_manager/app.py:180
+#: debconf_translation_manager/app.py:188
 msgid ""
 "Browse, edit, and review debconf template translations for Debian packages."
 msgstr ""
 
-#: debconf_translation_manager/app.py:190
+#: debconf_translation_manager/app.py:198
 msgid ""
 "Use the sidebar to navigate between the template browser, translation status "
 "dashboard, PO editor, review board, diff viewer, and statistics."
 msgstr ""
 
-#: debconf_translation_manager/app.py:202
+#: debconf_translation_manager/app.py:210
 msgid "Goal: 100% debconf translation coverage for your language!"
 msgstr ""
 
-#: debconf_translation_manager/app.py:210
+#: debconf_translation_manager/app.py:218
 msgid "Get Started"
 msgstr ""
 
@@ -889,8 +889,16 @@ msgstr ""
 msgid "Use TLS"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:243
+#: debconf_translation_manager/views/settings.py:241
+msgid "Use Gmail Settings"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:252
 msgid "Save Settings"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:322
+msgid "Gmail SMTP settings applied. Use an App Password for authentication."
 msgstr ""
 
 #: debconf_translation_manager/views/statistics.py:65

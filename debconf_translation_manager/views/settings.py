@@ -237,6 +237,15 @@ class SettingsView(Gtk.Box):
         self._smtp_tls_row.set_title(_("Use TLS"))
         smtp_group.add(self._smtp_tls_row)
 
+        # Gmail preset button
+        gmail_btn = Gtk.Button(label=_("Use Gmail Settings"))
+        gmail_btn.set_icon_name("mail-send-symbolic")
+        gmail_btn.add_css_class("flat")
+        gmail_btn.set_halign(Gtk.Align.START)
+        gmail_btn.set_margin_top(4)
+        gmail_btn.connect("clicked", self._on_gmail_preset)
+        smtp_group.add(gmail_btn)
+
         content.append(smtp_group)
 
         # -- Save button ----------------------------------------------------
@@ -296,6 +305,21 @@ class SettingsView(Gtk.Box):
         s["bts_severity"] = severities[self._severity_row.get_selected()]
 
     # -- callbacks ---------------------------------------------------------
+
+    def _on_gmail_preset(self, btn: Gtk.Button) -> None:
+        """Fill SMTP fields with Gmail App Password settings."""
+        self._smtp_host_row.set_text("smtp.gmail.com")
+        self._smtp_port_row.set_text("587")
+        self._smtp_tls_row.set_active(True)
+        # Pre-fill username from translator email
+        try:
+            email = self._settings["translator_email"]
+        except (KeyError, IndexError):
+            email = ""
+        if email:
+            self._smtp_user_row.set_text(email)
+        if self._window:
+            self._window.show_toast(_("Gmail SMTP settings applied. Use an App Password for authentication."))
 
     def _on_save_clicked(self, btn: Gtk.Button) -> None:
         self.save()

@@ -96,7 +96,7 @@ class DebconfTranslationManagerApp(Adw.Application):
                 "Part of the Danne L10n Suite."
             ),
         )
-        about.add_link(_("Translate on Transifex"), "https://app.transifex.com/danielnylander/debconf-translation-manager/")
+        about.add_link(_("Translate on Transifex"), "https://app.transifex.com/danielnylander/debconf-translator/")
         about.present(self._window)
 
     def _on_quit(self, action: Gio.SimpleAction, param_args: None) -> None:

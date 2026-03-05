@@ -14,6 +14,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio, GLib, Gtk
 
 from debconf_translation_manager.services.l10n_debian import get_mock_l10n_data
+from debconf_translation_manager.services.submission_log import SubmissionLog
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
 
@@ -32,6 +33,7 @@ class BTSWorkflowView(Gtk.Box):
         self._language = "sv"
         self._language_name = "Swedish"
         self._filed_bugs: list[dict[str, str]] = _get_mock_filed_bugs()
+        self._submission_log = SubmissionLog.get()
         self._build_ui()
 
     def focus_search(self) -> None:
@@ -63,7 +65,7 @@ class BTSWorkflowView(Gtk.Box):
 
         self.append(Gtk.Separator())
 
-        # Paned: compose form left, filed bugs right
+        # Paned: compose form left, filed bugs + history right
         paned = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL)
         paned.set_vexpand(True)
         paned.set_position(550)
@@ -202,7 +204,7 @@ class BTSWorkflowView(Gtk.Box):
         btn_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         btn_row.set_margin_top(8)
 
-        preview_btn = Gtk.Button(label=_("Preview"))
+        preview_btn = Gtk.Button(label=_("Preview Email"))
         preview_btn.connect("clicked", self._on_preview)
         btn_row.append(preview_btn)
 
@@ -219,7 +221,7 @@ class BTSWorkflowView(Gtk.Box):
         compose_scroll.set_child(compose_box)
         paned.set_start_child(compose_scroll)
 
-        # ---- Right: filed bugs list ----
+        # ---- Right: filed bugs + submission history ----
         right_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         right_box.set_margin_start(8)
         right_box.set_margin_end(16)
@@ -244,10 +246,36 @@ class BTSWorkflowView(Gtk.Box):
         bugs_scroll.set_child(self._bugs_list)
         right_box.append(bugs_scroll)
 
+        # -- Submission History section ------------------------------------
+        right_box.append(Gtk.Separator())
+
+        history_title = Gtk.Label(label=_("Submission History"), xalign=0)
+        history_title.add_css_class("title-4")
+        history_title.set_margin_top(8)
+        right_box.append(history_title)
+
+        history_scroll = Gtk.ScrolledWindow()
+        history_scroll.set_vexpand(True)
+        history_scroll.set_min_content_height(120)
+
+        self._history_list = Gtk.ListBox()
+        self._history_list.set_selection_mode(Gtk.SelectionMode.NONE)
+        self._history_list.add_css_class("boxed-list")
+        history_scroll.set_child(self._history_list)
+        right_box.append(history_scroll)
+
+        # Previously submitted packages label
+        self._prev_packages_label = Gtk.Label(xalign=0, wrap=True)
+        self._prev_packages_label.add_css_class("caption")
+        self._prev_packages_label.add_css_class("dim-label")
+        self._prev_packages_label.set_margin_bottom(8)
+        right_box.append(self._prev_packages_label)
+
         paned.set_end_child(right_box)
         self.append(paned)
 
         self._populate_bugs()
+        self._populate_history()
 
     # -- body template --------------------------------------------------
 
@@ -300,30 +328,140 @@ class BTSWorkflowView(Gtk.Box):
             pass
 
     def _on_preview(self, btn: Gtk.Button) -> None:
+        """Open email preview dialog with Edit / Save buttons."""
         report = self._build_report()
+
         dialog = Adw.Dialog()
-        dialog.set_title(_("Bug Report Preview"))
-        dialog.set_content_width(600)
-        dialog.set_content_height(500)
+        dialog.set_title(_("Email Preview"))
+        dialog.set_content_width(650)
+        dialog.set_content_height(550)
 
         toolbar = Adw.ToolbarView()
         header = Adw.HeaderBar()
+
+        # Edit button — returns to compose mode
+        edit_btn = Gtk.Button(label=_("Edit"))
+        edit_btn.connect("clicked", lambda b: dialog.close())
+        header.pack_start(edit_btn)
+
+        # Save button — write report + .po to disk
+        save_btn = Gtk.Button(label=_("Save"))
+        save_btn.add_css_class("suggested-action")
+        save_btn.connect("clicked", lambda b: self._on_preview_save(dialog))
+        header.pack_end(save_btn)
+
         toolbar.add_top_bar(header)
 
+        # Content: subject + body + attachments
+        content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        content.set_margin_start(16)
+        content.set_margin_end(16)
+        content.set_margin_top(12)
+        content.set_margin_bottom(12)
+
+        # Subject line
+        subj_label = Gtk.Label(
+            label=_("Subject: %s") % self._subject_entry.get_text(),
+            xalign=0,
+            wrap=True,
+        )
+        subj_label.add_css_class("heading")
+        content.append(subj_label)
+
+        # To line
+        to_label = Gtk.Label(
+            label=_("To: submit@bugs.debian.org"),
+            xalign=0,
+        )
+        to_label.add_css_class("dim-label")
+        content.append(to_label)
+
+        content.append(Gtk.Separator())
+
+        # Body
         scroll = Gtk.ScrolledWindow()
+        scroll.set_vexpand(True)
         tv = Gtk.TextView()
         tv.set_editable(False)
         tv.set_wrap_mode(Gtk.WrapMode.WORD)
-        tv.set_left_margin(12)
-        tv.set_right_margin(12)
-        tv.set_top_margin(12)
-        tv.set_bottom_margin(12)
+        tv.set_left_margin(8)
+        tv.set_right_margin(8)
+        tv.set_top_margin(8)
+        tv.set_bottom_margin(8)
         tv.add_css_class("monospace")
-        tv.get_buffer().set_text(report)
+
+        buf = self._body_view.get_buffer()
+        start, end = buf.get_bounds()
+        body_text = buf.get_text(start, end, True)
+        tv.get_buffer().set_text(body_text)
         scroll.set_child(tv)
-        toolbar.set_content(scroll)
+
+        body_frame = Gtk.Frame()
+        body_frame.set_child(scroll)
+        content.append(body_frame)
+
+        # Attachment info
+        attach = self._attach_label.get_label()
+        if attach and attach != _("(none)"):
+            att_label = Gtk.Label(
+                label=_("Attachment: %s") % attach,
+                xalign=0,
+            )
+            att_label.add_css_class("caption")
+            att_label.set_margin_top(4)
+            content.append(att_label)
+
+        toolbar.set_content(content)
         dialog.set_child(toolbar)
         dialog.present(self._window)
+
+    def _on_preview_save(self, dialog: Adw.Dialog) -> None:
+        """Save the bug report text to disk and log the submission."""
+        pkg = self._pkg_entry.get_text().strip() or "unknown"
+        lang = self._lang_entry.get_text().strip() or "sv"
+        subject = self._subject_entry.get_text()
+        report = self._build_report()
+
+        # Write bug report to file
+        save_dialog = Gtk.FileDialog()
+        save_dialog.set_initial_name(f"{pkg}_bug_report.txt")
+        save_dialog.save(
+            self._window,
+            None,
+            self._on_report_save_ready,
+            (report, dialog, pkg, subject, lang),
+        )
+
+    def _on_report_save_ready(
+        self,
+        file_dialog: Gtk.FileDialog,
+        result: Gio.AsyncResult,
+        user_data: tuple,
+    ) -> None:
+        report, preview_dialog, pkg, subject, lang = user_data
+        try:
+            gfile = file_dialog.save_finish(result)
+        except GLib.Error:
+            return
+        path = gfile.get_path()
+        if not path:
+            return
+
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(report)
+
+        # Log the submission
+        self._submission_log.add(
+            package=pkg,
+            subject=subject,
+            language=lang,
+            status="filed",
+        )
+        self._populate_history()
+
+        preview_dialog.close()
+        if self._window:
+            self._window.show_toast(_("Bug report saved to %s") % path)
 
     def _on_copy_report(self, btn: Gtk.Button) -> None:
         report = self._build_report()
@@ -414,6 +552,64 @@ class BTSWorkflowView(Gtk.Box):
         info.add_css_class("caption")
         info.add_css_class("dim-label")
         box.append(info)
+
+        row.set_child(box)
+        return row
+
+    # -- submission history -----------------------------------------------
+
+    def _populate_history(self) -> None:
+        """Populate the submission history list and previously-submitted label."""
+        while True:
+            row = self._history_list.get_row_at_index(0)
+            if row is None:
+                break
+            self._history_list.remove(row)
+
+        entries = self._submission_log.entries
+        # Fall back to mock data if log is empty
+        if not entries:
+            entries = self._submission_log.get_mock_entries()
+
+        for entry in entries:
+            row = self._make_history_row(entry)
+            self._history_list.append(row)
+
+        # Previously submitted packages
+        pkgs = self._submission_log.previously_submitted_packages()
+        if not pkgs:
+            pkgs = [e["package"] for e in self._submission_log.get_mock_entries()]
+        if pkgs:
+            self._prev_packages_label.set_label(
+                _("Previously submitted: %s") % ", ".join(pkgs)
+            )
+        else:
+            self._prev_packages_label.set_label("")
+
+    def _make_history_row(self, entry: dict[str, Any]) -> Gtk.ListBoxRow:
+        row = Gtk.ListBoxRow()
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        box.set_margin_start(8)
+        box.set_margin_end(8)
+        box.set_margin_top(4)
+        box.set_margin_bottom(4)
+
+        pkg_label = Gtk.Label(label=entry.get("package", ""), xalign=0)
+        pkg_label.add_css_class("heading")
+        pkg_label.set_hexpand(True)
+        box.append(pkg_label)
+
+        lang_label = Gtk.Label(label=entry.get("language", ""))
+        lang_label.add_css_class("caption")
+        box.append(lang_label)
+
+        badge = StatusBadge(status=entry.get("status", "filed"))
+        box.append(badge)
+
+        ts_label = Gtk.Label(label=entry.get("timestamp", "")[:10])
+        ts_label.add_css_class("caption")
+        ts_label.add_css_class("dim-label")
+        box.append(ts_label)
 
         row.set_child(box)
         return row

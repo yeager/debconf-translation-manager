@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import gettext
+import re
+from datetime import datetime
 from typing import Any
 
 import gi
@@ -12,6 +14,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gtk
 
+from debconf_translation_manager.services.settings import Settings
 from debconf_translation_manager.services.template_parser import get_mock_po_entries
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
@@ -59,7 +62,15 @@ class POEditorView(Gtk.Box):
 
         self._stats_label = Gtk.Label()
         self._stats_label.add_css_class("dim-label")
+        self._stats_label.set_hexpand(True)
         title_box.append(self._stats_label)
+
+        header_btn = Gtk.Button(label=_("Edit Header"))
+        header_btn.set_icon_name("document-properties-symbolic")
+        header_btn.connect("clicked", self._on_edit_header)
+        header_btn.set_margin_end(16)
+        title_box.append(header_btn)
+
         self.append(title_box)
 
         # Filter bar
@@ -356,8 +367,6 @@ class POEditorView(Gtk.Box):
             issues.append(_("Translation is empty"))
 
         # Check format strings match
-        import re
-
         src_formats = set(re.findall(r"%[sdf]|%\(\w+\)[sdf]", source))
         tr_formats = set(re.findall(r"%[sdf]|%\(\w+\)[sdf]", translation))
         if src_formats != tr_formats:
@@ -390,3 +399,208 @@ class POEditorView(Gtk.Box):
             self._validation_bar.set_reveal_child(False)
             if self._window:
                 self._window.show_toast(_("Validation passed"))
+
+    # -- PO Header editor (Feature 5) ------------------------------------
+
+    # Mock PO header for offline testing
+    _po_header: dict[str, str] = {
+        "translator_name": "",
+        "translator_email": "",
+        "year": "",
+        "team": "Swedish <debian-l10n-swedish@lists.debian.org>",
+        "language": "sv",
+        "header_comment": "",
+    }
+
+    def _on_edit_header(self, btn: Gtk.Button) -> None:
+        """Open the PO header editor dialog."""
+        settings = Settings.get()
+        year = str(datetime.now().year)
+
+        dialog = Adw.Dialog()
+        dialog.set_title(_("Edit PO Header"))
+        dialog.set_content_width(500)
+        dialog.set_content_height(520)
+
+        toolbar = Adw.ToolbarView()
+        header = Adw.HeaderBar()
+
+        apply_btn = Gtk.Button(label=_("Apply"))
+        apply_btn.add_css_class("suggested-action")
+        header.pack_end(apply_btn)
+        toolbar.add_top_bar(header)
+
+        scroll = Gtk.ScrolledWindow()
+
+        clamp = Adw.Clamp()
+        clamp.set_maximum_size(460)
+        clamp.set_margin_top(12)
+        clamp.set_margin_bottom(12)
+        clamp.set_margin_start(12)
+        clamp.set_margin_end(12)
+
+        content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)
+
+        # Translator info group
+        translator_group = Adw.PreferencesGroup()
+        translator_group.set_title(_("Translator"))
+
+        name_row = Adw.EntryRow()
+        name_row.set_title(_("Name"))
+        name_row.set_text(
+            self._po_header.get("translator_name") or settings.translator_name
+        )
+        translator_group.add(name_row)
+
+        email_row = Adw.EntryRow()
+        email_row.set_title(_("Email"))
+        email_row.set_text(
+            self._po_header.get("translator_email") or settings.translator_email
+        )
+        translator_group.add(email_row)
+
+        year_row = Adw.EntryRow()
+        year_row.set_title(_("Year"))
+        year_row.set_text(self._po_header.get("year") or year)
+        translator_group.add(year_row)
+
+        # Auto-formatted Last-Translator
+        last_translator_row = Adw.EntryRow()
+        last_translator_row.set_title(_("Last-Translator"))
+        last_translator_row.set_editable(False)
+        translator_group.add(last_translator_row)
+
+        def _update_last_translator(*_args: Any) -> None:
+            n = name_row.get_text().strip()
+            e = email_row.get_text().strip()
+            if n and e:
+                last_translator_row.set_text(f"{n} <{e}>")
+            elif n:
+                last_translator_row.set_text(n)
+            else:
+                last_translator_row.set_text("")
+
+        name_row.connect("changed", _update_last_translator)
+        email_row.connect("changed", _update_last_translator)
+        _update_last_translator()
+
+        content.append(translator_group)
+
+        # Language group
+        lang_group = Adw.PreferencesGroup()
+        lang_group.set_title(_("Language"))
+
+        team_row = Adw.EntryRow()
+        team_row.set_title(_("Language-Team"))
+        team_row.set_text(self._po_header.get("team", ""))
+        lang_group.add(team_row)
+
+        lang_row = Adw.EntryRow()
+        lang_row.set_title(_("Language"))
+        lang_row.set_text(
+            self._po_header.get("language") or settings.language_code
+        )
+        lang_group.add(lang_row)
+
+        content.append(lang_group)
+
+        # Header comment preview
+        comment_group = Adw.PreferencesGroup()
+        comment_group.set_title(_("Header Comment"))
+        comment_group.set_description(
+            _("Translator credit line added to the PO header comment")
+        )
+
+        comment_label = Gtk.Label(xalign=0, wrap=True, selectable=True)
+        comment_label.add_css_class("monospace")
+        comment_label.add_css_class("caption")
+        comment_label.set_margin_start(12)
+        comment_label.set_margin_end(12)
+        comment_label.set_margin_top(8)
+        comment_label.set_margin_bottom(8)
+
+        def _update_comment_preview(*_args: Any) -> None:
+            n = name_row.get_text().strip()
+            e = email_row.get_text().strip()
+            y = year_row.get_text().strip()
+            if n and e and y:
+                comment_label.set_label(f"# {n} <{e}>, {y}.")
+            elif n and y:
+                comment_label.set_label(f"# {n}, {y}.")
+            else:
+                comment_label.set_label("")
+
+        name_row.connect("changed", _update_comment_preview)
+        email_row.connect("changed", _update_comment_preview)
+        year_row.connect("changed", _update_comment_preview)
+        _update_comment_preview()
+
+        comment_group.add(comment_label)
+        content.append(comment_group)
+
+        clamp.set_child(content)
+        scroll.set_child(clamp)
+        toolbar.set_content(scroll)
+        dialog.set_child(toolbar)
+
+        def _on_apply(_btn: Gtk.Button) -> None:
+            name = name_row.get_text().strip()
+            email = email_row.get_text().strip()
+            yr = year_row.get_text().strip()
+            team = team_row.get_text().strip()
+            lang = lang_row.get_text().strip()
+
+            self._po_header["translator_name"] = name
+            self._po_header["translator_email"] = email
+            self._po_header["year"] = yr
+            self._po_header["team"] = team
+            self._po_header["language"] = lang
+
+            # Build translator credit comment
+            if name and email and yr:
+                credit = f"# {name} <{email}>, {yr}."
+            elif name and yr:
+                credit = f"# {name}, {yr}."
+            else:
+                credit = ""
+
+            self._po_header["header_comment"] = self._update_translator_credit(
+                self._po_header.get("header_comment", ""), credit, name
+            )
+
+            dialog.close()
+            if self._window:
+                self._window.show_toast(_("PO header updated"))
+
+        apply_btn.connect("clicked", _on_apply)
+        dialog.present(self._window)
+
+    @staticmethod
+    def _update_translator_credit(
+        existing_comment: str, new_credit: str, translator_name: str
+    ) -> str:
+        """Add or update a translator credit comment line.
+
+        If a line matching ``# <translator_name>`` already exists, update it.
+        Otherwise, append the new credit line.
+        """
+        if not new_credit:
+            return existing_comment
+
+        lines = existing_comment.split("\n") if existing_comment else []
+        updated = False
+
+        if translator_name:
+            pattern = re.compile(
+                r"^#\s*" + re.escape(translator_name) + r"\s*<.*>,\s*\d{4}\.$"
+            )
+            for i, line in enumerate(lines):
+                if pattern.match(line):
+                    lines[i] = new_credit
+                    updated = True
+                    break
+
+        if not updated:
+            lines.append(new_credit)
+
+        return "\n".join(lines)

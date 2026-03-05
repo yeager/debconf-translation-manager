@@ -7,6 +7,7 @@ import gettext
 import io
 import json
 from datetime import datetime
+from typing import Any
 
 import gi
 
@@ -27,6 +28,88 @@ VIEW_STATS = "statistics"
 VIEW_BTS = "bts"
 VIEW_DDTSS = "ddtss"
 VIEW_COORD = "coordination"
+VIEW_SETTINGS = "settings"
+
+
+class ProgressDialog:
+    """Reusable progress dialog shown during long operations.
+
+    Usage::
+
+        progress = window.show_progress(_("Fetching data…"))
+        progress.update(0.3, _("Loading packages…"))
+        progress.update(1.0, _("Done"))
+        progress.close()
+    """
+
+    def __init__(self, parent: Adw.ApplicationWindow, title: str, cancellable: bool = True) -> None:
+        self._dialog = Adw.Dialog()
+        self._dialog.set_title(title)
+        self._dialog.set_content_width(400)
+        self._dialog.set_content_height(180)
+        self._cancelled = False
+        self._on_cancel: Any = None
+
+        toolbar = Adw.ToolbarView()
+        header = Adw.HeaderBar()
+        header.set_show_title(True)
+        toolbar.add_top_bar(header)
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+        box.set_margin_start(24)
+        box.set_margin_end(24)
+        box.set_margin_top(16)
+        box.set_margin_bottom(16)
+        box.set_valign(Gtk.Align.CENTER)
+
+        self._message_label = Gtk.Label(label=title)
+        self._message_label.add_css_class("heading")
+        box.append(self._message_label)
+
+        self._progress_bar = Gtk.ProgressBar()
+        self._progress_bar.set_show_text(True)
+        box.append(self._progress_bar)
+
+        self._detail_label = Gtk.Label(label="")
+        self._detail_label.add_css_class("caption")
+        self._detail_label.add_css_class("dim-label")
+        box.append(self._detail_label)
+
+        if cancellable:
+            cancel_btn = Gtk.Button(label=_("Cancel"))
+            cancel_btn.add_css_class("destructive-action")
+            cancel_btn.add_css_class("pill")
+            cancel_btn.set_halign(Gtk.Align.CENTER)
+            cancel_btn.connect("clicked", self._on_cancel_clicked)
+            box.append(cancel_btn)
+
+        toolbar.set_content(box)
+        self._dialog.set_child(toolbar)
+        self._dialog.present(parent)
+
+    def update(self, fraction: float, text: str = "") -> None:
+        """Update progress bar fraction (0.0–1.0) and detail text."""
+        self._progress_bar.set_fraction(min(max(fraction, 0.0), 1.0))
+        if text:
+            self._detail_label.set_label(text)
+            self._progress_bar.set_text(text)
+
+    def close(self) -> None:
+        """Close the progress dialog."""
+        self._dialog.close()
+
+    @property
+    def cancelled(self) -> bool:
+        return self._cancelled
+
+    def set_on_cancel(self, callback: Any) -> None:
+        self._on_cancel = callback
+
+    def _on_cancel_clicked(self, btn: Gtk.Button) -> None:
+        self._cancelled = True
+        if self._on_cancel:
+            self._on_cancel()
+        self._dialog.close()
 
 
 class MainWindow(Adw.ApplicationWindow):
@@ -39,6 +122,10 @@ class MainWindow(Adw.ApplicationWindow):
             title="Debconf Translation Manager",
             **kwargs,
         )
+
+        # Auto-load settings on startup
+        from debconf_translation_manager.services.settings import Settings
+        Settings.get()
 
         self._views: dict[str, Gtk.Widget] = {}
         self._toast_overlay = Adw.ToastOverlay()
@@ -60,6 +147,10 @@ class MainWindow(Adw.ApplicationWindow):
     def show_toast(self, message: str) -> None:
         self._toast_overlay.add_toast(Adw.Toast.new(message))
 
+    def show_progress(self, title: str, cancellable: bool = True) -> ProgressDialog:
+        """Show a modal progress dialog. Returns a :class:`ProgressDialog`."""
+        return ProgressDialog(self, title, cancellable=cancellable)
+
     # -- UI construction -----------------------------------------------
 
     def _build_ui(self) -> None:
@@ -74,6 +165,7 @@ class MainWindow(Adw.ApplicationWindow):
         from debconf_translation_manager.views.template_browser import (
             TemplateBrowserView,
         )
+        from debconf_translation_manager.views.settings import SettingsView
         from debconf_translation_manager.views.translation_status import (
             TranslationStatusView,
         )
@@ -89,6 +181,7 @@ class MainWindow(Adw.ApplicationWindow):
             (VIEW_BTS, "mail-unread-symbolic", _("BTS Bugs"), BTSWorkflowView),
             (VIEW_DDTSS, "network-transmit-symbolic", _("DDTSS"), DDTSSWorkflowView),
             (VIEW_STATS, "utilities-system-monitor-symbolic", _("Statistics"), StatisticsView),
+            (VIEW_SETTINGS, "preferences-system-symbolic", _("Settings"), SettingsView),
         ]
 
         # Stack for content area

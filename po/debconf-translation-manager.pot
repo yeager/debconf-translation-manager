@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: debconf-translation-manager 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 06:51+0100\n"
+"POT-Creation-Date: 2026-03-05 06:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 
 #: debconf_translation_manager/app.py:99
-msgid "Translate"
+msgid "Translate on Transifex"
 msgstr ""
 
 #: debconf_translation_manager/app.py:140
@@ -109,7 +109,7 @@ msgid "Statistics"
 msgstr ""
 
 #: debconf_translation_manager/window.py:184
-#: debconf_translation_manager/views/settings.py:40
+#: debconf_translation_manager/views/settings.py:142
 msgid "Settings"
 msgstr ""
 
@@ -722,17 +722,17 @@ msgid "Apply"
 msgstr ""
 
 #: debconf_translation_manager/views/po_editor.py:446
-#: debconf_translation_manager/views/settings.py:73
+#: debconf_translation_manager/views/settings.py:175
 msgid "Translator"
 msgstr ""
 
 #: debconf_translation_manager/views/po_editor.py:449
-#: debconf_translation_manager/views/settings.py:77
+#: debconf_translation_manager/views/settings.py:179
 msgid "Name"
 msgstr ""
 
 #: debconf_translation_manager/views/po_editor.py:456
-#: debconf_translation_manager/views/settings.py:81
+#: debconf_translation_manager/views/settings.py:183
 msgid "Email"
 msgstr ""
 
@@ -748,7 +748,8 @@ msgstr ""
 #: debconf_translation_manager/views/po_editor.py:499
 #: debconf_translation_manager/views/review_board.py:118
 #: debconf_translation_manager/views/review_board.py:288
-#: debconf_translation_manager/views/settings.py:88
+#: debconf_translation_manager/views/settings.py:190
+#: debconf_translation_manager/views/settings.py:194
 #: debconf_translation_manager/views/translation_status.py:61
 #: debconf_translation_manager/views/translation_status.py:139
 msgid "Language"
@@ -838,67 +839,59 @@ msgstr ""
 msgid "Claim functionality requires l10n.debian.org authentication"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:35
+#: debconf_translation_manager/views/settings.py:137
 msgid "Settings saved"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:49
+#: debconf_translation_manager/views/settings.py:151
 msgid "Configure translator preferences, language defaults, and SMTP settings"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:74
+#: debconf_translation_manager/views/settings.py:176
 msgid "Your identity for PO file headers and bug reports"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:89
+#: debconf_translation_manager/views/settings.py:191
 msgid "Default language for translations"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:92
-msgid "Language code"
-msgstr ""
-
-#: debconf_translation_manager/views/settings.py:96
-msgid "Language name"
-msgstr ""
-
-#: debconf_translation_manager/views/settings.py:103
+#: debconf_translation_manager/views/settings.py:205
 msgid "BTS Defaults"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:104
+#: debconf_translation_manager/views/settings.py:206
 msgid "Default values for Debian bug reports"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:107
+#: debconf_translation_manager/views/settings.py:209
 msgid "Severity"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:119
+#: debconf_translation_manager/views/settings.py:221
 msgid "SMTP"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:120
+#: debconf_translation_manager/views/settings.py:222
 msgid "Mail server settings for sending bug reports"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:123
+#: debconf_translation_manager/views/settings.py:225
 msgid "SMTP host"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:127
+#: debconf_translation_manager/views/settings.py:229
 msgid "SMTP port"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:131
+#: debconf_translation_manager/views/settings.py:233
 msgid "SMTP username"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:135
+#: debconf_translation_manager/views/settings.py:237
 msgid "Use TLS"
 msgstr ""
 
-#: debconf_translation_manager/views/settings.py:141
+#: debconf_translation_manager/views/settings.py:243
 msgid "Save Settings"
 msgstr ""
 

@@ -16,6 +16,108 @@ from debconf_translation_manager.services.settings import Settings
 
 _ = gettext.gettext
 
+# All languages with active debconf translations in Debian, sorted by ranking.
+# Source: https://www.debian.org/international/l10n/po-debconf/rank
+DEBCONF_LANGUAGES: list[tuple[str, str]] = [
+    ("nl", "Dutch"),
+    ("de", "German"),
+    ("pt", "Portuguese"),
+    ("fr", "French"),
+    ("pt_BR", "Brazilian Portuguese"),
+    ("es", "Spanish"),
+    ("ru", "Russian"),
+    ("sv", "Swedish"),
+    ("da", "Danish"),
+    ("it", "Italian"),
+    ("cs", "Czech"),
+    ("ja", "Japanese"),
+    ("ca", "Catalan"),
+    ("vi", "Vietnamese"),
+    ("gl", "Galician"),
+    ("tr", "Turkish"),
+    ("pl", "Polish"),
+    ("eu", "Basque"),
+    ("ro", "Romanian"),
+    ("fi", "Finnish"),
+    ("sk", "Slovak"),
+    ("ko", "Korean"),
+    ("id", "Indonesian"),
+    ("zh_CN", "Chinese (China)"),
+    ("nb", "Norwegian Bokmål"),
+    ("uk", "Ukrainian"),
+    ("bg", "Bulgarian"),
+    ("hu", "Hungarian"),
+    ("he", "Hebrew"),
+    ("lt", "Lithuanian"),
+    ("zh_TW", "Chinese (Taiwan)"),
+    ("ml", "Malayalam"),
+    ("hr", "Croatian"),
+    ("be", "Belarusian"),
+    ("sq", "Albanian"),
+    ("th", "Thai"),
+    ("gu", "Gujarati"),
+    ("wo", "Wolof"),
+    ("ku", "Kurdish"),
+    ("el", "Greek"),
+    ("ta", "Tamil"),
+    ("ar", "Arabic"),
+    ("eo", "Esperanto"),
+    ("dz", "Dzongkha"),
+    ("ast", "Asturian"),
+    ("mr", "Marathi"),
+    ("km", "Khmer"),
+    ("kk", "Kazakh"),
+    ("nn", "Norwegian Nynorsk"),
+    ("bn", "Bengali"),
+    ("sl", "Slovenian"),
+    ("ne", "Nepali"),
+    ("sr", "Serbian"),
+    ("lv", "Latvian"),
+    ("bs", "Bosnian"),
+    ("sr@latin", "Serbian (Latin)"),
+    ("cy", "Welsh"),
+    ("pa", "Panjabi"),
+    ("fa", "Persian"),
+    ("ug", "Uyghur"),
+    ("ka", "Georgian"),
+    ("is", "Icelandic"),
+    ("si", "Sinhala"),
+    ("et", "Estonian"),
+    ("hi", "Hindi"),
+    ("tl", "Tagalog"),
+    ("mk", "Macedonian"),
+    ("te", "Telugu"),
+    ("ga", "Irish"),
+    ("pt_PT", "Portuguese (Portugal)"),
+    ("se", "Northern Sami"),
+    ("kn", "Kannada"),
+    ("tg", "Tajik"),
+    ("mg", "Malagasy"),
+    ("lo", "Lao"),
+    ("am", "Amharic"),
+    ("sw", "Swahili"),
+    ("ms", "Malay"),
+    ("xh", "Xhosa"),
+    ("br", "Breton"),
+    ("af", "Afrikaans"),
+    ("az", "Azerbaijani"),
+    ("kab", "Kabyle"),
+    ("wa", "Walloon"),
+    ("gd", "Scottish Gaelic"),
+    ("fil", "Filipino"),
+    ("mn", "Mongolian"),
+    ("hy", "Armenian"),
+    ("oc", "Occitan"),
+    ("ia", "Interlingua"),
+    ("ckb", "Central Kurdish"),
+    ("uz", "Uzbek"),
+    ("zu", "Zulu"),
+    ("bo", "Tibetan"),
+    ("mt", "Maltese"),
+    ("mi", "Maori"),
+    ("an", "Aragonese"),
+]
+
 
 class SettingsView(Gtk.Box):
     """Preferences form backed by :class:`Settings`."""
@@ -88,13 +190,13 @@ class SettingsView(Gtk.Box):
         lang_group.set_title(_("Language"))
         lang_group.set_description(_("Default language for translations"))
 
-        self._lang_code_row = Adw.EntryRow()
-        self._lang_code_row.set_title(_("Language code"))
-        lang_group.add(self._lang_code_row)
-
-        self._lang_name_row = Adw.EntryRow()
-        self._lang_name_row.set_title(_("Language name"))
-        lang_group.add(self._lang_name_row)
+        self._lang_combo_row = Adw.ComboRow()
+        self._lang_combo_row.set_title(_("Language"))
+        self._lang_model = Gtk.StringList.new(
+            [f"{code} — {name}" for code, name in DEBCONF_LANGUAGES]
+        )
+        self._lang_combo_row.set_model(self._lang_model)
+        lang_group.add(self._lang_combo_row)
 
         content.append(lang_group)
 
@@ -155,8 +257,12 @@ class SettingsView(Gtk.Box):
         s = self._settings
         self._name_row.set_text(s["translator_name"])
         self._email_row.set_text(s["translator_email"])
-        self._lang_code_row.set_text(s["language_code"])
-        self._lang_name_row.set_text(s["language_name"])
+        # Find matching language in combo
+        lang_code = s["language_code"]
+        for i, (code, _name) in enumerate(DEBCONF_LANGUAGES):
+            if code == lang_code:
+                self._lang_combo_row.set_selected(i)
+                break
         self._smtp_host_row.set_text(s["smtp_host"])
         self._smtp_port_row.set_text(str(s["smtp_port"]))
         self._smtp_user_row.set_text(s["smtp_user"])
@@ -173,8 +279,10 @@ class SettingsView(Gtk.Box):
         s = self._settings
         s["translator_name"] = self._name_row.get_text()
         s["translator_email"] = self._email_row.get_text()
-        s["language_code"] = self._lang_code_row.get_text()
-        s["language_name"] = self._lang_name_row.get_text()
+        idx = self._lang_combo_row.get_selected()
+        if 0 <= idx < len(DEBCONF_LANGUAGES):
+            s["language_code"] = DEBCONF_LANGUAGES[idx][0]
+            s["language_name"] = DEBCONF_LANGUAGES[idx][1]
         s["smtp_host"] = self._smtp_host_row.get_text()
         s["smtp_user"] = self._smtp_user_row.get_text()
         s["smtp_use_tls"] = self._smtp_tls_row.get_active()

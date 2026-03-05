@@ -294,7 +294,10 @@ class SettingsView(Gtk.Box):
         self._smtp_host_row.set_text(s["smtp_host"])
         self._smtp_port_row.set_text(str(s["smtp_port"]))
         self._smtp_user_row.set_text(s["smtp_user"])
-        self._smtp_password_row.set_text(s.get("smtp_password", ""))
+        try:
+            self._smtp_password_row.set_text(s["smtp_password"])
+        except (KeyError, IndexError):
+            self._smtp_password_row.set_text("")
         self._smtp_tls_row.set_active(s["smtp_use_tls"])
 
         severities = ["wishlist", "minor", "normal", "important"]

@@ -1,0 +1,39 @@
+.TH DEBCONF-TRANSLATION-MANAGER 1 "March 2026" "0.2.0" "User Commands"
+.SH NAME
+debconf-translation-manager \- manage translations of Debian debconf templates
+.SH SYNOPSIS
+.B debconf-translation-manager
+[\fI\-\-no\-gui\fR] [\fI\-\-json\fR] [\fI\-q\fR] [\fI\-\-version\fR]
+.SH DESCRIPTION
+.B debconf-translation-manager
+is a GTK4/libadwaita application for managing translations of Debian
+debconf templates. It provides a template browser, PO editor with
+side-by-side view, BTS bug filing workflow, DDTSS integration,
+review board with l10n.debian.org data, and translation statistics.
+.SH OPTIONS
+.TP
+.B \-\-no\-gui
+Run in CLI mode without the graphical interface. Print translation
+statistics and exit.
+.TP
+.B \-\-json
+Output statistics in JSON format (implies \-\-no\-gui).
+.TP
+.B \-q, \-\-quiet
+Quiet mode, minimal output (implies \-\-no\-gui).
+.TP
+.B \-\-version
+Show version number and exit.
+.SH FILES
+.TP
+.I ~/.config/debconf\-translation\-manager/settings.json
+User preferences (translator name, email, language, SMTP settings).
+.TP
+.I ~/.config/debconf\-translation\-manager/submission_log.json
+Log of previously submitted bug reports.
+.SH AUTHOR
+Daniel Nylander <daniel@danielnylander.se>
+.SH SEE ALSO
+.BR debconf (7),
+.BR po\-debconf (7),
+.BR reportbug (1)

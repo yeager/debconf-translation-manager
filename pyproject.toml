@@ -35,9 +35,6 @@ Repository = "https://github.com/yeager/debconf-translation-manager"
 [project.scripts]
 debconf-translation-manager = "debconf_translation_manager.__main__:main"
 
-[project.gui-scripts]
-debconf-translation-manager-gui = "debconf_translation_manager.__main__:main"
-
 [tool.setuptools.packages.find]
 include = ["debconf_translation_manager*"]
 

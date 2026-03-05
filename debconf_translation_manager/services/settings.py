@@ -23,6 +23,7 @@ _DEFAULTS: dict[str, Any] = {
     "smtp_host": "",
     "smtp_port": 587,
     "smtp_user": "",
+    "smtp_password": "",
     "smtp_use_tls": True,
 }
 

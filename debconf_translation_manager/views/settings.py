@@ -233,6 +233,10 @@ class SettingsView(Gtk.Box):
         self._smtp_user_row.set_title(_("SMTP username"))
         smtp_group.add(self._smtp_user_row)
 
+        self._smtp_password_row = Adw.PasswordEntryRow()
+        self._smtp_password_row.set_title(_("SMTP password"))
+        smtp_group.add(self._smtp_password_row)
+
         self._smtp_tls_row = Adw.SwitchRow()
         self._smtp_tls_row.set_title(_("Use TLS"))
         smtp_group.add(self._smtp_tls_row)
@@ -290,6 +294,7 @@ class SettingsView(Gtk.Box):
         self._smtp_host_row.set_text(s["smtp_host"])
         self._smtp_port_row.set_text(str(s["smtp_port"]))
         self._smtp_user_row.set_text(s["smtp_user"])
+        self._smtp_password_row.set_text(s.get("smtp_password", ""))
         self._smtp_tls_row.set_active(s["smtp_use_tls"])
 
         severities = ["wishlist", "minor", "normal", "important"]
@@ -309,6 +314,7 @@ class SettingsView(Gtk.Box):
             s["language_name"] = DEBCONF_LANGUAGES[idx][1]
         s["smtp_host"] = self._smtp_host_row.get_text()
         s["smtp_user"] = self._smtp_user_row.get_text()
+        s["smtp_password"] = self._smtp_password_row.get_text()
         s["smtp_use_tls"] = self._smtp_tls_row.get_active()
 
         try:

@@ -4,6 +4,11 @@ track filed bugs against the Debian Bug Tracking System."""
 from __future__ import annotations
 
 import gettext
+import smtplib
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from pathlib import Path
 from typing import Any
 
 import gi
@@ -13,7 +18,11 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gio, GLib, Gtk
 
-from debconf_translation_manager.services.l10n_debian import get_mock_l10n_data
+from debconf_translation_manager.services.l10n_debian import (
+    fetch_and_parse,
+    get_mock_l10n_data,
+)
+from debconf_translation_manager.services.settings import Settings
 from debconf_translation_manager.services.submission_log import SubmissionLog
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
@@ -30,8 +39,9 @@ class BTSWorkflowView(Gtk.Box):
     def __init__(self, window: Any = None, **kwargs) -> None:
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=0, **kwargs)
         self._window = window
-        self._language = "sv"
-        self._language_name = "Swedish"
+        settings = Settings.get()
+        self._language = settings.language_code
+        self._language_name = settings.language_name
         self._filed_bugs: list[dict[str, str]] = _get_mock_filed_bugs()
         self._submission_log = SubmissionLog.get()
         self._build_ui()
@@ -41,6 +51,24 @@ class BTSWorkflowView(Gtk.Box):
 
     def get_export_data(self) -> list[dict[str, Any]]:
         return self._filed_bugs
+
+    def prefill(
+        self,
+        package: str | None = None,
+        po_file_path: str | None = None,
+    ) -> None:
+        """Pre-fill the compose form with package and .po file info."""
+        settings = Settings.get()
+        self._language = settings.language_code
+        self._language_name = settings.language_name
+
+        if package:
+            self._pkg_entry.set_text(package)
+        if po_file_path:
+            self._attach_label.set_label(po_file_path)
+
+        # Update body template with translator info
+        self._update_body_template()
 
     # -- UI construction ------------------------------------------------
 
@@ -94,14 +122,11 @@ class BTSWorkflowView(Gtk.Box):
         self._pkg_entry.connect("changed", self._on_pkg_changed)
         pkg_row.append(self._pkg_entry)
 
-        # Quick pick from untranslated
+        # Quick pick from real or mock data
         pick_btn = Gtk.MenuButton(label=_("Pick…"))
-        pick_menu = Gio.Menu()
-        data = get_mock_l10n_data(self._language)
-        needs_work = [p for p in data if p.status in ("untranslated", "fuzzy", "pending-review")]
-        for pkg in needs_work[:10]:
-            pick_menu.append(pkg.package, f"bts.pick-{pkg.package}")
-        pick_btn.set_menu_model(pick_menu)
+        self._pick_menu = Gio.Menu()
+        self._populate_pick_menu()
+        pick_btn.set_menu_model(self._pick_menu)
         pkg_row.append(pick_btn)
         compose_box.append(pkg_row)
 
@@ -111,7 +136,7 @@ class BTSWorkflowView(Gtk.Box):
         lang_code_label.add_css_class("heading")
         lang_row.append(lang_code_label)
         self._lang_entry = Gtk.Entry()
-        self._lang_entry.set_text("sv")
+        self._lang_entry.set_text(self._language)
         self._lang_entry.set_max_width_chars(6)
         self._lang_entry.connect("changed", self._on_pkg_changed)
         lang_row.append(self._lang_entry)
@@ -120,7 +145,7 @@ class BTSWorkflowView(Gtk.Box):
         lang_name_label.add_css_class("heading")
         lang_row.append(lang_name_label)
         self._lang_name_entry = Gtk.Entry()
-        self._lang_name_entry.set_text("Swedish")
+        self._lang_name_entry.set_text(self._language_name)
         self._lang_name_entry.set_hexpand(True)
         self._lang_name_entry.connect("changed", self._on_pkg_changed)
         lang_row.append(self._lang_name_entry)
@@ -133,7 +158,9 @@ class BTSWorkflowView(Gtk.Box):
 
         self._subject_entry = Gtk.Entry()
         self._subject_entry.set_editable(True)
-        self._subject_entry.set_text("[INTL:sv] Swedish debconf translation for PACKAGE")
+        self._subject_entry.set_text(
+            f"[INTL:{self._language}] {self._language_name} debconf translation for PACKAGE"
+        )
         compose_box.append(self._subject_entry)
 
         # Body
@@ -185,7 +212,7 @@ class BTSWorkflowView(Gtk.Box):
         severities = ["wishlist", "minor", "normal", "important"]
         sev_model = Gtk.StringList.new(severities)
         self._sev_dd = Gtk.DropDown(model=sev_model)
-        self._sev_dd.set_selected(0)  # wishlist is standard for l10n
+        self._sev_dd.set_selected(0)
         sev_row.append(self._sev_dd)
         compose_box.append(sev_row)
 
@@ -216,6 +243,10 @@ class BTSWorkflowView(Gtk.Box):
         send_btn.add_css_class("suggested-action")
         send_btn.connect("clicked", self._on_open_mail)
         btn_row.append(send_btn)
+
+        smtp_btn = Gtk.Button(label=_("Send via SMTP"))
+        smtp_btn.connect("clicked", self._on_send_smtp)
+        btn_row.append(smtp_btn)
 
         compose_box.append(btn_row)
         compose_scroll.set_child(compose_box)
@@ -264,7 +295,6 @@ class BTSWorkflowView(Gtk.Box):
         history_scroll.set_child(self._history_list)
         right_box.append(history_scroll)
 
-        # Previously submitted packages label
         self._prev_packages_label = Gtk.Label(xalign=0, wrap=True)
         self._prev_packages_label.add_css_class("caption")
         self._prev_packages_label.add_css_class("dim-label")
@@ -277,23 +307,59 @@ class BTSWorkflowView(Gtk.Box):
         self._populate_bugs()
         self._populate_history()
 
+    def _populate_pick_menu(self) -> None:
+        """Populate the Pick menu with packages needing work."""
+        self._pick_menu.remove_all()
+        data = get_mock_l10n_data(self._language)
+        needs_work = [
+            p for p in data
+            if p.status in ("untranslated", "fuzzy", "pending-review")
+        ]
+        for pkg in needs_work[:10]:
+            self._pick_menu.append(pkg.package, f"bts.pick-{pkg.package}")
+
     # -- body template --------------------------------------------------
 
     def _set_default_body(self) -> None:
+        settings = Settings.get()
+        name = settings.translator_name or _("Translator Name")
+        email = settings.translator_email or "translator@example.com"
+        pkg = self._pkg_entry.get_text().strip() if hasattr(self, '_pkg_entry') else "PACKAGE"
+        pkg = pkg or "PACKAGE"
+
         body = (
-            "Package: PACKAGE\n"
-            "Severity: wishlist\n"
-            "Tags: l10n patch\n"
-            "\n"
-            "Please find attached the Swedish debconf translation for PACKAGE.\n"
-            "\n"
-            "This translation has been reviewed by the Swedish l10n team.\n"
-            "\n"
-            "Translators:\n"
-            "  - Translator Name <translator@example.com>\n"
-            "\n"
-            "Reviewers:\n"
-            "  - Reviewer Name <reviewer@example.com>\n"
+            f"Package: {pkg}\n"
+            f"Severity: wishlist\n"
+            f"Tags: l10n patch\n"
+            f"\n"
+            f"Please find attached the {self._language_name} debconf translation for {pkg}.\n"
+            f"\n"
+            f"This translation has been reviewed by the {self._language_name} l10n team.\n"
+            f"\n"
+            f"Translators:\n"
+            f"  - {name} <{email}>\n"
+        )
+        self._body_view.get_buffer().set_text(body)
+
+    def _update_body_template(self) -> None:
+        """Update the body when package or settings change."""
+        settings = Settings.get()
+        name = settings.translator_name or _("Translator Name")
+        email = settings.translator_email or "translator@example.com"
+        pkg = self._pkg_entry.get_text().strip() or "PACKAGE"
+        lang_name = self._lang_name_entry.get_text().strip() or self._language_name
+
+        body = (
+            f"Package: {pkg}\n"
+            f"Severity: wishlist\n"
+            f"Tags: l10n patch\n"
+            f"\n"
+            f"Please find attached the {lang_name} debconf translation for {pkg}.\n"
+            f"\n"
+            f"This translation has been reviewed by the {lang_name} l10n team.\n"
+            f"\n"
+            f"Translators:\n"
+            f"  - {name} <{email}>\n"
         )
         self._body_view.get_buffer().set_text(body)
 
@@ -301,8 +367,8 @@ class BTSWorkflowView(Gtk.Box):
 
     def _on_pkg_changed(self, entry: Gtk.Entry) -> None:
         pkg = self._pkg_entry.get_text().strip()
-        lang = self._lang_entry.get_text().strip() or "sv"
-        lang_name = self._lang_name_entry.get_text().strip() or "Swedish"
+        lang = self._lang_entry.get_text().strip() or self._language
+        lang_name = self._lang_name_entry.get_text().strip() or self._language_name
         if pkg:
             self._subject_entry.set_text(
                 f"[INTL:{lang}] {lang_name} debconf translation for {pkg}"
@@ -339,12 +405,10 @@ class BTSWorkflowView(Gtk.Box):
         toolbar = Adw.ToolbarView()
         header = Adw.HeaderBar()
 
-        # Edit button — returns to compose mode
         edit_btn = Gtk.Button(label=_("Edit"))
         edit_btn.connect("clicked", lambda b: dialog.close())
         header.pack_start(edit_btn)
 
-        # Save button — write report + .po to disk
         save_btn = Gtk.Button(label=_("Save"))
         save_btn.add_css_class("suggested-action")
         save_btn.connect("clicked", lambda b: self._on_preview_save(dialog))
@@ -352,14 +416,12 @@ class BTSWorkflowView(Gtk.Box):
 
         toolbar.add_top_bar(header)
 
-        # Content: subject + body + attachments
         content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         content.set_margin_start(16)
         content.set_margin_end(16)
         content.set_margin_top(12)
         content.set_margin_bottom(12)
 
-        # Subject line
         subj_label = Gtk.Label(
             label=_("Subject: %s") % self._subject_entry.get_text(),
             xalign=0,
@@ -368,7 +430,6 @@ class BTSWorkflowView(Gtk.Box):
         subj_label.add_css_class("heading")
         content.append(subj_label)
 
-        # To line
         to_label = Gtk.Label(
             label=_("To: submit@bugs.debian.org"),
             xalign=0,
@@ -378,7 +439,6 @@ class BTSWorkflowView(Gtk.Box):
 
         content.append(Gtk.Separator())
 
-        # Body
         scroll = Gtk.ScrolledWindow()
         scroll.set_vexpand(True)
         tv = Gtk.TextView()
@@ -400,7 +460,6 @@ class BTSWorkflowView(Gtk.Box):
         body_frame.set_child(scroll)
         content.append(body_frame)
 
-        # Attachment info
         attach = self._attach_label.get_label()
         if attach and attach != _("(none)"):
             att_label = Gtk.Label(
@@ -416,13 +475,11 @@ class BTSWorkflowView(Gtk.Box):
         dialog.present(self._window)
 
     def _on_preview_save(self, dialog: Adw.Dialog) -> None:
-        """Save the bug report text to disk and log the submission."""
         pkg = self._pkg_entry.get_text().strip() or "unknown"
-        lang = self._lang_entry.get_text().strip() or "sv"
+        lang = self._lang_entry.get_text().strip() or self._language
         subject = self._subject_entry.get_text()
         report = self._build_report()
 
-        # Write bug report to file
         save_dialog = Gtk.FileDialog()
         save_dialog.set_initial_name(f"{pkg}_bug_report.txt")
         save_dialog.save(
@@ -450,7 +507,6 @@ class BTSWorkflowView(Gtk.Box):
         with open(path, "w", encoding="utf-8") as f:
             f.write(report)
 
-        # Log the submission
         self._submission_log.add(
             package=pkg,
             subject=subject,
@@ -476,7 +532,6 @@ class BTSWorkflowView(Gtk.Box):
         start, end = buf.get_bounds()
         body = buf.get_text(start, end, True)
 
-        # Build mailto URI
         import urllib.parse
         mailto = (
             f"mailto:submit@bugs.debian.org"
@@ -484,6 +539,92 @@ class BTSWorkflowView(Gtk.Box):
             f"&body={urllib.parse.quote(body)}"
         )
         Gtk.show_uri(self._window, mailto, 0)
+
+    def _on_send_smtp(self, btn: Gtk.Button) -> None:
+        """Send bug report via SMTP using settings."""
+        settings = Settings.get()
+        host = settings["smtp_host"]
+        if not host:
+            if self._window:
+                self._window.show_toast(
+                    _("SMTP not configured — go to Settings first")
+                )
+            return
+
+        subject = self._subject_entry.get_text()
+        buf = self._body_view.get_buffer()
+        start, end = buf.get_bounds()
+        body = buf.get_text(start, end, True)
+        from_addr = settings.translator_email
+        if not from_addr:
+            if self._window:
+                self._window.show_toast(_("Set your email in Settings first"))
+            return
+
+        attach_path = self._attach_label.get_label()
+        has_attach = attach_path and attach_path != _("(none)")
+
+        # Build email
+        if has_attach:
+            msg = MIMEMultipart()
+            msg.attach(MIMEText(body, "plain", "utf-8"))
+            try:
+                with open(attach_path, "rb") as f:
+                    att = MIMEApplication(f.read(), Name=Path(attach_path).name)
+                att["Content-Disposition"] = (
+                    f'attachment; filename="{Path(attach_path).name}"'
+                )
+                msg.attach(att)
+            except OSError as exc:
+                if self._window:
+                    self._window.show_toast(
+                        _("Failed to read attachment: %s") % str(exc)
+                    )
+                return
+        else:
+            msg = MIMEText(body, "plain", "utf-8")
+
+        msg["Subject"] = subject
+        msg["From"] = from_addr
+        msg["To"] = "submit@bugs.debian.org"
+
+        # Send
+        try:
+            port = int(settings["smtp_port"])
+            use_tls = settings["smtp_use_tls"]
+
+            if use_tls:
+                server = smtplib.SMTP(host, port, timeout=30)
+                server.starttls()
+            else:
+                server = smtplib.SMTP(host, port, timeout=30)
+
+            user = settings["smtp_user"]
+            if user:
+                # Password would need to be handled securely; for now
+                # rely on passwordless/app-password auth
+                pass
+
+            server.sendmail(from_addr, ["submit@bugs.debian.org"], msg.as_string())
+            server.quit()
+
+            # Log submission
+            pkg = self._pkg_entry.get_text().strip() or "unknown"
+            lang = self._lang_entry.get_text().strip() or self._language
+            self._submission_log.add(
+                package=pkg,
+                subject=subject,
+                language=lang,
+                status="sent",
+            )
+            self._populate_history()
+
+            if self._window:
+                self._window.show_toast(_("Bug report sent via SMTP"))
+
+        except Exception as exc:
+            if self._window:
+                self._window.show_toast(_("SMTP send failed: %s") % str(exc))
 
     def _build_report(self) -> str:
         subject = self._subject_entry.get_text()
@@ -559,7 +700,6 @@ class BTSWorkflowView(Gtk.Box):
     # -- submission history -----------------------------------------------
 
     def _populate_history(self) -> None:
-        """Populate the submission history list and previously-submitted label."""
         while True:
             row = self._history_list.get_row_at_index(0)
             if row is None:
@@ -567,7 +707,6 @@ class BTSWorkflowView(Gtk.Box):
             self._history_list.remove(row)
 
         entries = self._submission_log.entries
-        # Fall back to mock data if log is empty
         if not entries:
             entries = self._submission_log.get_mock_entries()
 
@@ -575,7 +714,6 @@ class BTSWorkflowView(Gtk.Box):
             row = self._make_history_row(entry)
             self._history_list.append(row)
 
-        # Previously submitted packages
         pkgs = self._submission_log.previously_submitted_packages()
         if not pkgs:
             pkgs = [e["package"] for e in self._submission_log.get_mock_entries()]

@@ -151,6 +151,42 @@ class MainWindow(Adw.ApplicationWindow):
         """Show a modal progress dialog. Returns a :class:`ProgressDialog`."""
         return ProgressDialog(self, title, cancellable=cancellable)
 
+    def navigate_to_editor(
+        self, package: str | None = None, po_file_path: str | None = None
+    ) -> None:
+        """Switch to the PO Editor view, optionally loading a .po file."""
+        self._switch_to_view(VIEW_EDITOR)
+        editor = self._views.get(VIEW_EDITOR)
+        if editor is None:
+            return
+        if package:
+            editor.set_package(package)
+        if po_file_path:
+            editor.load_po_file(po_file_path, package=package)
+
+    def navigate_to_bts(
+        self, package: str | None = None, po_file_path: str | None = None
+    ) -> None:
+        """Switch to the BTS Workflow view with pre-filled info."""
+        self._switch_to_view(VIEW_BTS)
+        bts = self._views.get(VIEW_BTS)
+        if bts is None:
+            return
+        bts.prefill(package=package, po_file_path=po_file_path)
+
+    def _switch_to_view(self, view_id: str) -> None:
+        """Switch the stack and sidebar to the given view."""
+        self._stack.set_visible_child_name(view_id)
+        # Update sidebar selection to match
+        for i in range(100):
+            row = self._sidebar_list.get_row_at_index(i)
+            if row is None:
+                break
+            if getattr(row, "_view_id", None) == view_id:
+                self._sidebar_list.select_row(row)
+                break
+        self._update_status(_("Viewing: %s") % view_id)
+
     # -- UI construction -----------------------------------------------
 
     def _build_ui(self) -> None:
@@ -172,7 +208,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Navigation model — each row: (id, icon, title, View class)
         nav_items = [
-            (VIEW_TEMPLATES, "view-list-symbolic", _("Templates"), TemplateBrowserView),
+            (VIEW_TEMPLATES, "view-list-symbolic", _("Packages"), TemplateBrowserView),
             (VIEW_STATUS, "emblem-default-symbolic", _("Status"), TranslationStatusView),
             (VIEW_EDITOR, "document-edit-symbolic", _("PO Editor"), POEditorView),
             (VIEW_REVIEW, "dialog-information-symbolic", _("Review Board"), ReviewBoardView),

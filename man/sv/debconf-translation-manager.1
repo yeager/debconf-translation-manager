@@ -1,0 +1,44 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH DEBCONF\-TRANSLATION\-MANAGER 1 "Mars 2026" 0.2.0 Användarkommandon
+.SH NAMN
+debconf\-translation\-manager \- hantera översättningar av Debians
+debconf\-mallar
+.SH SYNOPSIS
+\fBdebconf\-translation\-manager\fP [\fI\-\-no\-gui\fP] [\fI\-\-json\fP] [\fI\-q\fP]
+[\fI\-\-version\fP]
+.SH BESKRIVNING
+\fBdebconf\-translation\-manager\fP är ett GTK4/libadwaita\-program för hantering
+av översättningar av Debian debconf\-mallar. Det innehåller en mallbläddrare,
+PO\-redigerare med sida\-vid\-sida\-vy, BTS\-felrapporteringsflöde,
+DDTSS\-integration, granskningspanel med data från l10n.debian.org och
+översättningsstatistik.
+.SH FLAGGOR
+.TP 
+\fB\-\-no\-gui\fP
+Kör i CLI\-läge utan det grafiska gränssnittet. Skriv ut
+översättningsstatistik och avsluta.
+.TP 
+\fB\-\-json\fP
+Utdata i JSON\-format (innebär \-\-no\-gui).
+.TP 
+\fB\-q, \-\-quiet\fP
+Tyst läge, minimal utdata (innebär \-\-no\-gui).
+.TP 
+\fB\-\-version\fP
+Visa versionsnummer och avsluta.
+.SH FILER
+.TP 
+\fI~/.config/debconf\-translation\-manager/settings.json\fP
+Användarinställningar (översättarens namn, e\-postadress, språk,
+SMTP\-inställningar).
+.TP 
+\fI~/.config/debconf\-translation\-manager/submission_log.json\fP
+Logg över tidigare inlämnade felrapporter.
+.SH UPPHOVSPERSON
+Daniel Nylander <daniel@danielnylander.se>
+.SH "SE ÄVEN"
+\fBdebconf\fP(7), \fBpo\-debconf\fP(7), \fBreportbug\fP(1)

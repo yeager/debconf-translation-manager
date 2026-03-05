@@ -12,11 +12,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gtk
 
-from debconf_translation_manager.services.l10n_debian import get_mock_l10n_data
-from debconf_translation_manager.services.template_parser import (
-    get_mock_po_entries,
-    get_mock_templates,
-)
+from debconf_translation_manager.services.l10n_debian import fetch_and_parse
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
 
@@ -142,7 +138,7 @@ class TranslationStatusView(Gtk.Box):
         self._refresh()
 
     def _refresh(self) -> None:
-        data = get_mock_l10n_data(self._language)
+        data = fetch_and_parse(self._language)
         query = self._filter_bar.search_text
         status_filter = self._filter_bar.get_filter_value(_("Status"))
 

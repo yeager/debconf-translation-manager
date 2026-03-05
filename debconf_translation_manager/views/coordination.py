@@ -19,7 +19,7 @@ from gi.repository import Adw, Gio, Gtk
 
 from debconf_translation_manager.services.l10n_debian import (
     L10nPackageStatus,
-    get_mock_l10n_data,
+    fetch_and_parse,
 )
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
@@ -75,7 +75,7 @@ class CoordinationView(Gtk.Box):
 
     def _build_coordination_data(self) -> list[dict[str, Any]]:
         """Build coordination data from l10n mock data, mapping to lifecycle stages."""
-        l10n_data = get_mock_l10n_data(self._language)
+        l10n_data = fetch_and_parse(self._language)
         packages = []
 
         status_map = {

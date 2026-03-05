@@ -13,7 +13,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gdk, Gtk
 
-from debconf_translation_manager.services.l10n_debian import get_mock_l10n_data
+from debconf_translation_manager.services.l10n_debian import fetch_and_parse
 
 _ = gettext.gettext
 
@@ -170,7 +170,7 @@ class StatisticsView(Gtk.Box):
         cmp_frame.set_child(cmp_box)
         content.append(cmp_frame)
 
-        # ---- Coverage timeline (simulated) ----
+        # ---- Coverage timeline ----
         timeline_frame = Gtk.Frame()
         timeline_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         timeline_box.set_margin_start(16)
@@ -178,7 +178,7 @@ class StatisticsView(Gtk.Box):
         timeline_box.set_margin_top(12)
         timeline_box.set_margin_bottom(12)
 
-        timeline_title = Gtk.Label(label=_("Coverage Over Time (simulated)"), xalign=0)
+        timeline_title = Gtk.Label(label=_("Coverage Over Time"), xalign=0)
         timeline_title.add_css_class("title-4")
         timeline_box.append(timeline_title)
 
@@ -219,7 +219,7 @@ class StatisticsView(Gtk.Box):
     # -- data -----------------------------------------------------------
 
     def _refresh_data(self) -> None:
-        data = get_mock_l10n_data(self._language)
+        data = fetch_and_parse(self._language)
 
         total = len(data)
         translated = sum(1 for p in data if p.status == "translated")
@@ -246,7 +246,7 @@ class StatisticsView(Gtk.Box):
         # Cross-language coverage simulation
         self._lang_coverage = {}
         for lang in ["sv", "de", "fr", "es", "pt_BR", "ja", "ru", "it"]:
-            ldata = get_mock_l10n_data(lang)
+            ldata = fetch_and_parse(lang)
             t = sum(1 for p in ldata if p.status == "translated")
             self._lang_coverage[lang] = (t / len(ldata) * 100) if ldata else 0
 

@@ -311,7 +311,7 @@ class POEditorView(Gtk.Box):
                 f"{_('File')}: {fname}" + (f"  ({pkg})" if pkg else "")
             )
         else:
-            self._file_label.set_label(_("No file loaded — using mock data"))
+            self._file_label.set_label(_("No file loaded — open a .po file to start editing"))
 
     def _build_editor_panel(self) -> Gtk.Box:
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)

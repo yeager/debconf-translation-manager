@@ -83,7 +83,7 @@ class TemplateBrowserView(Gtk.Box):
 
         # Data source indicator
         self._source_label = Gtk.Label(
-            label=_("Showing mock data — click Fetch to load from l10n.debian.org"),
+            label=_("Click Fetch to load packages from l10n.debian.org"),
             xalign=0,
         )
         self._source_label.add_css_class("dim-label")
@@ -306,7 +306,7 @@ class TemplateBrowserView(Gtk.Box):
             self._source_label.set_label(
                 _("Showing %d packages from l10n.debian.org") % len(results)
                 if self._is_real_data
-                else _("Using mock data (fetch failed)")
+                else _("Fetch failed — showing cached data")
             )
             self._apply_filters()
             self._fetch_btn.set_sensitive(True)

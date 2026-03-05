@@ -20,7 +20,6 @@ from gi.repository import Adw, Gio, GLib, Gtk
 
 from debconf_translation_manager.services.l10n_debian import (
     fetch_and_parse,
-    get_mock_l10n_data,
 )
 from debconf_translation_manager.services.settings import Settings
 from debconf_translation_manager.services.submission_log import SubmissionLog
@@ -310,7 +309,7 @@ class BTSWorkflowView(Gtk.Box):
     def _populate_pick_menu(self) -> None:
         """Populate the Pick menu with packages needing work."""
         self._pick_menu.remove_all()
-        data = get_mock_l10n_data(self._language)
+        data = fetch_and_parse(self._language)
         needs_work = [
             p for p in data
             if p.status in ("untranslated", "fuzzy", "pending-review")

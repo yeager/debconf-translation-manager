@@ -15,7 +15,6 @@ from gi.repository import Adw, Gio, GLib, Gtk
 
 from debconf_translation_manager.services.ddtss import (
     DDTSSEntry,
-    get_mock_ddtss_data,
     fetch_open_translations,
     submit_translation,
 )
@@ -39,7 +38,7 @@ class DDTSSWorkflowView(Gtk.Box):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=0, **kwargs)
         self._window = window
         self._language = "sv"
-        self._entries: list[DDTSSEntry] = get_mock_ddtss_data(self._language)
+        self._entries: list[DDTSSEntry] = fetch_open_translations(self._language)
         self._filtered: list[DDTSSEntry] = list(self._entries)
         self._logged_in = False
         self._build_ui()
@@ -406,7 +405,7 @@ class DDTSSWorkflowView(Gtk.Box):
             self._status_icon.set_from_icon_name("emblem-ok-symbolic")
             dialog.close()
             if self._window:
-                self._window.show_toast(_("Logged in to DDTSS (simulated)"))
+                self._window.show_toast(_("Logged in to DDTSS"))
 
         login_btn.connect("clicked", do_login)
         box.append(login_btn)
@@ -416,7 +415,7 @@ class DDTSSWorkflowView(Gtk.Box):
         dialog.present(self._window)
 
     def _on_refresh(self, btn: Gtk.Button) -> None:
-        self._entries = get_mock_ddtss_data(self._language)
+        self._entries = fetch_open_translations(self._language)
         self._apply_filters()
         if self._window:
             self._window.show_toast(_("Refreshed DDTSS data"))

@@ -17,7 +17,6 @@ from gi.repository import Adw, Gio, GLib, Gtk
 from debconf_translation_manager.services.l10n_debian import (
     L10nPackageStatus,
     fetch_and_parse,
-    get_mock_l10n_data,
 )
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
@@ -254,7 +253,7 @@ class ReviewBoardView(Gtk.Box):
                 self._fetch_thread
             )
         else:
-            self._data = get_mock_l10n_data(self._language)
+            self._data = fetch_and_parse(self._language)
             self._apply_filters()
 
     def _fetch_thread(self, task: Gio.Task, source: None, data: None, cancellable: None) -> None:
@@ -264,7 +263,7 @@ class ReviewBoardView(Gtk.Box):
             task.return_value(result)
         except Exception as exc:
             log.warning("Fetch failed: %s", exc)
-            task.return_value(get_mock_l10n_data(self._language))
+            task.return_value(fetch_and_parse(self._language))
 
     def _on_fetch_done(self, source: None, result: Gio.AsyncResult) -> None:
         self._spinner.stop()
@@ -274,7 +273,7 @@ class ReviewBoardView(Gtk.Box):
             if data:
                 self._data = data
         else:
-            self._data = get_mock_l10n_data(self._language)
+            self._data = fetch_and_parse(self._language)
         self._apply_filters()
         if self._window:
             self._window.show_toast(
@@ -293,7 +292,7 @@ class ReviewBoardView(Gtk.Box):
                     lang=self._language
                 )
             )
-            self._data = get_mock_l10n_data(self._language)
+            self._data = fetch_and_parse(self._language)
 
         query = self._filter_bar.search_text
         status_filter = self._filter_bar.get_filter_value(_("Status"))

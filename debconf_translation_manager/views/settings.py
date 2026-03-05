@@ -237,14 +237,29 @@ class SettingsView(Gtk.Box):
         self._smtp_tls_row.set_title(_("Use TLS"))
         smtp_group.add(self._smtp_tls_row)
 
-        # Gmail preset button
-        gmail_btn = Gtk.Button(label=_("Use Gmail Settings"))
+        # Gmail preset button with description
+        gmail_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        gmail_box.set_margin_top(8)
+        gmail_btn = Gtk.Button()
         gmail_btn.set_icon_name("mail-send-symbolic")
         gmail_btn.add_css_class("flat")
         gmail_btn.set_halign(Gtk.Align.START)
-        gmail_btn.set_margin_top(4)
+        btn_content = Adw.ButtonContent(
+            icon_name="mail-send-symbolic",
+            label=_("Use Gmail SMTP"),
+        )
+        gmail_btn.set_child(btn_content)
         gmail_btn.connect("clicked", self._on_gmail_preset)
-        smtp_group.add(gmail_btn)
+        gmail_box.append(gmail_btn)
+        gmail_desc = Gtk.Label(
+            label=_("Sets smtp.gmail.com on port 587 with TLS. Requires a Google App Password — go to myaccount.google.com → Security → App Passwords."),
+            xalign=0,
+            wrap=True,
+        )
+        gmail_desc.add_css_class("dim-label")
+        gmail_desc.add_css_class("caption")
+        gmail_box.append(gmail_desc)
+        smtp_group.add(gmail_box)
 
         content.append(smtp_group)
 

@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: debconf-translation-manager 0.6.0\n"
+"Project-Id-Version: debconf-translation-manager 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 14:39+0100\n"
+"POT-Creation-Date: 2026-03-05 14:54+0100\n"
 "PO-Revision-Date: 2026-03-04 15:41+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/danielnylander/teams/305693/sv/)\n"
@@ -118,7 +118,7 @@ msgstr "Insändningskö"
 
 #: debconf_translation_manager/window.py:229
 msgid "BTS Bugs"
-msgstr "BTS-buggar"
+msgstr "BTS-registrering"
 
 #: debconf_translation_manager/window.py:230
 msgid "DDTSS"
@@ -473,7 +473,7 @@ msgstr "Tidsfrist:"
 
 #: debconf_translation_manager/views/coordination.py:217
 msgid "Bug:"
-msgstr "Bug:"
+msgstr "Fel:"
 
 #: debconf_translation_manager/views/coordination.py:231
 msgid "Lifecycle:"
@@ -1051,14 +1051,18 @@ msgid "SMTP username"
 msgstr "SMTP-användarnamn"
 
 #: debconf_translation_manager/views/settings.py:237
+msgid "SMTP password"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:241
 msgid "Use TLS"
 msgstr "Använd TLS"
 
-#: debconf_translation_manager/views/settings.py:249
+#: debconf_translation_manager/views/settings.py:253
 msgid "Use Gmail SMTP"
 msgstr "Använd Gmail SMTP"
 
-#: debconf_translation_manager/views/settings.py:255
+#: debconf_translation_manager/views/settings.py:259
 msgid ""
 "Sets smtp.gmail.com on port 587 with TLS. Requires a Google App Password — "
 "go to myaccount.google.com → Security → App Passwords."
@@ -1066,11 +1070,11 @@ msgstr ""
 "Ställer in smtp.gmail.com på port 587 med TLS. Kräver ett Google App-"
 "lösenord – gå till myaccount.google.com → Säkerhet → App-lösenord."
 
-#: debconf_translation_manager/views/settings.py:267
+#: debconf_translation_manager/views/settings.py:271
 msgid "Save Settings"
 msgstr "Spara inställningar"
 
-#: debconf_translation_manager/views/settings.py:337
+#: debconf_translation_manager/views/settings.py:343
 msgid "Gmail SMTP settings applied. Use an App Password for authentication."
 msgstr ""
 "Gmail SMTP-inställningar tillämpade. Använd ett app-lösenord för "

@@ -1,0 +1,978 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the debconf-translation-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: debconf-translation-manager 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-05 06:51+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: debconf_translation_manager/app.py:95
+msgid ""
+"Manage translations of Debian debconf templates.\n"
+"Part of the Danne L10n Suite."
+msgstr ""
+
+#: debconf_translation_manager/app.py:99
+msgid "Translate"
+msgstr ""
+
+#: debconf_translation_manager/app.py:140
+msgid "Debug info copied to clipboard"
+msgstr ""
+
+#: debconf_translation_manager/app.py:160
+msgid "Welcome"
+msgstr ""
+
+#: debconf_translation_manager/app.py:180
+msgid ""
+"Browse, edit, and review debconf template translations for Debian packages."
+msgstr ""
+
+#: debconf_translation_manager/app.py:190
+msgid ""
+"Use the sidebar to navigate between the template browser, translation status "
+"dashboard, PO editor, review board, diff viewer, and statistics."
+msgstr ""
+
+#: debconf_translation_manager/app.py:202
+msgid "Goal: 100% debconf translation coverage for your language!"
+msgstr ""
+
+#: debconf_translation_manager/app.py:210
+msgid "Get Started"
+msgstr ""
+
+#: debconf_translation_manager/window.py:79
+msgid "Cancel"
+msgstr ""
+
+#: debconf_translation_manager/window.py:140
+msgid "Ready"
+msgstr ""
+
+#: debconf_translation_manager/window.py:175
+msgid "Templates"
+msgstr ""
+
+#: debconf_translation_manager/window.py:176
+#: debconf_translation_manager/views/ddtss_workflow.py:109
+#: debconf_translation_manager/views/ddtss_workflow.py:265
+#: debconf_translation_manager/views/ddtss_workflow.py:347
+#: debconf_translation_manager/views/review_board.py:111
+#: debconf_translation_manager/views/review_board.py:299
+#: debconf_translation_manager/views/translation_status.py:62
+#: debconf_translation_manager/views/translation_status.py:147
+msgid "Status"
+msgstr ""
+
+#: debconf_translation_manager/window.py:177
+#: debconf_translation_manager/views/po_editor.py:58
+msgid "PO Editor"
+msgstr ""
+
+#: debconf_translation_manager/window.py:178
+#: debconf_translation_manager/views/review_board.py:76
+msgid "Review Board"
+msgstr ""
+
+#: debconf_translation_manager/window.py:179
+msgid "Diff View"
+msgstr ""
+
+#: debconf_translation_manager/window.py:180
+msgid "Coordination"
+msgstr ""
+
+#: debconf_translation_manager/window.py:181
+msgid "BTS Bugs"
+msgstr ""
+
+#: debconf_translation_manager/window.py:182
+msgid "DDTSS"
+msgstr ""
+
+#: debconf_translation_manager/window.py:183
+#: debconf_translation_manager/views/statistics.py:58
+msgid "Statistics"
+msgstr ""
+
+#: debconf_translation_manager/window.py:184
+#: debconf_translation_manager/views/settings.py:40
+msgid "Settings"
+msgstr ""
+
+#: debconf_translation_manager/window.py:220
+msgid "Toggle theme (Ctrl+T)"
+msgstr ""
+
+#: debconf_translation_manager/window.py:227
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: debconf_translation_manager/window.py:228
+msgid "Copy Debug Info"
+msgstr ""
+
+#: debconf_translation_manager/window.py:229
+msgid "About"
+msgstr ""
+
+#: debconf_translation_manager/window.py:242
+msgid "Navigation"
+msgstr ""
+
+#: debconf_translation_manager/window.py:354
+#, python-format
+msgid "Viewing: %s"
+msgstr ""
+
+#: debconf_translation_manager/window.py:365
+msgid "Saved"
+msgstr ""
+
+#: debconf_translation_manager/window.py:376
+msgid "Current view does not support export"
+msgstr ""
+
+#: debconf_translation_manager/window.py:381
+msgid "No data to export"
+msgstr ""
+
+#: debconf_translation_manager/window.py:411
+#: debconf_translation_manager/window.py:426
+#, python-format
+msgid "Exported to %s"
+msgstr ""
+
+#: debconf_translation_manager/window.py:443
+#, python-format
+msgid "%d template change(s) in: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:49
+msgid "BTS Bug Filing"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:58
+msgid "File l10n bug reports against Debian packages with debconf translations"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:81
+msgid "Compose Bug Report"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:86
+msgid "Package:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:92
+msgid "e.g. grub-pc"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:98
+msgid "Pick…"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:110
+msgid "Language code:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:119
+msgid "Language name:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:130
+msgid "Subject:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:140
+msgid "Body:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:164
+msgid "Attach .po file:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:168
+#: debconf_translation_manager/views/bts_workflow.py:405
+#: debconf_translation_manager/views/bts_workflow.py:501
+#: debconf_translation_manager/views/coordination.py:398
+#: debconf_translation_manager/views/coordination.py:400
+#: debconf_translation_manager/views/coordination.py:401
+#: debconf_translation_manager/views/review_board.py:396
+#: debconf_translation_manager/views/review_board.py:397
+#: debconf_translation_manager/views/review_board.py:399
+msgid "(none)"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:174
+msgid "Browse…"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:181
+msgid "Severity:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:194
+msgid "Tags:"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:207
+msgid "Preview Email"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:211
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:215
+msgid "Open in Mail Client"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:230
+msgid "Filed Bugs"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:235
+msgid "Filter bugs…"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:252
+msgid "Submission History"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:314
+msgid "PO files"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:335
+msgid "Email Preview"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:343
+msgid "Edit"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:348
+msgid "Save"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:364
+#, python-format
+msgid "Subject: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:373
+msgid "To: submit@bugs.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:407
+#, python-format
+msgid "Attachment: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:464
+#, python-format
+msgid "Bug report saved to %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:471
+msgid "Bug report copied to clipboard"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:584
+#, python-format
+msgid "Previously submitted: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:31
+msgid "Unclaimed"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:32
+msgid "Intent To Translate"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:33
+msgid "Translating"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:34
+msgid "Request For Review"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:35
+msgid "Under Review"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:36
+#: debconf_translation_manager/views/coordination.py:261
+msgid "Last Chance For Comments"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:37
+msgid "Done / Committed"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:112
+msgid "l10n Coordination"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:118
+msgid "Open l10n.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:126
+#, python-format
+msgid "Team: %s · Language: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:137
+#: debconf_translation_manager/views/ddtss_workflow.py:107
+#: debconf_translation_manager/views/review_board.py:109
+#: debconf_translation_manager/views/translation_status.py:59
+msgid "Filter packages…"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:138
+#: debconf_translation_manager/views/coordination.py:298
+msgid "Stage"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:210
+msgid "Current Stage:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:211
+#: debconf_translation_manager/views/review_board.py:190
+msgid "Translator:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:212
+#: debconf_translation_manager/views/review_board.py:191
+msgid "Reviewer:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:213
+#: debconf_translation_manager/views/review_board.py:192
+msgid "Date:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:214
+#: debconf_translation_manager/views/review_board.py:193
+msgid "Deadline:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:215
+msgid "Bug:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:229
+msgid "Lifecycle:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:238
+msgid "Actions:"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:249
+msgid "Claim (ITT)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:250
+msgid "Intent To Translate — claim this package"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:254
+msgid "Submit (RFR)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:255
+msgid "Request For Review — mark translation as ready"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:260
+msgid "LCFC"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:265
+msgid "Mark Done"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:270
+msgid "Unclaim"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:280
+#: debconf_translation_manager/views/ddtss_workflow.py:247
+msgid "Select a package"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:282
+msgid "Choose a package to view its coordination status and take actions."
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:397
+msgid "(unclaimed)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:399
+#: debconf_translation_manager/views/review_board.py:398
+msgid "(unknown)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:434
+msgid "Package claimed (ITT)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:437
+msgid "Translation submitted for review (RFR)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:440
+msgid "Last Chance For Comments (LCFC)"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:443
+msgid "Marked as done"
+msgstr ""
+
+#: debconf_translation_manager/views/coordination.py:449
+msgid "Package unclaimed"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:73
+msgid "DDTSS Workflow"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:80
+#: debconf_translation_manager/views/ddtss_workflow.py:362
+msgid "Login to DDTSS"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:88
+msgid "Refresh from ddtp.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:96
+msgid ""
+"Source: https://ddtp.debian.org — Debian Description Translation Project"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:167
+msgid "Original (English)"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:191
+#: debconf_translation_manager/views/po_editor.py:175
+msgid "Translation"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:223
+msgid "Submit Translation"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:228
+msgid "Approve"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:233
+msgid "Reject"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:238
+msgid "Copy Original"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:249
+msgid "Choose a package to translate or review its description."
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:279
+#, python-format
+msgid "Open: %d"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:280
+#, python-format
+msgid "Reviewed: %d"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:281
+#, python-format
+msgid "Accepted: %d"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:348
+msgid "Reviews"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:365
+msgid "Logged out"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:372
+msgid "DDTSS Login"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:387
+msgid "Enter your DDTSS credentials to submit and review translations."
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:393
+msgid "Username / Email"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:400
+msgid "Login"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:405
+msgid "Logout"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:409
+msgid "Logged in to DDTSS (simulated)"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:422
+msgid "Refreshed DDTSS data"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:430
+#: debconf_translation_manager/views/po_editor.py:367
+msgid "Translation is empty"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:443
+#, python-format
+msgid "Translation submitted for %s"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:457
+#, python-format
+msgid "Approved: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/ddtss_workflow.py:467
+#, python-format
+msgid "Rejected: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:57
+msgid "Template Diff View"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:67
+msgid "Check for Changes"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:68
+msgid "Poll for new template changes"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:76
+msgid "Filter changes…"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:78
+#: debconf_translation_manager/views/diff_view.py:176
+#: debconf_translation_manager/views/template_browser.py:73
+#: debconf_translation_manager/views/template_browser.py:141
+#: debconf_translation_manager/views/template_browser.py:229
+msgid "Type"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:154
+msgid "Select a change"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:156
+msgid "Choose a changed template from the list to see a side-by-side diff."
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:190
+#, python-format
+msgid "Modified: %d"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:191
+#, python-format
+msgid "Added: %d"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:192
+#, python-format
+msgid "Removed: %d"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:193
+msgid "changes"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:254
+msgid "Template"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:255
+msgid "Change"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:279
+#, python-format
+msgid "%d template change(s) detected"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:281
+msgid "Checked for changes"
+msgstr ""
+
+#: debconf_translation_manager/views/diff_view.py:284
+msgid "No new changes found"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:47
+msgid "PO entries saved"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:68
+msgid "Edit Header"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:78
+msgid "Search strings…"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:80
+#: debconf_translation_manager/views/po_editor.py:236
+msgid "Show"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:151
+msgid "Source (English)"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:201
+#: debconf_translation_manager/views/review_board.py:137
+#: debconf_translation_manager/views/statistics.py:239
+#: debconf_translation_manager/views/translation_status.py:80
+msgid "Fuzzy"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:205
+msgid "Copy Source"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:209
+msgid "Clear Translation"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:213
+msgid "Validate"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:221
+msgid "Translator Comment"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:226
+msgid "Add a comment…"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:374
+#, python-format
+msgid "Format string mismatch: source has %s, translation has %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:380
+msgid "Source ends with newline but translation does not"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:385
+#, python-format
+msgid "Translation is significantly longer than source (%d vs %d chars)"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:393
+msgid "Translation contains invalid UTF-8 characters"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:401
+msgid "Validation passed"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:421
+msgid "Edit PO Header"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:428
+msgid "Apply"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:446
+#: debconf_translation_manager/views/settings.py:73
+msgid "Translator"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:449
+#: debconf_translation_manager/views/settings.py:77
+msgid "Name"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:456
+#: debconf_translation_manager/views/settings.py:81
+msgid "Email"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:463
+msgid "Year"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:469
+msgid "Last-Translator"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:491
+#: debconf_translation_manager/views/po_editor.py:499
+#: debconf_translation_manager/views/review_board.py:118
+#: debconf_translation_manager/views/review_board.py:288
+#: debconf_translation_manager/views/settings.py:88
+#: debconf_translation_manager/views/translation_status.py:61
+#: debconf_translation_manager/views/translation_status.py:139
+msgid "Language"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:494
+msgid "Language-Team"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:509
+msgid "Header Comment"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:511
+msgid "Translator credit line added to the PO header comment"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:573
+msgid "PO header updated"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:84
+msgid "Refresh from l10n.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:95
+#: debconf_translation_manager/views/review_board.py:292
+#, python-brace-format
+msgid ""
+"Source: https://l10n.debian.org/coordination/{lang}/{lang}.by_status.html"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:135
+msgid "Needs Review"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:136
+#: debconf_translation_manager/views/statistics.py:238
+#: debconf_translation_manager/views/statistics.py:339
+#: debconf_translation_manager/views/translation_status.py:79
+msgid "Translated"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:138
+#: debconf_translation_manager/views/statistics.py:240
+#: debconf_translation_manager/views/translation_status.py:81
+msgid "Untranslated"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:189
+msgid "Status:"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:194
+msgid "Score:"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:211
+msgid "Open on l10n.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:215
+msgid "Claim for Review"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:281
+#, python-format
+msgid "Loaded %d packages from l10n.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:360
+#, python-format
+msgid "Translator: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:362
+#, python-format
+msgid "Reviewer: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:364
+#, python-format
+msgid "Deadline: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/review_board.py:412
+msgid "Claim functionality requires l10n.debian.org authentication"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:35
+msgid "Settings saved"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:49
+msgid "Configure translator preferences, language defaults, and SMTP settings"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:74
+msgid "Your identity for PO file headers and bug reports"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:89
+msgid "Default language for translations"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:92
+msgid "Language code"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:96
+msgid "Language name"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:103
+msgid "BTS Defaults"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:104
+msgid "Default values for Debian bug reports"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:107
+msgid "Severity"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:119
+msgid "SMTP"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:120
+msgid "Mail server settings for sending bug reports"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:123
+msgid "SMTP host"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:127
+msgid "SMTP port"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:131
+msgid "SMTP username"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:135
+msgid "Use TLS"
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:141
+msgid "Save Settings"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:65
+msgid "Language:"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:93
+msgid "Total Packages"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:94
+#: debconf_translation_manager/views/translation_status.py:82
+msgid "Coverage"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:95
+msgid "Complete"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:96
+msgid "Needs Work"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:112
+msgid "Status Distribution"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:139
+msgid "Per-Package Score"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:160
+msgid "Cross-Language Coverage"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:181
+msgid "Coverage Over Time (simulated)"
+msgstr ""
+
+#: debconf_translation_manager/views/statistics.py:241
+msgid "Pending Review"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:54
+msgid "Template Browser"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:71
+msgid "Search templates…"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:74
+#: debconf_translation_manager/views/template_browser.py:142
+#: debconf_translation_manager/views/template_browser.py:230
+msgid "Priority"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:228
+msgid "Package"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:231
+msgid "Default"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:238
+msgid "Choices: "
+msgstr ""
+
+#: debconf_translation_manager/views/translation_status.py:49
+msgid "Translation Status"
+msgstr ""
+
+#: debconf_translation_manager/views/translation_status.py:78
+msgid "Total"
+msgstr ""

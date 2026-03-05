@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[o:danielnylander:p:debconf-translation-manager:r:debconf-translation-manager-pot]
+file_filter = po/<lang>.po
+source_file = po/debconf-translation-manager.pot
+source_lang = en
+type = PO
+minimum_perc = 0

@@ -54,10 +54,23 @@ class CoordinationView(Gtk.Box):
         self._window = window
         self._language = "sv"
         self._coordinator = "Swedish l10n Team"
-        self._packages = self._build_coordination_data()
+        self._packages = []
         self._filtered = list(self._packages)
         self._build_ui()
         self._apply_filters()
+        # Lazy-load data in background thread
+        import threading
+        from gi.repository import GLib
+        def _fetch():
+            data = self._build_coordination_data()
+            GLib.idle_add(self._on_data_loaded, data)
+        threading.Thread(target=_fetch, daemon=True).start()
+
+    def _on_data_loaded(self, data):
+        self._packages = data
+        self._filtered = list(self._packages)
+        self._apply_filters()
+        return False
 
     def focus_search(self) -> None:
         self._filter_bar.focus_search()

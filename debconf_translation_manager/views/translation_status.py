@@ -31,8 +31,12 @@ class TranslationStatusView(Gtk.Box):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=0, **kwargs)
         self._window = window
         self._language = "sv"
+        self._export_data = []
         self._build_ui()
-        self._refresh()
+        # Lazy-load
+        import threading
+        from gi.repository import GLib
+        threading.Thread(target=lambda: GLib.idle_add(self._refresh), daemon=True).start()
 
     def focus_search(self) -> None:
         self._filter_bar.focus_search()

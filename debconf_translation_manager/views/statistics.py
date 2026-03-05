@@ -36,8 +36,19 @@ class StatisticsView(Gtk.Box):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=0, **kwargs)
         self._window = window
         self._language = "sv"
+        self._pie_data = {}
+        self._bar_data = []
+        self._lang_coverage = {}
+        self._timeline_data = []
+        self._export_data = []
         self._build_ui()
-        self._refresh_data()
+        # Load data in background to avoid blocking startup
+        import threading
+        from gi.repository import GLib
+        def _bg_refresh():
+            self._refresh_data()
+            GLib.idle_add(self.queue_draw)
+        threading.Thread(target=_bg_refresh, daemon=True).start()
 
     def focus_search(self) -> None:
         pass  # No search in stats view

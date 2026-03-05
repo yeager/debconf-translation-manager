@@ -38,11 +38,24 @@ class DDTSSWorkflowView(Gtk.Box):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=0, **kwargs)
         self._window = window
         self._language = "sv"
-        self._entries: list[DDTSSEntry] = fetch_open_translations(self._language)
-        self._filtered: list[DDTSSEntry] = list(self._entries)
+        self._entries: list[DDTSSEntry] = []
+        self._filtered: list[DDTSSEntry] = []
         self._logged_in = False
         self._build_ui()
         self._apply_filters()
+        # Lazy-load data in background
+        import threading
+        from gi.repository import GLib
+        def _fetch():
+            entries = fetch_open_translations(self._language)
+            GLib.idle_add(self._on_entries_loaded, entries)
+        threading.Thread(target=_fetch, daemon=True).start()
+
+    def _on_entries_loaded(self, entries):
+        self._entries = entries
+        self._filtered = list(self._entries)
+        self._apply_filters()
+        return False
 
     def focus_search(self) -> None:
         self._filter_bar.focus_search()

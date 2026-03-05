@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: debconf-translation-manager 0.2.0\n"
+"Project-Id-Version: debconf-translation-manager 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 07:35+0100\n"
+"POT-Creation-Date: 2026-03-05 09:58+0100\n"
 "PO-Revision-Date: 2026-03-04 15:41+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/danielnylander/teams/305693/sv/)\n"
@@ -69,239 +69,276 @@ msgstr "Avbryt"
 msgid "Ready"
 msgstr "Redo"
 
-#: debconf_translation_manager/window.py:175
-msgid "Templates"
-msgstr "Mallar"
-
-#: debconf_translation_manager/window.py:176
-#: debconf_translation_manager/views/ddtss_workflow.py:109
-#: debconf_translation_manager/views/ddtss_workflow.py:265
-#: debconf_translation_manager/views/ddtss_workflow.py:347
-#: debconf_translation_manager/views/review_board.py:111
-#: debconf_translation_manager/views/review_board.py:299
-#: debconf_translation_manager/views/translation_status.py:62
-#: debconf_translation_manager/views/translation_status.py:147
-msgid "Status"
-msgstr "Status"
-
-#: debconf_translation_manager/window.py:177
-#: debconf_translation_manager/views/po_editor.py:58
-msgid "PO Editor"
-msgstr "PO-redigerare"
-
-#: debconf_translation_manager/window.py:178
-#: debconf_translation_manager/views/review_board.py:76
-msgid "Review Board"
-msgstr "Granskningspanel"
-
-#: debconf_translation_manager/window.py:179
-msgid "Diff View"
-msgstr "Diff-vy"
-
-#: debconf_translation_manager/window.py:180
-msgid "Coordination"
-msgstr "Samordning"
-
-#: debconf_translation_manager/window.py:181
-msgid "BTS Bugs"
-msgstr "BTS-buggar"
-
-#: debconf_translation_manager/window.py:182
-msgid "DDTSS"
-msgstr "DDTSS"
-
-#: debconf_translation_manager/window.py:183
-#: debconf_translation_manager/views/statistics.py:58
-msgid "Statistics"
-msgstr "Statistik"
-
-#: debconf_translation_manager/window.py:184
-#: debconf_translation_manager/views/settings.py:142
-msgid "Settings"
-msgstr "Inställningar"
-
-#: debconf_translation_manager/window.py:220
-msgid "Toggle theme (Ctrl+T)"
-msgstr "Växla tema (Ctrl+T)"
-
-#: debconf_translation_manager/window.py:227
-msgid "Keyboard Shortcuts"
-msgstr "Tangentbordsgenvägar"
-
-#: debconf_translation_manager/window.py:228
-msgid "Copy Debug Info"
-msgstr "Kopiera felsökningsinformation"
-
-#: debconf_translation_manager/window.py:229
-msgid "About"
-msgstr "Om"
-
-#: debconf_translation_manager/window.py:242
-msgid "Navigation"
-msgstr "Navigering"
-
-#: debconf_translation_manager/window.py:354
+#: debconf_translation_manager/window.py:188
+#: debconf_translation_manager/window.py:390
 #, python-format
 msgid "Viewing: %s"
 msgstr "Visning: %s"
 
-#: debconf_translation_manager/window.py:365
+#: debconf_translation_manager/window.py:211
+msgid "Packages"
+msgstr ""
+
+#: debconf_translation_manager/window.py:212
+#: debconf_translation_manager/views/ddtss_workflow.py:108
+#: debconf_translation_manager/views/ddtss_workflow.py:264
+#: debconf_translation_manager/views/ddtss_workflow.py:346
+#: debconf_translation_manager/views/review_board.py:110
+#: debconf_translation_manager/views/review_board.py:298
+#: debconf_translation_manager/views/template_browser.py:104
+#: debconf_translation_manager/views/template_browser.py:175
+#: debconf_translation_manager/views/template_browser.py:266
+#: debconf_translation_manager/views/translation_status.py:58
+#: debconf_translation_manager/views/translation_status.py:143
+msgid "Status"
+msgstr "Status"
+
+#: debconf_translation_manager/window.py:213
+#: debconf_translation_manager/views/po_editor.py:191
+msgid "PO Editor"
+msgstr "PO-redigerare"
+
+#: debconf_translation_manager/window.py:214
+#: debconf_translation_manager/views/review_board.py:75
+msgid "Review Board"
+msgstr "Granskningspanel"
+
+#: debconf_translation_manager/window.py:215
+msgid "Diff View"
+msgstr "Diff-vy"
+
+#: debconf_translation_manager/window.py:216
+msgid "Coordination"
+msgstr "Samordning"
+
+#: debconf_translation_manager/window.py:217
+msgid "BTS Bugs"
+msgstr "BTS-buggar"
+
+#: debconf_translation_manager/window.py:218
+msgid "DDTSS"
+msgstr "DDTSS"
+
+#: debconf_translation_manager/window.py:219
+#: debconf_translation_manager/views/statistics.py:58
+msgid "Statistics"
+msgstr "Statistik"
+
+#: debconf_translation_manager/window.py:220
+#: debconf_translation_manager/views/settings.py:142
+msgid "Settings"
+msgstr "Inställningar"
+
+#: debconf_translation_manager/window.py:256
+msgid "Toggle theme (Ctrl+T)"
+msgstr "Växla tema (Ctrl+T)"
+
+#: debconf_translation_manager/window.py:263
+msgid "Keyboard Shortcuts"
+msgstr "Tangentbordsgenvägar"
+
+#: debconf_translation_manager/window.py:264
+msgid "Copy Debug Info"
+msgstr "Kopiera felsökningsinformation"
+
+#: debconf_translation_manager/window.py:265
+msgid "About"
+msgstr "Om"
+
+#: debconf_translation_manager/window.py:278
+msgid "Navigation"
+msgstr "Navigering"
+
+#: debconf_translation_manager/window.py:401
 msgid "Saved"
 msgstr "Sparades"
 
-#: debconf_translation_manager/window.py:376
+#: debconf_translation_manager/window.py:412
 msgid "Current view does not support export"
 msgstr "Aktuell vy stöder inte export"
 
-#: debconf_translation_manager/window.py:381
+#: debconf_translation_manager/window.py:417
 msgid "No data to export"
 msgstr "Inga data att exportera"
 
-#: debconf_translation_manager/window.py:411
-#: debconf_translation_manager/window.py:426
+#: debconf_translation_manager/window.py:447
+#: debconf_translation_manager/window.py:462
 #, python-format
 msgid "Exported to %s"
 msgstr "Exporterade till %s"
 
-#: debconf_translation_manager/window.py:443
+#: debconf_translation_manager/window.py:479
 #, python-format
 msgid "%d template change(s) in: %s"
 msgstr "%d malländring(ar) i: %s"
 
-#: debconf_translation_manager/views/bts_workflow.py:49
+#: debconf_translation_manager/views/bts_workflow.py:76
 msgid "BTS Bug Filing"
 msgstr "BTS-felrapportering"
 
-#: debconf_translation_manager/views/bts_workflow.py:58
+#: debconf_translation_manager/views/bts_workflow.py:85
 msgid ""
 "File l10n bug reports against Debian packages with debconf translations"
 msgstr ""
 "Skicka in l10n-felrapporter för Debian-paket med debconf-översättningar"
 
-#: debconf_translation_manager/views/bts_workflow.py:81
+#: debconf_translation_manager/views/bts_workflow.py:108
 msgid "Compose Bug Report"
 msgstr "Skriv felrapport"
 
-#: debconf_translation_manager/views/bts_workflow.py:86
+#: debconf_translation_manager/views/bts_workflow.py:113
 msgid "Package:"
 msgstr "Paket:"
 
-#: debconf_translation_manager/views/bts_workflow.py:92
+#: debconf_translation_manager/views/bts_workflow.py:119
 msgid "e.g. grub-pc"
 msgstr "t.ex. grub-pc"
 
-#: debconf_translation_manager/views/bts_workflow.py:98
+#: debconf_translation_manager/views/bts_workflow.py:125
 msgid "Pick…"
 msgstr "Välj…"
 
-#: debconf_translation_manager/views/bts_workflow.py:110
+#: debconf_translation_manager/views/bts_workflow.py:134
 msgid "Language code:"
 msgstr "Språkkod:"
 
-#: debconf_translation_manager/views/bts_workflow.py:119
+#: debconf_translation_manager/views/bts_workflow.py:143
 msgid "Language name:"
 msgstr "Språknamn:"
 
-#: debconf_translation_manager/views/bts_workflow.py:130
+#: debconf_translation_manager/views/bts_workflow.py:154
 msgid "Subject:"
 msgstr "Ämne:"
 
-#: debconf_translation_manager/views/bts_workflow.py:140
+#: debconf_translation_manager/views/bts_workflow.py:166
 msgid "Body:"
 msgstr "Text:"
 
-#: debconf_translation_manager/views/bts_workflow.py:164
+#: debconf_translation_manager/views/bts_workflow.py:190
 msgid "Attach .po file:"
 msgstr "Bifoga .po-fil:"
 
-#: debconf_translation_manager/views/bts_workflow.py:168
-#: debconf_translation_manager/views/bts_workflow.py:405
-#: debconf_translation_manager/views/bts_workflow.py:501
+#: debconf_translation_manager/views/bts_workflow.py:194
+#: debconf_translation_manager/views/bts_workflow.py:463
+#: debconf_translation_manager/views/bts_workflow.py:564
+#: debconf_translation_manager/views/bts_workflow.py:641
 #: debconf_translation_manager/views/coordination.py:398
 #: debconf_translation_manager/views/coordination.py:400
 #: debconf_translation_manager/views/coordination.py:401
+#: debconf_translation_manager/views/review_board.py:395
 #: debconf_translation_manager/views/review_board.py:396
-#: debconf_translation_manager/views/review_board.py:397
-#: debconf_translation_manager/views/review_board.py:399
+#: debconf_translation_manager/views/review_board.py:398
 msgid "(none)"
 msgstr "(ingen)"
 
-#: debconf_translation_manager/views/bts_workflow.py:174
+#: debconf_translation_manager/views/bts_workflow.py:200
 msgid "Browse…"
 msgstr "Bläddra…"
 
-#: debconf_translation_manager/views/bts_workflow.py:181
+#: debconf_translation_manager/views/bts_workflow.py:207
 msgid "Severity:"
 msgstr "Allvarlighetsgrad:"
 
-#: debconf_translation_manager/views/bts_workflow.py:194
+#: debconf_translation_manager/views/bts_workflow.py:220
 msgid "Tags:"
 msgstr "Taggar:"
 
-#: debconf_translation_manager/views/bts_workflow.py:207
+#: debconf_translation_manager/views/bts_workflow.py:233
 msgid "Preview Email"
 msgstr "Förhandsgranska e-post"
 
-#: debconf_translation_manager/views/bts_workflow.py:211
+#: debconf_translation_manager/views/bts_workflow.py:237
 msgid "Copy to Clipboard"
 msgstr "Kopiera till urklipp"
 
-#: debconf_translation_manager/views/bts_workflow.py:215
+#: debconf_translation_manager/views/bts_workflow.py:241
 msgid "Open in Mail Client"
 msgstr "Öppna i e-postklienten"
 
-#: debconf_translation_manager/views/bts_workflow.py:230
+#: debconf_translation_manager/views/bts_workflow.py:246
+msgid "Send via SMTP"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:260
 msgid "Filed Bugs"
 msgstr "Registrerade felrapporter"
 
-#: debconf_translation_manager/views/bts_workflow.py:235
+#: debconf_translation_manager/views/bts_workflow.py:265
 msgid "Filter bugs…"
 msgstr "Filtrera felrapporter…"
 
-#: debconf_translation_manager/views/bts_workflow.py:252
+#: debconf_translation_manager/views/bts_workflow.py:282
 msgid "Submission History"
 msgstr "Inlämningshistorik"
 
-#: debconf_translation_manager/views/bts_workflow.py:314
+#: debconf_translation_manager/views/bts_workflow.py:324
+#: debconf_translation_manager/views/bts_workflow.py:346
+msgid "Translator Name"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:379
+#: debconf_translation_manager/views/po_editor.py:585
 msgid "PO files"
 msgstr "PO-filer"
 
-#: debconf_translation_manager/views/bts_workflow.py:335
+#: debconf_translation_manager/views/bts_workflow.py:400
 msgid "Email Preview"
 msgstr "E-postförhandsvisning"
 
-#: debconf_translation_manager/views/bts_workflow.py:343
+#: debconf_translation_manager/views/bts_workflow.py:407
 msgid "Edit"
 msgstr "Redigera"
 
-#: debconf_translation_manager/views/bts_workflow.py:348
+#: debconf_translation_manager/views/bts_workflow.py:411
 msgid "Save"
 msgstr "Spara"
 
-#: debconf_translation_manager/views/bts_workflow.py:364
+#: debconf_translation_manager/views/bts_workflow.py:425
 #, python-format
 msgid "Subject: %s"
 msgstr "Ämne: %s"
 
-#: debconf_translation_manager/views/bts_workflow.py:373
+#: debconf_translation_manager/views/bts_workflow.py:433
 msgid "To: submit@bugs.debian.org"
 msgstr "Till: submit@bugs.debian.org"
 
-#: debconf_translation_manager/views/bts_workflow.py:407
+#: debconf_translation_manager/views/bts_workflow.py:465
 #, python-format
 msgid "Attachment: %s"
 msgstr "Bilaga: %s"
 
-#: debconf_translation_manager/views/bts_workflow.py:464
+#: debconf_translation_manager/views/bts_workflow.py:519
 #, python-format
 msgid "Bug report saved to %s"
 msgstr "Felrapport sparad till %s"
 
-#: debconf_translation_manager/views/bts_workflow.py:471
+#: debconf_translation_manager/views/bts_workflow.py:526
 msgid "Bug report copied to clipboard"
 msgstr "Felrapport kopierad till urklipp"
 
-#: debconf_translation_manager/views/bts_workflow.py:584
+#: debconf_translation_manager/views/bts_workflow.py:549
+msgid "SMTP not configured — go to Settings first"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:560
+msgid "Set your email in Settings first"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:580
+#, python-format
+msgid "Failed to read attachment: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:622
+msgid "Bug report sent via SMTP"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:626
+#, python-format
+msgid "SMTP send failed: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:721
 #, python-format
 msgid "Previously submitted: %s"
 msgstr "Tidigare inlämnad: %s"
@@ -349,9 +386,9 @@ msgid "Team: %s · Language: %s"
 msgstr "Team: %s · Språk: %s"
 
 #: debconf_translation_manager/views/coordination.py:137
-#: debconf_translation_manager/views/ddtss_workflow.py:107
-#: debconf_translation_manager/views/review_board.py:109
-#: debconf_translation_manager/views/translation_status.py:59
+#: debconf_translation_manager/views/ddtss_workflow.py:106
+#: debconf_translation_manager/views/review_board.py:108
+#: debconf_translation_manager/views/translation_status.py:55
 msgid "Filter packages…"
 msgstr "Filtrera paket…"
 
@@ -365,22 +402,22 @@ msgid "Current Stage:"
 msgstr "Aktuell fas:"
 
 #: debconf_translation_manager/views/coordination.py:211
-#: debconf_translation_manager/views/review_board.py:190
+#: debconf_translation_manager/views/review_board.py:189
 msgid "Translator:"
 msgstr "Översättare:"
 
 #: debconf_translation_manager/views/coordination.py:212
-#: debconf_translation_manager/views/review_board.py:191
+#: debconf_translation_manager/views/review_board.py:190
 msgid "Reviewer:"
 msgstr "Granskare:"
 
 #: debconf_translation_manager/views/coordination.py:213
-#: debconf_translation_manager/views/review_board.py:192
+#: debconf_translation_manager/views/review_board.py:191
 msgid "Date:"
 msgstr "Datum:"
 
 #: debconf_translation_manager/views/coordination.py:214
-#: debconf_translation_manager/views/review_board.py:193
+#: debconf_translation_manager/views/review_board.py:192
 msgid "Deadline:"
 msgstr "Tidsfrist:"
 
@@ -425,7 +462,7 @@ msgid "Unclaim"
 msgstr "Avstå från anspråk"
 
 #: debconf_translation_manager/views/coordination.py:280
-#: debconf_translation_manager/views/ddtss_workflow.py:247
+#: debconf_translation_manager/views/ddtss_workflow.py:246
 msgid "Select a package"
 msgstr "Välj ett paket"
 
@@ -439,7 +476,7 @@ msgid "(unclaimed)"
 msgstr "(inget anspråk)"
 
 #: debconf_translation_manager/views/coordination.py:399
-#: debconf_translation_manager/views/review_board.py:398
+#: debconf_translation_manager/views/review_board.py:397
 msgid "(unknown)"
 msgstr "(okänt)"
 
@@ -463,123 +500,123 @@ msgstr "Markerad som klar"
 msgid "Package unclaimed"
 msgstr "Paket inte gjorts anspråk på"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:73
+#: debconf_translation_manager/views/ddtss_workflow.py:72
 msgid "DDTSS Workflow"
 msgstr "DDTSS-arbetsflöde"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:80
-#: debconf_translation_manager/views/ddtss_workflow.py:362
+#: debconf_translation_manager/views/ddtss_workflow.py:79
+#: debconf_translation_manager/views/ddtss_workflow.py:361
 msgid "Login to DDTSS"
 msgstr "Logga in på DDTSS"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:88
+#: debconf_translation_manager/views/ddtss_workflow.py:87
 msgid "Refresh from ddtp.debian.org"
 msgstr "Uppdatera från ddtp.debian.org"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:96
+#: debconf_translation_manager/views/ddtss_workflow.py:95
 msgid ""
 "Source: https://ddtp.debian.org — Debian Description Translation Project"
 msgstr ""
 "Källa: https://ddtp.debian.org — Debian Description Translation Project"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:167
+#: debconf_translation_manager/views/ddtss_workflow.py:166
 msgid "Original (English)"
 msgstr "Original (engelska)"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:191
-#: debconf_translation_manager/views/po_editor.py:175
+#: debconf_translation_manager/views/ddtss_workflow.py:190
+#: debconf_translation_manager/views/po_editor.py:358
 msgid "Translation"
 msgstr "Översättning"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:223
+#: debconf_translation_manager/views/ddtss_workflow.py:222
 msgid "Submit Translation"
 msgstr "Skicka in översättning"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:228
+#: debconf_translation_manager/views/ddtss_workflow.py:227
 msgid "Approve"
 msgstr "Godkänn"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:233
+#: debconf_translation_manager/views/ddtss_workflow.py:232
 msgid "Reject"
 msgstr "Avvisa"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:238
+#: debconf_translation_manager/views/ddtss_workflow.py:237
 msgid "Copy Original"
 msgstr "Kopiera original"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:249
+#: debconf_translation_manager/views/ddtss_workflow.py:248
 msgid "Choose a package to translate or review its description."
 msgstr "Välj ett paket för att översätta eller granska dess beskrivning."
 
-#: debconf_translation_manager/views/ddtss_workflow.py:279
+#: debconf_translation_manager/views/ddtss_workflow.py:278
 #, python-format
 msgid "Open: %d"
 msgstr "Öppna: %d"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:280
+#: debconf_translation_manager/views/ddtss_workflow.py:279
 #, python-format
 msgid "Reviewed: %d"
 msgstr "Granskade: %d"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:281
+#: debconf_translation_manager/views/ddtss_workflow.py:280
 #, python-format
 msgid "Accepted: %d"
 msgstr "Accepterade: %d"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:348
+#: debconf_translation_manager/views/ddtss_workflow.py:347
 msgid "Reviews"
 msgstr "Granskningar"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:365
+#: debconf_translation_manager/views/ddtss_workflow.py:364
 msgid "Logged out"
 msgstr "Utloggad"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:372
+#: debconf_translation_manager/views/ddtss_workflow.py:371
 msgid "DDTSS Login"
 msgstr "DDTSS-inloggning"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:387
+#: debconf_translation_manager/views/ddtss_workflow.py:386
 msgid "Enter your DDTSS credentials to submit and review translations."
 msgstr ""
 "Ange dina DDTSS-inloggningsuppgifter för att skicka in och granska "
 "översättningar."
 
-#: debconf_translation_manager/views/ddtss_workflow.py:393
+#: debconf_translation_manager/views/ddtss_workflow.py:392
 msgid "Username / Email"
 msgstr "Användarnamn / E-post"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:400
+#: debconf_translation_manager/views/ddtss_workflow.py:399
 msgid "Login"
 msgstr "Logga in"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:405
+#: debconf_translation_manager/views/ddtss_workflow.py:404
 msgid "Logout"
 msgstr "Logga ut"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:409
-msgid "Logged in to DDTSS (simulated)"
-msgstr "Inloggad på DDTSS (simulerad)"
+#: debconf_translation_manager/views/ddtss_workflow.py:408
+msgid "Logged in to DDTSS"
+msgstr ""
 
-#: debconf_translation_manager/views/ddtss_workflow.py:422
+#: debconf_translation_manager/views/ddtss_workflow.py:421
 msgid "Refreshed DDTSS data"
 msgstr "Uppdaterade DDTSS-data"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:430
-#: debconf_translation_manager/views/po_editor.py:367
+#: debconf_translation_manager/views/ddtss_workflow.py:429
+#: debconf_translation_manager/views/po_editor.py:548
 msgid "Translation is empty"
 msgstr "Översättningen är tom"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:443
+#: debconf_translation_manager/views/ddtss_workflow.py:442
 #, python-format
 msgid "Translation submitted for %s"
 msgstr "Översättning inlämnad för %s"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:457
+#: debconf_translation_manager/views/ddtss_workflow.py:456
 #, python-format
 msgid "Approved: %s"
 msgstr "Godkänd: %s"
 
-#: debconf_translation_manager/views/ddtss_workflow.py:467
+#: debconf_translation_manager/views/ddtss_workflow.py:466
 #, python-format
 msgid "Rejected: %s"
 msgstr "Avvisad: %s"
@@ -602,9 +639,6 @@ msgstr "Filtrera ändringar…"
 
 #: debconf_translation_manager/views/diff_view.py:78
 #: debconf_translation_manager/views/diff_view.py:176
-#: debconf_translation_manager/views/template_browser.py:73
-#: debconf_translation_manager/views/template_browser.py:141
-#: debconf_translation_manager/views/template_browser.py:229
 msgid "Type"
 msgstr "Typ"
 
@@ -657,200 +691,246 @@ msgstr "Kontrollerad för ändringar"
 msgid "No new changes found"
 msgstr "Inga nya ändringar hittades"
 
-#: debconf_translation_manager/views/po_editor.py:47
+#: debconf_translation_manager/views/po_editor.py:58
+#, python-format
+msgid "Failed to open file: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:87
+#, python-format
+msgid "Loaded %d entries from %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:100
 msgid "PO entries saved"
 msgstr "PO-poster sparade"
 
-#: debconf_translation_manager/views/po_editor.py:68
+#: debconf_translation_manager/views/po_editor.py:121
+#, python-format
+msgid "Failed to save: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:203
+msgid "Open PO file"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:209
+msgid "Save PO file"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:215
+msgid "Save PO file as…"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:219
 msgid "Edit Header"
 msgstr "Redigera rubrik"
 
-#: debconf_translation_manager/views/po_editor.py:78
+#: debconf_translation_manager/views/po_editor.py:237
 msgid "Search strings…"
 msgstr "Sök efter strängar…"
 
-#: debconf_translation_manager/views/po_editor.py:80
-#: debconf_translation_manager/views/po_editor.py:236
+#: debconf_translation_manager/views/po_editor.py:239
+#: debconf_translation_manager/views/po_editor.py:419
 msgid "Show"
 msgstr "Visa"
 
-#: debconf_translation_manager/views/po_editor.py:151
+#: debconf_translation_manager/views/po_editor.py:299
+msgid "Submit via BTS"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:311
+msgid "File"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:314
+msgid "No file loaded — open a .po file to start editing"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:334
 msgid "Source (English)"
 msgstr "Källa (engelska)"
 
-#: debconf_translation_manager/views/po_editor.py:201
-#: debconf_translation_manager/views/review_board.py:137
+#: debconf_translation_manager/views/po_editor.py:384
+#: debconf_translation_manager/views/review_board.py:136
 #: debconf_translation_manager/views/statistics.py:239
-#: debconf_translation_manager/views/translation_status.py:80
+#: debconf_translation_manager/views/translation_status.py:76
 msgid "Fuzzy"
 msgstr "Luddiga"
 
-#: debconf_translation_manager/views/po_editor.py:205
+#: debconf_translation_manager/views/po_editor.py:388
 msgid "Copy Source"
 msgstr "Kopiera källa"
 
-#: debconf_translation_manager/views/po_editor.py:209
+#: debconf_translation_manager/views/po_editor.py:392
 msgid "Clear Translation"
 msgstr "Töm översättning"
 
-#: debconf_translation_manager/views/po_editor.py:213
+#: debconf_translation_manager/views/po_editor.py:396
 msgid "Validate"
 msgstr "Validera"
 
-#: debconf_translation_manager/views/po_editor.py:221
+#: debconf_translation_manager/views/po_editor.py:404
 msgid "Translator Comment"
 msgstr "Översättarens kommentar"
 
-#: debconf_translation_manager/views/po_editor.py:226
+#: debconf_translation_manager/views/po_editor.py:409
 msgid "Add a comment…"
 msgstr "Lägg till en kommentar…"
 
-#: debconf_translation_manager/views/po_editor.py:374
+#: debconf_translation_manager/views/po_editor.py:554
 #, python-format
 msgid "Format string mismatch: source has %s, translation has %s"
 msgstr "Formatsträngen stämmer inte: källan har %s, översättningen har %s"
 
-#: debconf_translation_manager/views/po_editor.py:380
+#: debconf_translation_manager/views/po_editor.py:559
 msgid "Source ends with newline but translation does not"
 msgstr "Källan slutar med radbrytning men översättningen gör det inte"
 
-#: debconf_translation_manager/views/po_editor.py:385
+#: debconf_translation_manager/views/po_editor.py:563
 #, python-format
 msgid "Translation is significantly longer than source (%d vs %d chars)"
 msgstr "Översättningen är betydligt längre än originalet (%d mot %d tecken)"
 
-#: debconf_translation_manager/views/po_editor.py:393
+#: debconf_translation_manager/views/po_editor.py:570
 msgid "Translation contains invalid UTF-8 characters"
 msgstr "Översättningen innehåller ogiltiga UTF-8-tecken"
 
-#: debconf_translation_manager/views/po_editor.py:401
+#: debconf_translation_manager/views/po_editor.py:578
 msgid "Validation passed"
 msgstr "Validering godkänd"
 
-#: debconf_translation_manager/views/po_editor.py:421
+#: debconf_translation_manager/views/po_editor.py:605
+#: debconf_translation_manager/views/po_editor.py:624
+#, python-format
+msgid "Saved to %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:655
 msgid "Edit PO Header"
 msgstr "Redigera PO-rubrik"
 
-#: debconf_translation_manager/views/po_editor.py:428
+#: debconf_translation_manager/views/po_editor.py:662
 msgid "Apply"
 msgstr "Tillämpa"
 
-#: debconf_translation_manager/views/po_editor.py:446
+#: debconf_translation_manager/views/po_editor.py:679
 #: debconf_translation_manager/views/settings.py:175
+#: debconf_translation_manager/views/template_browser.py:272
 msgid "Translator"
 msgstr "Översättare"
 
-#: debconf_translation_manager/views/po_editor.py:449
+#: debconf_translation_manager/views/po_editor.py:682
 #: debconf_translation_manager/views/settings.py:179
 msgid "Name"
 msgstr "Namn"
 
-#: debconf_translation_manager/views/po_editor.py:456
+#: debconf_translation_manager/views/po_editor.py:689
 #: debconf_translation_manager/views/settings.py:183
 msgid "Email"
 msgstr "E-post"
 
-#: debconf_translation_manager/views/po_editor.py:463
+#: debconf_translation_manager/views/po_editor.py:696
 msgid "Year"
 msgstr "År"
 
-#: debconf_translation_manager/views/po_editor.py:469
+#: debconf_translation_manager/views/po_editor.py:701
 msgid "Last-Translator"
 msgstr "Last-Translator"
 
-#: debconf_translation_manager/views/po_editor.py:491
-#: debconf_translation_manager/views/po_editor.py:499
-#: debconf_translation_manager/views/review_board.py:118
-#: debconf_translation_manager/views/review_board.py:288
+#: debconf_translation_manager/views/po_editor.py:722
+#: debconf_translation_manager/views/po_editor.py:730
+#: debconf_translation_manager/views/review_board.py:117
+#: debconf_translation_manager/views/review_board.py:287
 #: debconf_translation_manager/views/settings.py:190
 #: debconf_translation_manager/views/settings.py:194
-#: debconf_translation_manager/views/translation_status.py:61
-#: debconf_translation_manager/views/translation_status.py:139
+#: debconf_translation_manager/views/translation_status.py:57
+#: debconf_translation_manager/views/translation_status.py:135
 msgid "Language"
 msgstr "Språk"
 
-#: debconf_translation_manager/views/po_editor.py:494
+#: debconf_translation_manager/views/po_editor.py:725
 msgid "Language-Team"
 msgstr "Language-Team"
 
-#: debconf_translation_manager/views/po_editor.py:509
+#: debconf_translation_manager/views/po_editor.py:739
 msgid "Header Comment"
 msgstr "Rubrikkommentar"
 
-#: debconf_translation_manager/views/po_editor.py:511
+#: debconf_translation_manager/views/po_editor.py:741
 msgid "Translator credit line added to the PO header comment"
 msgstr "Översättarens namn har lagts till i PO-rubrikens kommentar"
 
-#: debconf_translation_manager/views/po_editor.py:573
+#: debconf_translation_manager/views/po_editor.py:802
 msgid "PO header updated"
 msgstr "PO-rubrik uppdaterad"
 
-#: debconf_translation_manager/views/review_board.py:84
+#: debconf_translation_manager/views/review_board.py:83
 msgid "Refresh from l10n.debian.org"
 msgstr "Uppdatera från l10n.debian.org"
 
-#: debconf_translation_manager/views/review_board.py:95
-#: debconf_translation_manager/views/review_board.py:292
+#: debconf_translation_manager/views/review_board.py:94
+#: debconf_translation_manager/views/review_board.py:291
 #, python-brace-format
 msgid ""
 "Source: https://l10n.debian.org/coordination/{lang}/{lang}.by_status.html"
 msgstr ""
 "Källa: https://l10n.debian.org/coordination/{lang}/{lang}.by_status.html"
 
-#: debconf_translation_manager/views/review_board.py:135
+#: debconf_translation_manager/views/review_board.py:134
 msgid "Needs Review"
 msgstr "Behöver granskas"
 
-#: debconf_translation_manager/views/review_board.py:136
+#: debconf_translation_manager/views/review_board.py:135
 #: debconf_translation_manager/views/statistics.py:238
 #: debconf_translation_manager/views/statistics.py:339
-#: debconf_translation_manager/views/translation_status.py:79
+#: debconf_translation_manager/views/translation_status.py:75
 msgid "Translated"
 msgstr "Översatta"
 
-#: debconf_translation_manager/views/review_board.py:138
+#: debconf_translation_manager/views/review_board.py:137
 #: debconf_translation_manager/views/statistics.py:240
-#: debconf_translation_manager/views/translation_status.py:81
+#: debconf_translation_manager/views/translation_status.py:77
 msgid "Untranslated"
 msgstr "Oöversatta"
 
-#: debconf_translation_manager/views/review_board.py:189
+#: debconf_translation_manager/views/review_board.py:188
 msgid "Status:"
 msgstr "Status:"
 
-#: debconf_translation_manager/views/review_board.py:194
+#: debconf_translation_manager/views/review_board.py:193
 msgid "Score:"
 msgstr "Poäng:"
 
-#: debconf_translation_manager/views/review_board.py:211
+#: debconf_translation_manager/views/review_board.py:210
 msgid "Open on l10n.debian.org"
 msgstr "Öppna på l10n.debian.org"
 
-#: debconf_translation_manager/views/review_board.py:215
+#: debconf_translation_manager/views/review_board.py:214
 msgid "Claim for Review"
 msgstr "Gör anspråk på för granskning"
 
-#: debconf_translation_manager/views/review_board.py:281
+#: debconf_translation_manager/views/review_board.py:280
 #, python-format
 msgid "Loaded %d packages from l10n.debian.org"
 msgstr "Läste in %d paket från l10n.debian.org"
 
-#: debconf_translation_manager/views/review_board.py:360
+#: debconf_translation_manager/views/review_board.py:359
 #, python-format
 msgid "Translator: %s"
 msgstr "Översättare: %s"
 
-#: debconf_translation_manager/views/review_board.py:362
+#: debconf_translation_manager/views/review_board.py:361
 #, python-format
 msgid "Reviewer: %s"
 msgstr "Granskare: %s"
 
-#: debconf_translation_manager/views/review_board.py:364
+#: debconf_translation_manager/views/review_board.py:363
 #, python-format
 msgid "Deadline: %s"
 msgstr "Tidsfrist: %s"
 
-#: debconf_translation_manager/views/review_board.py:412
+#: debconf_translation_manager/views/review_board.py:411
 msgid "Claim functionality requires l10n.debian.org authentication"
 msgstr "För att kunna göra anspråk krävs autentisering på l10n.debian.org"
 
@@ -908,15 +988,21 @@ msgstr "SMTP-användarnamn"
 msgid "Use TLS"
 msgstr "Använd TLS"
 
-#: debconf_translation_manager/views/settings.py:241
-msgid "Use Gmail Settings"
-msgstr "Använd Gmail-inställningar"
+#: debconf_translation_manager/views/settings.py:249
+msgid "Use Gmail SMTP"
+msgstr ""
 
-#: debconf_translation_manager/views/settings.py:252
+#: debconf_translation_manager/views/settings.py:255
+msgid ""
+"Sets smtp.gmail.com on port 587 with TLS. Requires a Google App Password — "
+"go to myaccount.google.com → Security → App Passwords."
+msgstr ""
+
+#: debconf_translation_manager/views/settings.py:267
 msgid "Save Settings"
 msgstr "Spara inställningar"
 
-#: debconf_translation_manager/views/settings.py:322
+#: debconf_translation_manager/views/settings.py:337
 msgid "Gmail SMTP settings applied. Use an App Password for authentication."
 msgstr ""
 "Gmail SMTP-inställningar tillämpade. Använd ett app-lösenord för "
@@ -931,13 +1017,13 @@ msgid "Total Packages"
 msgstr "Totalt antal paket"
 
 #: debconf_translation_manager/views/statistics.py:94
-#: debconf_translation_manager/views/translation_status.py:82
+#: debconf_translation_manager/views/translation_status.py:78
 msgid "Coverage"
 msgstr "Täckning"
 
 #: debconf_translation_manager/views/statistics.py:95
 msgid "Complete"
-msgstr "Färdigställd"
+msgstr "Färdigställda"
 
 #: debconf_translation_manager/views/statistics.py:96
 msgid "Needs Work"
@@ -956,43 +1042,91 @@ msgid "Cross-Language Coverage"
 msgstr "Språköverskridande täckning"
 
 #: debconf_translation_manager/views/statistics.py:181
-msgid "Coverage Over Time (simulated)"
-msgstr "Täckning över tid (simulerad)"
+msgid "Coverage Over Time"
+msgstr ""
 
 #: debconf_translation_manager/views/statistics.py:241
 msgid "Pending Review"
 msgstr "Väntar på granskning"
 
-#: debconf_translation_manager/views/template_browser.py:54
-msgid "Template Browser"
-msgstr "Mallbläddrare"
+#: debconf_translation_manager/views/template_browser.py:64
+msgid "Package Browser"
+msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:71
-msgid "Search templates…"
-msgstr "Sök mallar…"
+#: debconf_translation_manager/views/template_browser.py:76
+#: debconf_translation_manager/views/template_browser.py:313
+msgid "Fetch Packages"
+msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:74
-#: debconf_translation_manager/views/template_browser.py:142
-#: debconf_translation_manager/views/template_browser.py:230
-msgid "Priority"
-msgstr "Prioritet"
+#: debconf_translation_manager/views/template_browser.py:86
+msgid "Click Fetch to load packages from l10n.debian.org"
+msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:228
-msgid "Package"
-msgstr "Paket"
+#: debconf_translation_manager/views/template_browser.py:102
+msgid "Search packages…"
+msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:231
-msgid "Default"
-msgstr "Standard"
+#: debconf_translation_manager/views/template_browser.py:156
+#: debconf_translation_manager/views/template_browser.py:284
+#: debconf_translation_manager/views/template_browser.py:354
+msgid "Download & Edit PO"
+msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:238
-msgid "Choices: "
-msgstr "Val: "
+#: debconf_translation_manager/views/template_browser.py:161
+msgid "File Bug for Package"
+msgstr ""
 
-#: debconf_translation_manager/views/translation_status.py:49
+#: debconf_translation_manager/views/template_browser.py:268
+msgid "Score"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:274
+msgid "Date"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:286
+msgid "Open PO Editor"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:288
+msgid "No PO available"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:298
+msgid "Fetching…"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:307
+#, python-format
+msgid "Showing %d packages from l10n.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:309
+msgid "Fetch failed — showing cached data"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:316
+#, python-format
+msgid "Loaded %d packages"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:347
+msgid "Downloading…"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:360
+#, python-format
+msgid "Downloaded PO for %s"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:363
+msgid "Download failed"
+msgstr ""
+
+#: debconf_translation_manager/views/translation_status.py:45
 msgid "Translation Status"
 msgstr "Översättningsstatus"
 
-#: debconf_translation_manager/views/translation_status.py:78
+#: debconf_translation_manager/views/translation_status.py:74
 msgid "Total"
 msgstr "Totalt"

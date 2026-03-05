@@ -17,7 +17,9 @@ from gi.repository import Adw, Gdk, Gio, GLib, Gtk
 from debconf_translation_manager import APP_ID, APP_NAME, __version__
 
 # i18n setup
-LOCALE_DIR = Path(__file__).parent / "locale"
+# Check bundled locale first, then fall back to system locale
+_bundled_locale = Path(__file__).parent / "locale"
+LOCALE_DIR = str(_bundled_locale) if _bundled_locale.is_dir() else "/usr/share/locale"
 try:
     locale.setlocale(locale.LC_ALL, "")
 except locale.Error:

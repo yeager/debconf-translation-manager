@@ -1,2 +1,3 @@
 debconf_translation_manager/data/org.debian.DebconfTranslationManager.desktop usr/share/applications/
 debconf_translation_manager/data/icons/hicolor/scalable/apps/org.debian.DebconfTranslationManager.svg usr/share/icons/hicolor/scalable/apps/
+debconf_translation_manager/locale/sv/LC_MESSAGES/debconf-translation-manager.mo usr/share/locale/sv/LC_MESSAGES/

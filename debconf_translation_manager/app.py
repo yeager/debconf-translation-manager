@@ -85,15 +85,15 @@ class DebconfTranslationManagerApp(Adw.Application):
             application_name=APP_NAME,
             application_icon="preferences-desktop-locale",
             version=__version__,
-            developer_name="Danne L10n Suite",
+            developer_name="Daniel Nylander",
             license_type=Gtk.License.GPL_3_0,
             issue_url="https://github.com/yeager/debconf-translation-manager/issues",
             website="https://github.com/yeager/debconf-translation-manager",
-            developers=["Danne L10n Suite https://github.com/yeager/"],
-            copyright="© 2024–2026 Danne L10n Suite",
+            developers=["Daniel Nylander https://github.com/yeager/"],
+            copyright="© 2024–2026 Daniel Nylander",
             comments=_(
                 "Manage translations of Debian debconf templates.\n"
-                "Part of the Danne L10n Suite."
+                
             ),
         )
         about.add_link(_("Translate on Transifex"), "https://app.transifex.com/danielnylander/debconf-translator/")

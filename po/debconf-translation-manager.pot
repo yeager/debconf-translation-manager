@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: debconf-translation-manager 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 06:54+0100\n"
+"POT-Creation-Date: 2026-03-05 07:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: debconf_translation_manager/app.py:95
-msgid ""
-"Manage translations of Debian debconf templates.\n"
-"Part of the Danne L10n Suite."
+msgid "Manage translations of Debian debconf templates.\n"
 msgstr ""
 
 #: debconf_translation_manager/app.py:99

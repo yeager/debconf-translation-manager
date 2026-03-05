@@ -10,7 +10,7 @@ readme = "README.md"
 license = "GPL-3.0-or-later"
 requires-python = ">=3.10"
 authors = [
-    { name = "Danne L10n Suite", email = "noreply@example.com" },
+    { name = "Daniel Nylander", email = "daniel@danielnylander.se" },
 ]
 keywords = ["debian", "debconf", "translation", "l10n", "gettext", "gtk4"]
 classifiers = [

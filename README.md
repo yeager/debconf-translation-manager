@@ -1,6 +1,6 @@
 # Debconf Translation Manager
 
-A GTK4/libadwaita application for managing translations of Debian debconf templates. Part of the [Danne L10n Suite](https://github.com/yeager/).
+A GTK4/libadwaita application for managing translations of Debian debconf templates. Part of the [Daniel Nylander](https://github.com/yeager/).
 
 ## Features
 

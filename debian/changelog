@@ -1,3 +1,13 @@
+debconf-translation-manager (0.6.0-1) stable; urgency=medium
+
+  * New: Submission Queue view with preview, edit, send, send-all
+  * New: Preview Dialog (Adw.Dialog) for email before submission
+  * New: Tags, bug number, and notes fields in submission history
+  * New: "Queue for Submission" button in Coordination view
+  * Full workflow: coordination → queue → preview → send → history
+
+ -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 14:40:00 +0100
+
 debconf-translation-manager (0.5.0-1) stable; urgency=medium
 
   * Replace mock data with real l10n.debian.org data in all views

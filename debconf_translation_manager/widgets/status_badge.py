@@ -24,6 +24,9 @@ _STATUS_MAP: dict[str, tuple[str, str]] = {
     "added": ("success", _("Added")),
     "modified": ("warning", _("Modified")),
     "removed": ("error", _("Removed")),
+    "queued": ("accent", _("Queued")),
+    "sent": ("success", _("Sent")),
+    "filed": ("success", _("Filed")),
 }
 
 

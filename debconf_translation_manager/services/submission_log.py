@@ -62,6 +62,9 @@ class SubmissionLog:
         subject: str,
         language: str,
         status: str = "filed",
+        bug_number: str = "",
+        tags: list[str] | None = None,
+        notes: str = "",
     ) -> dict[str, Any]:
         """Record a new submission and persist."""
         entry = {
@@ -70,10 +73,19 @@ class SubmissionLog:
             "subject": subject,
             "language": language,
             "status": status,
+            "bug_number": bug_number,
+            "tags": tags or [],
+            "notes": notes,
         }
         self._entries.insert(0, entry)
         self.save()
         return entry
+
+    def update_entry(self, index: int, **kwargs: Any) -> None:
+        """Update fields on an entry by index."""
+        if 0 <= index < len(self._entries):
+            self._entries[index].update(kwargs)
+            self.save()
 
     def previously_submitted_packages(self) -> list[str]:
         """Return unique package names that have been submitted."""

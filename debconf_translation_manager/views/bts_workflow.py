@@ -284,6 +284,11 @@ class BTSWorkflowView(Gtk.Box):
         history_title.set_margin_top(8)
         right_box.append(history_title)
 
+        self._history_search = Gtk.SearchEntry()
+        self._history_search.set_placeholder_text(_("Filter by tag or package…"))
+        self._history_search.connect("search-changed", lambda e: self._populate_history())
+        right_box.append(self._history_search)
+
         history_scroll = Gtk.ScrolledWindow()
         history_scroll.set_vexpand(True)
         history_scroll.set_min_content_height(120)
@@ -709,8 +714,19 @@ class BTSWorkflowView(Gtk.Box):
         if not entries:
             entries = self._submission_log.get_mock_entries()
 
-        for entry in entries:
-            row = self._make_history_row(entry)
+        # Filter by search query (match package or tags)
+        query = self._history_search.get_text().strip().lower() if hasattr(self, '_history_search') else ""
+        if query:
+            filtered = []
+            for entry in entries:
+                pkg = entry.get("package", "").lower()
+                entry_tags = [t.lower() for t in entry.get("tags", [])]
+                if query in pkg or any(query in t for t in entry_tags):
+                    filtered.append(entry)
+            entries = filtered
+
+        for i, entry in enumerate(entries):
+            row = self._make_history_row(entry, i)
             self._history_list.append(row)
 
         pkgs = self._submission_log.previously_submitted_packages()
@@ -723,33 +739,161 @@ class BTSWorkflowView(Gtk.Box):
         else:
             self._prev_packages_label.set_label("")
 
-    def _make_history_row(self, entry: dict[str, Any]) -> Gtk.ListBoxRow:
+    def _make_history_row(self, entry: dict[str, Any], index: int) -> Gtk.ListBoxRow:
         row = Gtk.ListBoxRow()
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        box.set_margin_start(8)
-        box.set_margin_end(8)
-        box.set_margin_top(4)
-        box.set_margin_bottom(4)
+        row.set_activatable(False)
+
+        outer = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+        outer.set_margin_start(8)
+        outer.set_margin_end(8)
+        outer.set_margin_top(4)
+        outer.set_margin_bottom(4)
+
+        top = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
 
         pkg_label = Gtk.Label(label=entry.get("package", ""), xalign=0)
         pkg_label.add_css_class("heading")
         pkg_label.set_hexpand(True)
-        box.append(pkg_label)
+        top.append(pkg_label)
+
+        bug_num = entry.get("bug_number", "")
+        if bug_num:
+            bug_label = Gtk.Label(label=f"#{bug_num}")
+            bug_label.add_css_class("caption")
+            top.append(bug_label)
 
         lang_label = Gtk.Label(label=entry.get("language", ""))
         lang_label.add_css_class("caption")
-        box.append(lang_label)
+        top.append(lang_label)
 
         badge = StatusBadge(status=entry.get("status", "filed"))
-        box.append(badge)
+        top.append(badge)
 
         ts_label = Gtk.Label(label=entry.get("timestamp", "")[:10])
         ts_label.add_css_class("caption")
         ts_label.add_css_class("dim-label")
-        box.append(ts_label)
+        top.append(ts_label)
 
-        row.set_child(box)
+        outer.append(top)
+
+        # Tags row
+        tags = entry.get("tags", [])
+        tag_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+
+        if tags:
+            for tag in tags:
+                tag_pill = Gtk.Label(label=tag)
+                tag_pill.add_css_class("caption")
+                tag_pill.add_css_class("accent")
+                tag_row.append(tag_pill)
+
+        tag_edit_btn = Gtk.Button(icon_name="document-edit-symbolic")
+        tag_edit_btn.add_css_class("flat")
+        tag_edit_btn.set_tooltip_text(_("Edit tags & notes"))
+        tag_edit_btn.connect(
+            "clicked", lambda b, idx=index: self._on_edit_entry(idx)
+        )
+        tag_row.append(tag_edit_btn)
+
+        outer.append(tag_row)
+
+        # Notes
+        notes = entry.get("notes", "")
+        if notes:
+            notes_label = Gtk.Label(label=notes, xalign=0)
+            notes_label.add_css_class("caption")
+            notes_label.add_css_class("dim-label")
+            notes_label.set_ellipsize(3)
+            outer.append(notes_label)
+
+        row.set_child(outer)
         return row
+
+    def _on_edit_entry(self, index: int) -> None:
+        """Open a dialog to edit tags, bug number, and notes on a history entry."""
+        entries = self._submission_log.entries
+        if index >= len(entries):
+            return
+        entry = entries[index]
+
+        dialog = Adw.Dialog()
+        dialog.set_title(_("Edit Submission"))
+        dialog.set_content_width(400)
+        dialog.set_content_height(350)
+
+        toolbar = Adw.ToolbarView()
+        header = Adw.HeaderBar()
+
+        save_btn = Gtk.Button(label=_("Save"))
+        save_btn.add_css_class("suggested-action")
+        header.pack_end(save_btn)
+        toolbar.add_top_bar(header)
+
+        content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+        content.set_margin_start(16)
+        content.set_margin_end(16)
+        content.set_margin_top(12)
+        content.set_margin_bottom(12)
+
+        pkg_label = Gtk.Label(
+            label=_("Package: %s") % entry.get("package", ""), xalign=0
+        )
+        pkg_label.add_css_class("heading")
+        content.append(pkg_label)
+
+        # Bug number
+        bug_label = Gtk.Label(label=_("Bug number:"), xalign=0)
+        content.append(bug_label)
+        bug_entry = Gtk.Entry()
+        bug_entry.set_text(entry.get("bug_number", ""))
+        bug_entry.set_placeholder_text(_("e.g. 1051003"))
+        content.append(bug_entry)
+
+        # Tags
+        tags_label = Gtk.Label(label=_("Tags (comma-separated):"), xalign=0)
+        content.append(tags_label)
+        tags_entry = Gtk.Entry()
+        tags_entry.set_text(", ".join(entry.get("tags", [])))
+        tags_entry.set_placeholder_text(_("e.g. accepted, NMU, first-submission"))
+        content.append(tags_entry)
+
+        # Notes
+        notes_label = Gtk.Label(label=_("Notes:"), xalign=0)
+        content.append(notes_label)
+        notes_scroll = Gtk.ScrolledWindow()
+        notes_scroll.set_min_content_height(80)
+        notes_scroll.set_vexpand(True)
+        notes_view = Gtk.TextView()
+        notes_view.set_wrap_mode(Gtk.WrapMode.WORD)
+        notes_view.set_left_margin(8)
+        notes_view.set_top_margin(4)
+        notes_view.get_buffer().set_text(entry.get("notes", ""))
+        notes_scroll.set_child(notes_view)
+        notes_frame = Gtk.Frame()
+        notes_frame.set_child(notes_scroll)
+        content.append(notes_frame)
+
+        toolbar.set_content(content)
+        dialog.set_child(toolbar)
+
+        def on_save(b: Gtk.Button) -> None:
+            new_tags = [
+                t.strip() for t in tags_entry.get_text().split(",") if t.strip()
+            ]
+            buf = notes_view.get_buffer()
+            start, end = buf.get_bounds()
+            new_notes = buf.get_text(start, end, True)
+            self._submission_log.update_entry(
+                index,
+                bug_number=bug_entry.get_text().strip(),
+                tags=new_tags,
+                notes=new_notes,
+            )
+            self._populate_history()
+            dialog.close()
+
+        save_btn.connect("clicked", on_save)
+        dialog.present(self._window)
 
 
 def _get_mock_filed_bugs() -> list[dict[str, str]]:

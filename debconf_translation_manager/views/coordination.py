@@ -21,6 +21,8 @@ from debconf_translation_manager.services.l10n_debian import (
     L10nPackageStatus,
     fetch_and_parse,
 )
+from debconf_translation_manager.services.settings import Settings
+from debconf_translation_manager.services.submission_queue import SubmissionQueue
 from debconf_translation_manager.widgets.filter_bar import FilterBar
 from debconf_translation_manager.widgets.status_badge import StatusBadge
 
@@ -272,6 +274,11 @@ class CoordinationView(Gtk.Box):
         self._unclaim_btn.connect("clicked", self._on_unclaim)
         btn_grid.insert(self._unclaim_btn, -1)
 
+        self._queue_btn = Gtk.Button(label=_("Queue for Submission"))
+        self._queue_btn.set_tooltip_text(_("Add to submission queue for BTS filing"))
+        self._queue_btn.connect("clicked", self._on_queue_for_submission)
+        btn_grid.insert(self._queue_btn, -1)
+
         right_box.append(btn_grid)
 
         # Placeholder
@@ -416,6 +423,7 @@ class CoordinationView(Gtk.Box):
         self._lcfc_btn.set_sensitive(status in ("RFR", "pending-review"))
         self._done_btn.set_sensitive(status in ("LCFC", "RFR", "pending-review"))
         self._unclaim_btn.set_sensitive(status not in ("untranslated", "translated"))
+        self._queue_btn.set_sensitive(status in ("LCFC", "RFR", "pending-review", "translated"))
 
         self._detail_stack.set_visible_child_name("detail")
 
@@ -447,6 +455,25 @@ class CoordinationView(Gtk.Box):
         if row is not None:
             row._pkg["translator"] = ""
         self._set_status("untranslated", _("Package unclaimed"))
+
+    def _on_queue_for_submission(self, btn: Gtk.Button) -> None:
+        """Add the selected package to the submission queue."""
+        row = self._list_box.get_selected_row()
+        if row is None:
+            return
+        pkg = row._pkg
+        settings = Settings.get()
+        queue = SubmissionQueue.get()
+        queue.add(
+            package=pkg["package"],
+            language=settings.language_code,
+            language_name=settings.language_name,
+            po_file_path="",
+        )
+        if self._window:
+            self._window.show_toast(
+                _("Queued %s for submission") % pkg["package"]
+            )
 
     def _on_open_web(self, btn: Gtk.Button) -> None:
         url = f"https://l10n.debian.org/coordination/{self._language}/"

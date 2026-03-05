@@ -28,6 +28,7 @@ VIEW_STATS = "statistics"
 VIEW_BTS = "bts"
 VIEW_DDTSS = "ddtss"
 VIEW_COORD = "coordination"
+VIEW_QUEUE = "queue"
 VIEW_SETTINGS = "settings"
 
 
@@ -164,6 +165,13 @@ class MainWindow(Adw.ApplicationWindow):
         if po_file_path:
             editor.load_po_file(po_file_path, package=package)
 
+    def navigate_to_queue(self) -> None:
+        """Switch to the Submission Queue view and refresh it."""
+        self._switch_to_view(VIEW_QUEUE)
+        queue_view = self._views.get(VIEW_QUEUE)
+        if queue_view is not None:
+            queue_view.refresh()
+
     def navigate_to_bts(
         self, package: str | None = None, po_file_path: str | None = None
     ) -> None:
@@ -197,6 +205,9 @@ class MainWindow(Adw.ApplicationWindow):
         from debconf_translation_manager.views.diff_view import DiffView
         from debconf_translation_manager.views.po_editor import POEditorView
         from debconf_translation_manager.views.review_board import ReviewBoardView
+        from debconf_translation_manager.views.submission_queue import (
+            SubmissionQueueView,
+        )
         from debconf_translation_manager.views.statistics import StatisticsView
         from debconf_translation_manager.views.template_browser import (
             TemplateBrowserView,
@@ -213,7 +224,8 @@ class MainWindow(Adw.ApplicationWindow):
             (VIEW_EDITOR, "document-edit-symbolic", _("PO Editor"), POEditorView),
             (VIEW_REVIEW, "dialog-information-symbolic", _("Review Board"), ReviewBoardView),
             (VIEW_DIFF, "view-dual-symbolic", _("Diff View"), DiffView),
-            (VIEW_COORD, "mail-send-symbolic", _("Coordination"), CoordinationView),
+            (VIEW_COORD, "folder-symbolic", _("Coordination"), CoordinationView),
+            (VIEW_QUEUE, "mail-send-symbolic", _("Submission Queue"), SubmissionQueueView),
             (VIEW_BTS, "mail-unread-symbolic", _("BTS Bugs"), BTSWorkflowView),
             (VIEW_DDTSS, "network-transmit-symbolic", _("DDTSS"), DDTSSWorkflowView),
             (VIEW_STATS, "utilities-system-monitor-symbolic", _("Statistics"), StatisticsView),

@@ -77,7 +77,7 @@ msgstr "Visning: %s"
 
 #: debconf_translation_manager/window.py:211
 msgid "Packages"
-msgstr ""
+msgstr "Paket"
 
 #: debconf_translation_manager/window.py:212
 #: debconf_translation_manager/views/ddtss_workflow.py:108
@@ -257,7 +257,7 @@ msgstr "Öppna i e-postklienten"
 
 #: debconf_translation_manager/views/bts_workflow.py:246
 msgid "Send via SMTP"
-msgstr ""
+msgstr "Skicka via SMTP"
 
 #: debconf_translation_manager/views/bts_workflow.py:260
 msgid "Filed Bugs"
@@ -274,7 +274,7 @@ msgstr "Inlämningshistorik"
 #: debconf_translation_manager/views/bts_workflow.py:324
 #: debconf_translation_manager/views/bts_workflow.py:346
 msgid "Translator Name"
-msgstr ""
+msgstr "Översättarens namn"
 
 #: debconf_translation_manager/views/bts_workflow.py:379
 #: debconf_translation_manager/views/po_editor.py:585
@@ -318,25 +318,25 @@ msgstr "Felrapport kopierad till urklipp"
 
 #: debconf_translation_manager/views/bts_workflow.py:549
 msgid "SMTP not configured — go to Settings first"
-msgstr ""
+msgstr "SMTP inte konfigurerat — gå till Inställningar först"
 
 #: debconf_translation_manager/views/bts_workflow.py:560
 msgid "Set your email in Settings first"
-msgstr ""
+msgstr "Ställ in din e-post i Inställningar först"
 
 #: debconf_translation_manager/views/bts_workflow.py:580
 #, python-format
 msgid "Failed to read attachment: %s"
-msgstr ""
+msgstr "Misslyckades med att läsa bilaga: %s"
 
 #: debconf_translation_manager/views/bts_workflow.py:622
 msgid "Bug report sent via SMTP"
-msgstr ""
+msgstr "Felrapport skickad via SMTP"
 
 #: debconf_translation_manager/views/bts_workflow.py:626
 #, python-format
 msgid "SMTP send failed: %s"
-msgstr ""
+msgstr "SMTP-sändning misslyckades: %s"
 
 #: debconf_translation_manager/views/bts_workflow.py:721
 #, python-format
@@ -595,7 +595,7 @@ msgstr "Logga ut"
 
 #: debconf_translation_manager/views/ddtss_workflow.py:408
 msgid "Logged in to DDTSS"
-msgstr ""
+msgstr "Loggade in på DDTSS"
 
 #: debconf_translation_manager/views/ddtss_workflow.py:421
 msgid "Refreshed DDTSS data"
@@ -694,12 +694,12 @@ msgstr "Inga nya ändringar hittades"
 #: debconf_translation_manager/views/po_editor.py:58
 #, python-format
 msgid "Failed to open file: %s"
-msgstr ""
+msgstr "Misslyckades med att öppna fil: %s"
 
 #: debconf_translation_manager/views/po_editor.py:87
 #, python-format
 msgid "Loaded %d entries from %s"
-msgstr ""
+msgstr "Läste in %d poster från %s"
 
 #: debconf_translation_manager/views/po_editor.py:100
 msgid "PO entries saved"
@@ -708,19 +708,19 @@ msgstr "PO-poster sparade"
 #: debconf_translation_manager/views/po_editor.py:121
 #, python-format
 msgid "Failed to save: %s"
-msgstr ""
+msgstr "Misslyckades med att spara: %s"
 
 #: debconf_translation_manager/views/po_editor.py:203
 msgid "Open PO file"
-msgstr ""
+msgstr "Öppna PO-fil"
 
 #: debconf_translation_manager/views/po_editor.py:209
 msgid "Save PO file"
-msgstr ""
+msgstr "Spara PO-fil"
 
 #: debconf_translation_manager/views/po_editor.py:215
 msgid "Save PO file as…"
-msgstr ""
+msgstr "Spara PO-fil som…"
 
 #: debconf_translation_manager/views/po_editor.py:219
 msgid "Edit Header"
@@ -737,15 +737,15 @@ msgstr "Visa"
 
 #: debconf_translation_manager/views/po_editor.py:299
 msgid "Submit via BTS"
-msgstr ""
+msgstr "Skicka in via BTS"
 
 #: debconf_translation_manager/views/po_editor.py:311
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: debconf_translation_manager/views/po_editor.py:314
 msgid "No file loaded — open a .po file to start editing"
-msgstr ""
+msgstr "Ingen fil inläst — öppna en .po-fil för att börja redigera"
 
 #: debconf_translation_manager/views/po_editor.py:334
 msgid "Source (English)"
@@ -804,7 +804,7 @@ msgstr "Validering godkänd"
 #: debconf_translation_manager/views/po_editor.py:624
 #, python-format
 msgid "Saved to %s"
-msgstr ""
+msgstr "Sparades till %s"
 
 #: debconf_translation_manager/views/po_editor.py:655
 msgid "Edit PO Header"
@@ -990,13 +990,15 @@ msgstr "Använd TLS"
 
 #: debconf_translation_manager/views/settings.py:249
 msgid "Use Gmail SMTP"
-msgstr ""
+msgstr "Använd Gmail SMTP"
 
 #: debconf_translation_manager/views/settings.py:255
 msgid ""
 "Sets smtp.gmail.com on port 587 with TLS. Requires a Google App Password — "
 "go to myaccount.google.com → Security → App Passwords."
 msgstr ""
+"Ställer in smtp.gmail.com på port 587 med TLS. Kräver ett Google App-"
+"lösenord – gå till myaccount.google.com → Säkerhet → App-lösenord."
 
 #: debconf_translation_manager/views/settings.py:267
 msgid "Save Settings"
@@ -1043,7 +1045,7 @@ msgstr "Språköverskridande täckning"
 
 #: debconf_translation_manager/views/statistics.py:181
 msgid "Coverage Over Time"
-msgstr ""
+msgstr "Täckning över tid"
 
 #: debconf_translation_manager/views/statistics.py:241
 msgid "Pending Review"
@@ -1051,77 +1053,77 @@ msgstr "Väntar på granskning"
 
 #: debconf_translation_manager/views/template_browser.py:64
 msgid "Package Browser"
-msgstr ""
+msgstr "Paketbläddrare"
 
 #: debconf_translation_manager/views/template_browser.py:76
 #: debconf_translation_manager/views/template_browser.py:313
 msgid "Fetch Packages"
-msgstr ""
+msgstr "Hämta paket"
 
 #: debconf_translation_manager/views/template_browser.py:86
 msgid "Click Fetch to load packages from l10n.debian.org"
-msgstr ""
+msgstr "Klicka på Hämta för att läsa in paket från l10n.debian.org"
 
 #: debconf_translation_manager/views/template_browser.py:102
 msgid "Search packages…"
-msgstr ""
+msgstr "Sök efter paket…"
 
 #: debconf_translation_manager/views/template_browser.py:156
 #: debconf_translation_manager/views/template_browser.py:284
 #: debconf_translation_manager/views/template_browser.py:354
 msgid "Download & Edit PO"
-msgstr ""
+msgstr "Hämta och redigera PO"
 
 #: debconf_translation_manager/views/template_browser.py:161
 msgid "File Bug for Package"
-msgstr ""
+msgstr "Skicka in felrapport för paket"
 
 #: debconf_translation_manager/views/template_browser.py:268
 msgid "Score"
-msgstr ""
+msgstr "Poäng"
 
 #: debconf_translation_manager/views/template_browser.py:274
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: debconf_translation_manager/views/template_browser.py:286
 msgid "Open PO Editor"
-msgstr ""
+msgstr "Öppna PO-redigerare"
 
 #: debconf_translation_manager/views/template_browser.py:288
 msgid "No PO available"
-msgstr ""
+msgstr "Ingen PO tillgänglig"
 
 #: debconf_translation_manager/views/template_browser.py:298
 msgid "Fetching…"
-msgstr ""
+msgstr "Hämtar…"
 
 #: debconf_translation_manager/views/template_browser.py:307
 #, python-format
 msgid "Showing %d packages from l10n.debian.org"
-msgstr ""
+msgstr "Visar %d paket från l10n.debian.org"
 
 #: debconf_translation_manager/views/template_browser.py:309
 msgid "Fetch failed — showing cached data"
-msgstr ""
+msgstr "Hämtning misslyckades — visar cachat data"
 
 #: debconf_translation_manager/views/template_browser.py:316
 #, python-format
 msgid "Loaded %d packages"
-msgstr ""
+msgstr "Läste in %d paket"
 
 #: debconf_translation_manager/views/template_browser.py:347
 msgid "Downloading…"
-msgstr ""
+msgstr "Hämtar ner…"
 
 #: debconf_translation_manager/views/template_browser.py:360
 #, python-format
 msgid "Downloaded PO for %s"
-msgstr ""
+msgstr "Hämtade PO för %s"
 
 #: debconf_translation_manager/views/template_browser.py:363
 msgid "Download failed"
-msgstr ""
+msgstr "Hämtning misslyckades"
 
 #: debconf_translation_manager/views/translation_status.py:45
 msgid "Translation Status"

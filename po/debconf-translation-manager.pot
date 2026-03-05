@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: debconf-translation-manager 0.2.0\n"
+"Project-Id-Version: debconf-translation-manager 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-05 07:35+0100\n"
+"POT-Creation-Date: 2026-03-05 08:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,152 +60,157 @@ msgstr ""
 msgid "Ready"
 msgstr ""
 
-#: debconf_translation_manager/window.py:175
-msgid "Templates"
+#: debconf_translation_manager/window.py:188
+#: debconf_translation_manager/window.py:390
+#, python-format
+msgid "Viewing: %s"
 msgstr ""
 
-#: debconf_translation_manager/window.py:176
+#: debconf_translation_manager/window.py:211
+msgid "Packages"
+msgstr ""
+
+#: debconf_translation_manager/window.py:212
 #: debconf_translation_manager/views/ddtss_workflow.py:109
 #: debconf_translation_manager/views/ddtss_workflow.py:265
 #: debconf_translation_manager/views/ddtss_workflow.py:347
 #: debconf_translation_manager/views/review_board.py:111
 #: debconf_translation_manager/views/review_board.py:299
+#: debconf_translation_manager/views/template_browser.py:104
+#: debconf_translation_manager/views/template_browser.py:175
+#: debconf_translation_manager/views/template_browser.py:266
 #: debconf_translation_manager/views/translation_status.py:62
 #: debconf_translation_manager/views/translation_status.py:147
 msgid "Status"
 msgstr ""
 
-#: debconf_translation_manager/window.py:177
-#: debconf_translation_manager/views/po_editor.py:58
+#: debconf_translation_manager/window.py:213
+#: debconf_translation_manager/views/po_editor.py:191
 msgid "PO Editor"
 msgstr ""
 
-#: debconf_translation_manager/window.py:178
+#: debconf_translation_manager/window.py:214
 #: debconf_translation_manager/views/review_board.py:76
 msgid "Review Board"
 msgstr ""
 
-#: debconf_translation_manager/window.py:179
+#: debconf_translation_manager/window.py:215
 msgid "Diff View"
 msgstr ""
 
-#: debconf_translation_manager/window.py:180
+#: debconf_translation_manager/window.py:216
 msgid "Coordination"
 msgstr ""
 
-#: debconf_translation_manager/window.py:181
+#: debconf_translation_manager/window.py:217
 msgid "BTS Bugs"
 msgstr ""
 
-#: debconf_translation_manager/window.py:182
+#: debconf_translation_manager/window.py:218
 msgid "DDTSS"
 msgstr ""
 
-#: debconf_translation_manager/window.py:183
+#: debconf_translation_manager/window.py:219
 #: debconf_translation_manager/views/statistics.py:58
 msgid "Statistics"
 msgstr ""
 
-#: debconf_translation_manager/window.py:184
+#: debconf_translation_manager/window.py:220
 #: debconf_translation_manager/views/settings.py:142
 msgid "Settings"
 msgstr ""
 
-#: debconf_translation_manager/window.py:220
+#: debconf_translation_manager/window.py:256
 msgid "Toggle theme (Ctrl+T)"
 msgstr ""
 
-#: debconf_translation_manager/window.py:227
+#: debconf_translation_manager/window.py:263
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: debconf_translation_manager/window.py:228
+#: debconf_translation_manager/window.py:264
 msgid "Copy Debug Info"
 msgstr ""
 
-#: debconf_translation_manager/window.py:229
+#: debconf_translation_manager/window.py:265
 msgid "About"
 msgstr ""
 
-#: debconf_translation_manager/window.py:242
+#: debconf_translation_manager/window.py:278
 msgid "Navigation"
 msgstr ""
 
-#: debconf_translation_manager/window.py:354
-#, python-format
-msgid "Viewing: %s"
-msgstr ""
-
-#: debconf_translation_manager/window.py:365
+#: debconf_translation_manager/window.py:401
 msgid "Saved"
 msgstr ""
 
-#: debconf_translation_manager/window.py:376
+#: debconf_translation_manager/window.py:412
 msgid "Current view does not support export"
 msgstr ""
 
-#: debconf_translation_manager/window.py:381
+#: debconf_translation_manager/window.py:417
 msgid "No data to export"
 msgstr ""
 
-#: debconf_translation_manager/window.py:411
-#: debconf_translation_manager/window.py:426
+#: debconf_translation_manager/window.py:447
+#: debconf_translation_manager/window.py:462
 #, python-format
 msgid "Exported to %s"
 msgstr ""
 
-#: debconf_translation_manager/window.py:443
+#: debconf_translation_manager/window.py:479
 #, python-format
 msgid "%d template change(s) in: %s"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:49
+#: debconf_translation_manager/views/bts_workflow.py:77
 msgid "BTS Bug Filing"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:58
+#: debconf_translation_manager/views/bts_workflow.py:86
 msgid "File l10n bug reports against Debian packages with debconf translations"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:81
+#: debconf_translation_manager/views/bts_workflow.py:109
 msgid "Compose Bug Report"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:86
+#: debconf_translation_manager/views/bts_workflow.py:114
 msgid "Package:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:92
+#: debconf_translation_manager/views/bts_workflow.py:120
 msgid "e.g. grub-pc"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:98
+#: debconf_translation_manager/views/bts_workflow.py:126
 msgid "Pick…"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:110
+#: debconf_translation_manager/views/bts_workflow.py:135
 msgid "Language code:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:119
+#: debconf_translation_manager/views/bts_workflow.py:144
 msgid "Language name:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:130
+#: debconf_translation_manager/views/bts_workflow.py:155
 msgid "Subject:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:140
+#: debconf_translation_manager/views/bts_workflow.py:167
 msgid "Body:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:164
+#: debconf_translation_manager/views/bts_workflow.py:191
 msgid "Attach .po file:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:168
-#: debconf_translation_manager/views/bts_workflow.py:405
-#: debconf_translation_manager/views/bts_workflow.py:501
+#: debconf_translation_manager/views/bts_workflow.py:195
+#: debconf_translation_manager/views/bts_workflow.py:464
+#: debconf_translation_manager/views/bts_workflow.py:565
+#: debconf_translation_manager/views/bts_workflow.py:642
 #: debconf_translation_manager/views/coordination.py:398
 #: debconf_translation_manager/views/coordination.py:400
 #: debconf_translation_manager/views/coordination.py:401
@@ -215,82 +220,114 @@ msgstr ""
 msgid "(none)"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:174
+#: debconf_translation_manager/views/bts_workflow.py:201
 msgid "Browse…"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:181
+#: debconf_translation_manager/views/bts_workflow.py:208
 msgid "Severity:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:194
+#: debconf_translation_manager/views/bts_workflow.py:221
 msgid "Tags:"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:207
+#: debconf_translation_manager/views/bts_workflow.py:234
 msgid "Preview Email"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:211
+#: debconf_translation_manager/views/bts_workflow.py:238
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:215
+#: debconf_translation_manager/views/bts_workflow.py:242
 msgid "Open in Mail Client"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:230
+#: debconf_translation_manager/views/bts_workflow.py:247
+msgid "Send via SMTP"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:261
 msgid "Filed Bugs"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:235
+#: debconf_translation_manager/views/bts_workflow.py:266
 msgid "Filter bugs…"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:252
+#: debconf_translation_manager/views/bts_workflow.py:283
 msgid "Submission History"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:314
+#: debconf_translation_manager/views/bts_workflow.py:325
+#: debconf_translation_manager/views/bts_workflow.py:347
+msgid "Translator Name"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:380
+#: debconf_translation_manager/views/po_editor.py:585
 msgid "PO files"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:335
+#: debconf_translation_manager/views/bts_workflow.py:401
 msgid "Email Preview"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:343
+#: debconf_translation_manager/views/bts_workflow.py:408
 msgid "Edit"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:348
+#: debconf_translation_manager/views/bts_workflow.py:412
 msgid "Save"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:364
+#: debconf_translation_manager/views/bts_workflow.py:426
 #, python-format
 msgid "Subject: %s"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:373
+#: debconf_translation_manager/views/bts_workflow.py:434
 msgid "To: submit@bugs.debian.org"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:407
+#: debconf_translation_manager/views/bts_workflow.py:466
 #, python-format
 msgid "Attachment: %s"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:464
+#: debconf_translation_manager/views/bts_workflow.py:520
 #, python-format
 msgid "Bug report saved to %s"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:471
+#: debconf_translation_manager/views/bts_workflow.py:527
 msgid "Bug report copied to clipboard"
 msgstr ""
 
-#: debconf_translation_manager/views/bts_workflow.py:584
+#: debconf_translation_manager/views/bts_workflow.py:550
+msgid "SMTP not configured — go to Settings first"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:561
+msgid "Set your email in Settings first"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:581
+#, python-format
+msgid "Failed to read attachment: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:623
+msgid "Bug report sent via SMTP"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:627
+#, python-format
+msgid "SMTP send failed: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/bts_workflow.py:722
 #, python-format
 msgid "Previously submitted: %s"
 msgstr ""
@@ -474,7 +511,7 @@ msgid "Original (English)"
 msgstr ""
 
 #: debconf_translation_manager/views/ddtss_workflow.py:191
-#: debconf_translation_manager/views/po_editor.py:175
+#: debconf_translation_manager/views/po_editor.py:358
 msgid "Translation"
 msgstr ""
 
@@ -550,7 +587,7 @@ msgid "Refreshed DDTSS data"
 msgstr ""
 
 #: debconf_translation_manager/views/ddtss_workflow.py:430
-#: debconf_translation_manager/views/po_editor.py:367
+#: debconf_translation_manager/views/po_editor.py:548
 msgid "Translation is empty"
 msgstr ""
 
@@ -587,9 +624,6 @@ msgstr ""
 
 #: debconf_translation_manager/views/diff_view.py:78
 #: debconf_translation_manager/views/diff_view.py:176
-#: debconf_translation_manager/views/template_browser.py:73
-#: debconf_translation_manager/views/template_browser.py:141
-#: debconf_translation_manager/views/template_browser.py:229
 msgid "Type"
 msgstr ""
 
@@ -641,109 +675,155 @@ msgstr ""
 msgid "No new changes found"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:47
+#: debconf_translation_manager/views/po_editor.py:58
+#, python-format
+msgid "Failed to open file: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:87
+#, python-format
+msgid "Loaded %d entries from %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:100
 msgid "PO entries saved"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:68
+#: debconf_translation_manager/views/po_editor.py:121
+#, python-format
+msgid "Failed to save: %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:203
+msgid "Open PO file"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:209
+msgid "Save PO file"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:215
+msgid "Save PO file as…"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:219
 msgid "Edit Header"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:78
+#: debconf_translation_manager/views/po_editor.py:237
 msgid "Search strings…"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:80
-#: debconf_translation_manager/views/po_editor.py:236
+#: debconf_translation_manager/views/po_editor.py:239
+#: debconf_translation_manager/views/po_editor.py:419
 msgid "Show"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:151
+#: debconf_translation_manager/views/po_editor.py:299
+msgid "Submit via BTS"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:311
+msgid "File"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:314
+msgid "No file loaded — using mock data"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:334
 msgid "Source (English)"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:201
+#: debconf_translation_manager/views/po_editor.py:384
 #: debconf_translation_manager/views/review_board.py:137
 #: debconf_translation_manager/views/statistics.py:239
 #: debconf_translation_manager/views/translation_status.py:80
 msgid "Fuzzy"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:205
+#: debconf_translation_manager/views/po_editor.py:388
 msgid "Copy Source"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:209
+#: debconf_translation_manager/views/po_editor.py:392
 msgid "Clear Translation"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:213
+#: debconf_translation_manager/views/po_editor.py:396
 msgid "Validate"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:221
+#: debconf_translation_manager/views/po_editor.py:404
 msgid "Translator Comment"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:226
+#: debconf_translation_manager/views/po_editor.py:409
 msgid "Add a comment…"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:374
+#: debconf_translation_manager/views/po_editor.py:554
 #, python-format
 msgid "Format string mismatch: source has %s, translation has %s"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:380
+#: debconf_translation_manager/views/po_editor.py:559
 msgid "Source ends with newline but translation does not"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:385
+#: debconf_translation_manager/views/po_editor.py:563
 #, python-format
 msgid "Translation is significantly longer than source (%d vs %d chars)"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:393
+#: debconf_translation_manager/views/po_editor.py:570
 msgid "Translation contains invalid UTF-8 characters"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:401
+#: debconf_translation_manager/views/po_editor.py:578
 msgid "Validation passed"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:421
+#: debconf_translation_manager/views/po_editor.py:605
+#: debconf_translation_manager/views/po_editor.py:624
+#, python-format
+msgid "Saved to %s"
+msgstr ""
+
+#: debconf_translation_manager/views/po_editor.py:655
 msgid "Edit PO Header"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:428
+#: debconf_translation_manager/views/po_editor.py:662
 msgid "Apply"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:446
+#: debconf_translation_manager/views/po_editor.py:679
 #: debconf_translation_manager/views/settings.py:175
+#: debconf_translation_manager/views/template_browser.py:272
 msgid "Translator"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:449
+#: debconf_translation_manager/views/po_editor.py:682
 #: debconf_translation_manager/views/settings.py:179
 msgid "Name"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:456
+#: debconf_translation_manager/views/po_editor.py:689
 #: debconf_translation_manager/views/settings.py:183
 msgid "Email"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:463
+#: debconf_translation_manager/views/po_editor.py:696
 msgid "Year"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:469
+#: debconf_translation_manager/views/po_editor.py:701
 msgid "Last-Translator"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:491
-#: debconf_translation_manager/views/po_editor.py:499
+#: debconf_translation_manager/views/po_editor.py:722
+#: debconf_translation_manager/views/po_editor.py:730
 #: debconf_translation_manager/views/review_board.py:118
 #: debconf_translation_manager/views/review_board.py:288
 #: debconf_translation_manager/views/settings.py:190
@@ -753,19 +833,19 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:494
+#: debconf_translation_manager/views/po_editor.py:725
 msgid "Language-Team"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:509
+#: debconf_translation_manager/views/po_editor.py:739
 msgid "Header Comment"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:511
+#: debconf_translation_manager/views/po_editor.py:741
 msgid "Translator credit line added to the PO header comment"
 msgstr ""
 
-#: debconf_translation_manager/views/po_editor.py:573
+#: debconf_translation_manager/views/po_editor.py:802
 msgid "PO header updated"
 msgstr ""
 
@@ -942,30 +1022,78 @@ msgstr ""
 msgid "Pending Review"
 msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:54
-msgid "Template Browser"
+#: debconf_translation_manager/views/template_browser.py:64
+msgid "Package Browser"
 msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:71
-msgid "Search templates…"
+#: debconf_translation_manager/views/template_browser.py:76
+#: debconf_translation_manager/views/template_browser.py:313
+msgid "Fetch Packages"
 msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:74
-#: debconf_translation_manager/views/template_browser.py:142
-#: debconf_translation_manager/views/template_browser.py:230
-msgid "Priority"
+#: debconf_translation_manager/views/template_browser.py:86
+msgid "Showing mock data — click Fetch to load from l10n.debian.org"
 msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:228
-msgid "Package"
+#: debconf_translation_manager/views/template_browser.py:102
+msgid "Search packages…"
 msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:231
-msgid "Default"
+#: debconf_translation_manager/views/template_browser.py:156
+#: debconf_translation_manager/views/template_browser.py:284
+#: debconf_translation_manager/views/template_browser.py:354
+msgid "Download & Edit PO"
 msgstr ""
 
-#: debconf_translation_manager/views/template_browser.py:238
-msgid "Choices: "
+#: debconf_translation_manager/views/template_browser.py:161
+msgid "File Bug for Package"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:268
+msgid "Score"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:274
+msgid "Date"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:286
+msgid "Open PO Editor"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:288
+msgid "No PO available"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:298
+msgid "Fetching…"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:307
+#, python-format
+msgid "Showing %d packages from l10n.debian.org"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:309
+msgid "Using mock data (fetch failed)"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:316
+#, python-format
+msgid "Loaded %d packages"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:347
+msgid "Downloading…"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:360
+#, python-format
+msgid "Downloaded PO for %s"
+msgstr ""
+
+#: debconf_translation_manager/views/template_browser.py:363
+msgid "Download failed"
 msgstr ""
 
 #: debconf_translation_manager/views/translation_status.py:49

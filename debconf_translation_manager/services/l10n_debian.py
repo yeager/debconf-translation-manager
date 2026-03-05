@@ -176,6 +176,12 @@ def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageSta
     This page has:
     - "Packages to do" section: packages with no translation yet
     - "Packages underway/done": tables with score, .po download links, translator
+
+    Real HTML examples from www.debian.org/international/l10n/po-debconf/sv:
+    - To do:  <a href="pot#libvirt">libvirt</a>&nbsp;(5)
+    - Underway: <td>&nbsp;&nbsp;<a href="...&amp;data=PKG">PKG</a></td>
+    - Done:  <td><a href="errors-by-pkg#Ppkg">!</a>&nbsp;pkg</td>
+    - Done (no error): <td>&nbsp;&nbsp;util-linux</td>
     """
     results: list[L10nPackageStatus] = []
 
@@ -185,8 +191,10 @@ def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageSta
     )
     if todo_section:
         todo_text = todo_section.group(1)
-        # Pattern: pot#PACKAGE ... (N) — may have &nbsp; between link and count
-        todo_entries = re.findall(r'pot#([^"]+)"[^>]*>[^<]*</a>[&nbsp;\s]*\((\d+)\)', todo_text)
+        # Pattern: pot#PACKAGE ... (N) — &nbsp; literal entity between link and count
+        todo_entries = re.findall(
+            r'pot#([^"]+)"[^>]*>[^<]*</a>(?:&nbsp;|\s)*\((\d+)\)', todo_text
+        )
         for pkg, count in todo_entries:
             results.append(
                 L10nPackageStatus(
@@ -197,37 +205,51 @@ def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageSta
                     translated=0,
                     fuzzy=0,
                     untranslated=int(count),
+                    pot_url=f"https://www.debian.org/international/l10n/po-debconf/pot#{pkg}",
                 )
             )
 
-    # Parse table rows with .po.gz links (underway + done)
+    # Parse table rows (underway + done sections)
     rows = re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.DOTALL)
     for row in rows:
-        if '.po.gz' not in row:
-            continue
-
-        pkg_match = re.search(r'data=([^"&]+)[^>]*>([^<]+)</a>', row)
         score_match = re.search(r'(\d+)%\s*\((\d+)t;(\d+)f;(\d+)u\)', row)
-        po_match = re.search(r'href="(https://i18n\.debian\.org/[^"]+\.po\.gz)"', row)
-
-        if not pkg_match or not score_match:
+        if not score_match:
             continue
 
-        pkg = pkg_match.group(2).strip()
+        # Extract columns
+        tds = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
+        if not tds:
+            continue
+
+        # Package name from first <td>: strip HTML tags and &nbsp;, "!" prefix
+        pkg = re.sub(r'<[^>]+>', '', tds[0])
+        pkg = pkg.replace('&nbsp;', ' ').replace('!', '').strip()
+        if not pkg:
+            continue
+
         score = int(score_match.group(1))
         translated = int(score_match.group(2))
         fuzzy_count = int(score_match.group(3))
         untranslated = int(score_match.group(4))
+
+        po_match = re.search(r'href="(https://i18n\.debian\.org/[^"]+\.po\.gz)"', row)
         po_url = po_match.group(1) if po_match else ""
 
-        # Extract translator (first non-score td after the po link)
-        tds = re.findall(r'<td>([^<]*)</td>', row)
+        # Translator is in td[3] (4th column) for both underway and done tables
         translator = ""
-        for td in tds:
-            td = td.strip()
-            if td and '%' not in td and 'http' not in td:
-                translator = td
-                break
+        if len(tds) >= 4:
+            translator = re.sub(r'<[^>]+>', '', tds[3]).strip()
+
+        # Bug number from BTS link
+        bug_number = ""
+        bug_match = re.search(r'bugs\.debian\.org/(\d+)', row)
+        if bug_match:
+            bug_number = bug_match.group(1)
+
+        # Coordination status from td[4] (underway tables have 8 columns)
+        coord_status = ""
+        if len(tds) >= 5:
+            coord_status = re.sub(r'<[^>]+>', '', tds[4]).strip()
 
         if score == 100:
             status = "translated"
@@ -237,6 +259,10 @@ def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageSta
             status = "untranslated"
         else:
             status = "translated"
+
+        # Override with coordination status if present
+        if coord_status == "bts":
+            status = "filed"
 
         results.append(
             L10nPackageStatus(
@@ -249,6 +275,7 @@ def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageSta
                 fuzzy=fuzzy_count,
                 untranslated=untranslated,
                 po_url=po_url,
+                bug_number=bug_number,
             )
         )
 

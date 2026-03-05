@@ -1,3 +1,12 @@
+debconf-translation-manager (0.4.0-1) stable; urgency=medium
+
+  * Real data from l10n.debian.org (457 packages)
+  * Download .po.gz files from i18n.debian.org
+  * Template browser fetches live package data
+  * Swedish man page translation 100%
+
+ -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 09:10:00 +0100
+
 debconf-translation-manager (0.3.0-1) stable; urgency=medium
 
   * Gmail SMTP preset button

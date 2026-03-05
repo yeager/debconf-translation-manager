@@ -225,17 +225,26 @@ class TemplateBrowserView(Gtk.Box):
 
         box.append(left)
 
-        # Middle: score
-        if p.score > 0:
-            score_lbl = Gtk.Label(label=f"{p.score}%")
-            score_lbl.add_css_class("caption")
-            if p.score == 100:
-                score_lbl.add_css_class("success")
-            elif p.score >= 50:
-                score_lbl.add_css_class("accent")
-            else:
-                score_lbl.add_css_class("warning")
-            box.append(score_lbl)
+        # Middle: score and T/F/U counts
+        if p.score > 0 or p.translated or p.fuzzy or p.untranslated:
+            stats_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
+            stats_box.set_valign(Gtk.Align.CENTER)
+            if p.score > 0:
+                score_lbl = Gtk.Label(label=f"{p.score}%")
+                score_lbl.add_css_class("caption")
+                if p.score == 100:
+                    score_lbl.add_css_class("success")
+                elif p.score >= 50:
+                    score_lbl.add_css_class("accent")
+                else:
+                    score_lbl.add_css_class("warning")
+                stats_box.append(score_lbl)
+            if p.translated or p.fuzzy or p.untranslated:
+                tfu = Gtk.Label(label=f"{p.translated}t {p.fuzzy}f {p.untranslated}u")
+                tfu.add_css_class("caption")
+                tfu.add_css_class("dim-label")
+                stats_box.append(tfu)
+            box.append(stats_box)
 
         # Right: status badge
         badge = StatusBadge(status=p.status)

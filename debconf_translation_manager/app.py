@@ -12,7 +12,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Adw, Gio, GLib, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, Gtk
 
 from debconf_translation_manager import APP_ID, APP_NAME, __version__
 
@@ -48,6 +48,12 @@ class DebconfTranslationManagerApp(Adw.Application):
 
     def do_startup(self) -> None:
         Adw.Application.do_startup(self)
+        # Register bundled icon theme so GTK finds our app icon
+        icon_dir = Path(__file__).parent / "data" / "icons"
+        if icon_dir.is_dir():
+            Gtk.IconTheme.get_for_display(
+                Gdk.Display.get_default()
+            ).add_search_path(str(icon_dir / "hicolor" / "scalable" / "apps"))
         self._setup_actions()
         self._setup_shortcuts()
         self._show_welcome()
@@ -83,7 +89,7 @@ class DebconfTranslationManagerApp(Adw.Application):
     def _on_about(self, action: Gio.SimpleAction, param_args: None) -> None:
         about = Adw.AboutDialog(
             application_name=APP_NAME,
-            application_icon="preferences-desktop-locale",
+            application_icon=APP_ID,
             version=__version__,
             developer_name="Daniel Nylander",
             license_type=Gtk.License.GPL_3_0,
@@ -167,7 +173,7 @@ class DebconfTranslationManagerApp(Adw.Application):
         box.set_margin_start(24)
         box.set_margin_end(24)
 
-        icon = Gtk.Image.new_from_icon_name("preferences-desktop-locale")
+        icon = Gtk.Image.new_from_icon_name(APP_ID)
         icon.set_pixel_size(64)
         box.append(icon)
 

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="debconf-translation-manager",
-    version="0.6.1",
+    version="0.6.2",
     packages=find_packages(),
     package_data={
         "debconf_translation_manager": [

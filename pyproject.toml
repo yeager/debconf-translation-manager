@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "debconf-translation-manager"
-version = "0.6.1"
+version = "0.6.2"
 description = "Manage translations of Debian debconf templates"
 readme = "README.md"
 license = "GPL-3.0-or-later"

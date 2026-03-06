@@ -1,1 +1,1 @@
-"""View modules for debconf-translation-manager."""
+# Views package

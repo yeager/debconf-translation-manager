@@ -18,12 +18,6 @@ def main() -> int:
         "--version", action="version", version=f"%(prog)s {__version__}"
     )
     parser.add_argument(
-        "--json", action="store_true", help="Output machine-readable JSON"
-    )
-    parser.add_argument(
-        "-q", "--quiet", action="store_true", help="Suppress non-essential output"
-    )
-    parser.add_argument(
         "--no-gui",
         action="store_true",
         help="Run in CLI mode (print stats and exit)",
@@ -32,34 +26,24 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.no_gui:
-        return _cli_mode(args)
+        return _cli_mode()
 
-    return _gui_mode(args)
+    return _gui_mode()
 
 
-def _cli_mode(args: argparse.Namespace) -> int:
+def _cli_mode() -> int:
     """Print translation statistics and exit."""
-    from debconf_translation_manager.services.template_parser import get_mock_templates
+    from debconf_translation_manager.services.l10n_debian import fetch_and_parse
 
-    templates = get_mock_templates()
-    stats = {
-        "app": APP_NAME,
-        "version": __version__,
-        "template_count": len(templates),
-        "packages": list({t["package"] for t in templates}),
-    }
-
-    if args.json:
-        print(json.dumps(stats, indent=2))
-    elif not args.quiet:
-        print(f"{APP_NAME} v{__version__}")
-        print(f"Templates: {stats['template_count']}")
-        print(f"Packages:  {len(stats['packages'])}")
-
+    results = fetch_and_parse()
+    total = len(results)
+    done = sum(1 for r in results if r.score == 100)
+    print(f"{APP_NAME} v{__version__}")
+    print(f"Packages: {total}, Translated: {done}, Remaining: {total - done}")
     return 0
 
 
-def _gui_mode(args: argparse.Namespace) -> int:
+def _gui_mode() -> int:
     """Launch the GTK4 GUI."""
     try:
         import gi
@@ -73,7 +57,7 @@ def _gui_mode(args: argparse.Namespace) -> int:
     from debconf_translation_manager.app import DebconfTranslationManagerApp
 
     app = DebconfTranslationManagerApp()
-    return app.run(sys.argv[:1])  # pass only program name to GLib
+    return app.run(sys.argv[:1])
 
 
 if __name__ == "__main__":

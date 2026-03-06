@@ -1,103 +1,74 @@
 # Debconf Translation Manager
 
-A GTK4/libadwaita application for managing translations of Debian debconf templates.
+A GTK4/libadwaita application for managing translations of Debian debconf
+templates. Built for translators who work with the Debian l10n infrastructure.
 
 ## Features
 
-### Template Browser
-Browse and search debconf templates from packages. View original English strings, template type (select, multiselect, string, boolean, note, text, password), priority, default values, choices, and extended descriptions. Filter by type and priority.
+- **Package List**: Browse all packages needing translation, sorted and filtered
+  by name, percentage, or untranslated count. Color-coded status indicators.
+- **Package Detail**: View translation stats, download PO files, run l10n-lint,
+  and submit translations — all from one view.
+- **Built-in PO Editor**: Side-by-side source/translation editor with fuzzy
+  highlighting, search, and copy-source-to-target.
+- **One-click Submit**: Pre-filled email with standard Debian l10n format,
+  SMTP sending with attachment.
+- **Statistics**: Track progress over time, compare language rankings,
+  view submission history. Data cached in SQLite.
+- **Preferences**: Language selection, SMTP configuration with Gmail preset,
+  translator identity settings.
 
-### Translation Status Dashboard
-Per-language translation coverage dashboard with summary cards showing translated, fuzzy, and untranslated counts. Progress bar for overall coverage. Filter by language, package, and status. Supports 20+ languages.
+## Requirements
 
-### PO Editor
-Edit po-debconf translation files with source and translation displayed side by side:
-- Fuzzy marking toggle
-- Copy source to translation
-- Format string validation
-- Length constraint warnings
-- PO header editor with translator credits (name, email, year)
-- Encoding validation
+- Python 3.10+
+- GTK4 and libadwaita
+- Python packages: PyGObject, requests, beautifulsoup4, polib
 
-### Review Board
-Pull translation coordination data from [l10n.debian.org](https://l10n.debian.org/coordination/sv/sv.by_status.html). Shows packages needing review, pending translations, translator and reviewer info, deadlines, and scores.
+### Ubuntu/Debian
 
-### Diff View
-Side-by-side comparison of old vs new template strings when templates are updated. Character-level diff highlighting with color coding.
-
-### l10n Coordination
-Full l10n.debian.org coordination workflow:
-**Unclaimed** → **ITT** → **Translating** → **RFR** → **Under Review** → **LCFC** → **Done**
-
-### BTS Bug Filing
-Compose l10n bug reports for the Debian Bug Tracking System:
-- Auto-generated subject: `[INTL:sv] Swedish debconf translation for PACKAGE`
-- Email preview popup with edit/save
-- Submission history log
-- Configurable severity and tags
-- Gmail SMTP preset
-
-### DDTSS Integration
-Submit and review translations via the [Debian Description Translation Server](https://ddtp.debian.org).
-
-### Settings
-Persistent preferences for translator identity, language (all 95 Debian debconf languages), BTS defaults, and SMTP configuration.
-
-### Statistics
-Cairo-drawn charts: status distribution, per-package scores, cross-language coverage, and coverage timeline.
-
-### Progress Dialog
-Reusable progress popup with cancel button for long-running operations.
-
-### Standard Features
-- Theme toggle (light/dark/system, Ctrl+T)
-- Keyboard shortcuts
-- CSV/JSON export
-- Copy Debug Info
-- Welcome dialog
-- Desktop notifications for template changes
+```bash
+sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 python3-requests python3-bs4 python3-polib
+```
 
 ## Installation
 
-### From Debian repository
-
 ```bash
-# Add the repository
-curl -fsSL https://yeager.github.io/debian-repo/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/yeager-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/yeager-archive-keyring.gpg] https://yeager.github.io/debian-repo ./" | sudo tee /etc/apt/sources.list.d/yeager.list
-sudo apt update
-sudo apt install debconf-translation-manager
+# From source
+pip install -e .
+
+# Or build
+python -m build
+pip install dist/debconf_translation_manager-*.whl
 ```
 
-### From source
+## Usage
 
 ```bash
-git clone https://github.com/yeager/debconf-translation-manager.git
-cd debconf-translation-manager
-pip install .
+# Launch GUI
+debconf-translation-manager
+
+# CLI mode (stats only)
+debconf-translation-manager --no-gui
 ```
 
-### Requirements
-- Python 3.10+
-- GTK 4
-- libadwaita 1.x
-- PyGObject
-- requests
-- beautifulsoup4
+## Workflow
 
-### CLI mode
+1. **Browse** — App fetches data from debian.org and shows packages needing
+   translation for your language
+2. **Select** — Click a package to see details and download the PO file
+3. **Translate** — Use the built-in PO editor to translate strings
+4. **Submit** — Send the translation via email with one click
 
-```bash
-debconf-translation-manager --no-gui          # Print stats
-debconf-translation-manager --no-gui --json   # JSON output
-debconf-translation-manager --no-gui -q       # Quiet mode
-```
+## Data Source
 
-## i18n
+Translation data is fetched from:
+- `https://www.debian.org/international/l10n/po-debconf/{lang_code}`
+- PO files downloaded from `i18n.debian.org`
 
-All UI strings use `gettext`. Translate on [Transifex](https://app.transifex.com/danielnylander/debconf-translator/).
+## Configuration
 
-Man page translation uses po4a.
+Settings are stored in `~/.config/debconf-translation-manager/settings.json`.
+Submission history is cached in `~/.cache/debconf-translation-manager/submissions.db`.
 
 ## License
 

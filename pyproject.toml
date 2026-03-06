@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "debconf-translation-manager"
-version = "0.6.2"
+version = "1.0.0"
 description = "Manage translations of Debian debconf templates"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -14,10 +14,9 @@ authors = [
 ]
 keywords = ["debian", "debconf", "translation", "l10n", "gettext", "gtk4"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Environment :: X11 Applications :: GTK",
     "Intended Audience :: Developers",
-
     "Programming Language :: Python :: 3",
     "Topic :: Software Development :: Localization",
 ]
@@ -25,6 +24,7 @@ dependencies = [
     "PyGObject>=3.42",
     "requests>=2.28",
     "beautifulsoup4>=4.11",
+    "polib>=1.2",
 ]
 
 [project.urls]
@@ -32,11 +32,18 @@ Homepage = "https://github.com/yeager/debconf-translation-manager"
 Repository = "https://github.com/yeager/debconf-translation-manager"
 "Bug Tracker" = "https://github.com/yeager/debconf-translation-manager/issues"
 
-[project.scripts]
+[project.gui-scripts]
 debconf-translation-manager = "debconf_translation_manager.__main__:main"
+
+[project.scripts]
+debconf-translation-manager-cli = "debconf_translation_manager.__main__:main"
 
 [tool.setuptools.packages.find]
 include = ["debconf_translation_manager*"]
 
 [tool.setuptools.package-data]
-debconf_translation_manager = ["data/*"]
+debconf_translation_manager = [
+    "data/*",
+    "data/icons/**/*",
+    "locale/**/*",
+]

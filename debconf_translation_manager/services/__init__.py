@@ -1,1 +1,1 @@
-"""Service layer for debconf-translation-manager."""
+# Services package

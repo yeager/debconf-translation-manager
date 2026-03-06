@@ -9,8 +9,8 @@ Rules-Requires-Root: no
 
 Package: debconf-translation-manager
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, python3-requests, python3-bs4
+Depends: ${python3:Depends}, ${misc:Depends}, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, python3-requests, python3-bs4, python3-polib
 Description: GTK4 tool for managing Debconf template translations
  A GTK4/libadwaita application for managing translations of Debian
- debconf templates. Features template browser, PO editor, BTS bug
- filing, DDTSS integration, review board, and statistics.
+ debconf templates. Browse untranslated packages, edit PO files with a
+ built-in side-by-side editor, and submit translations via email.

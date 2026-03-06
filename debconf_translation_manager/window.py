@@ -88,7 +88,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Create views lazily but add placeholders
         self._views: dict[str, Gtk.Widget | None] = {}
-        for item_id, _, label in SIDEBAR_ITEMS:
+        for item_id, _icon, label in SIDEBAR_ITEMS:
             self._views[item_id] = None
 
         self._main_box.append(sidebar)

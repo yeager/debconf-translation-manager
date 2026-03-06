@@ -2,10 +2,10 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 # Translators:
 # Daniel Nylander <po@danielnylander.se>, 2026
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2026-03-05 07:30+0100\n"
 "PO-Revision-Date: 2026-03-05 06:30+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
-"Language-Team: Swedish (https://app.transifex.com/danielnylander/teams/"
-"305693/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (https://app.transifex.com/danielnylander/teams/305693/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. type: TH
@@ -54,7 +53,8 @@ msgstr "NAMN"
 #. type: Plain text
 #: man/debconf-translation-manager.1:4
 msgid ""
-"debconf-translation-manager - manage translations of Debian debconf templates"
+"debconf-translation-manager - manage translations of Debian debconf "
+"templates"
 msgstr ""
 "debconf-translation-manager - hantera översättningar av Debians debconf-"
 "mallar"
@@ -68,11 +68,11 @@ msgstr "SYNOPSIS"
 #. type: Plain text
 #: man/debconf-translation-manager.1:7
 msgid ""
-"B<debconf-translation-manager> [I<--no-gui>] [I<--json>] [I<-q>] [I<--"
-"version>]"
+"B<debconf-translation-manager> [I<--no-gui>] [I<--json>] [I<-q>] "
+"[I<--version>]"
 msgstr ""
-"B<debconf-translation-manager> [I<--no-gui>] [I<--json>] [I<-q>] [I<--"
-"version>]"
+"B<debconf-translation-manager> [I<--no-gui>] [I<--json>] [I<-q>] "
+"[I<--version>]"
 
 #. type: SH
 #: man/debconf-translation-manager.1:7
@@ -83,14 +83,15 @@ msgstr "BESKRIVNING"
 #. type: Plain text
 #: man/debconf-translation-manager.1:13
 msgid ""
-"B<debconf-translation-manager> is a GTK4/libadwaita application for managing "
-"translations of Debian debconf templates. It provides a template browser, PO "
-"editor with side-by-side view, BTS bug filing workflow, DDTSS integration, "
-"review board with l10n.debian.org data, and translation statistics."
+"B<debconf-translation-manager> is a GTK4/libadwaita application for managing"
+" translations of Debian debconf templates. It provides a template browser, "
+"PO editor with side-by-side view, BTS bug filing workflow, DDTSS "
+"integration, review board with l10n.debian.org data, and translation "
+"statistics."
 msgstr ""
 "B<debconf-translation-manager> är ett GTK4/libadwaita-program för hantering "
-"av översättningar av Debian debconf-mallar. Det innehåller en mallbläddrare, "
-"PO-redigerare med sida-vid-sida-vy, BTS-felrapporteringsflöde, DDTSS-"
+"av översättningar av Debian debconf-mallar. Det innehåller en mallbläddrare,"
+" PO-redigerare med sida-vid-sida-vy, BTS-felrapporteringsflöde, DDTSS-"
 "integration, granskningspanel med data från l10n.debian.org och "
 "översättningsstatistik."
 

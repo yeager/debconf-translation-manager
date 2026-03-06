@@ -1,1 +1,1 @@
-# Views package
+# Views package — sidebar navigation panels

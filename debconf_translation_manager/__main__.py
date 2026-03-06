@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 
 from debconf_translation_manager import __version__, APP_NAME

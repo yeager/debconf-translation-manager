@@ -1,3 +1,15 @@
+debconf-translation-manager (1.0.0-1) stable; urgency=medium
+
+  * GTK4/Adwaita rewrite with sidebar navigation (GNOME Settings style)
+  * Sidebar with icon buttons: Packages, Editor, Statistics, Settings
+  * Statistics view with colorful Cairo pie and bar charts
+  * Inline settings panel (no separate window)
+  * PO editor with jump-to-untranslated/fuzzy navigation
+  * Removed requests/beautifulsoup4 dependencies (uses urllib)
+  * Entry point: debconf-translation-manager (console_scripts)
+
+ -- Daniel Nylander <daniel@danielnylander.se>  Thu, 06 Mar 2026 11:00:00 +0100
+
 debconf-translation-manager (0.7.0-1) stable; urgency=medium
 
   * Complete rewrite with workflow-based NavigationView UI

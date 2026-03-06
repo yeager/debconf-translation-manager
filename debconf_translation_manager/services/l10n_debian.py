@@ -1,4 +1,7 @@
-"""Fetch and parse translation data from www.debian.org/international/l10n/po-debconf."""
+"""Fetch and parse translation data from www.debian.org/international/l10n/po-debconf.
+
+Uses urllib (no requests/beautifulsoup4 dependency).
+"""
 
 from __future__ import annotations
 
@@ -8,6 +11,8 @@ import re
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.request import urlopen, Request
+from urllib.error import URLError
 
 log = logging.getLogger(__name__)
 
@@ -33,30 +38,37 @@ class L10nPackageStatus:
             self.total = self.translated + self.fuzzy + self.untranslated
 
 
+# ── HTTP helpers ───────────────────────────────────────────────────────
+
+_HEADERS = {"User-Agent": "DebconfTranslationManager/1.0"}
+
+
+def _fetch_url(url: str, timeout: int = 30) -> bytes | None:
+    """Fetch URL content as bytes using urllib."""
+    try:
+        req = Request(url, headers=_HEADERS)
+        with urlopen(req, timeout=timeout) as resp:
+            return resp.read()
+    except (URLError, OSError) as exc:
+        log.warning("Failed to fetch %s: %s", url, exc)
+        return None
+
+
 # ── Fetch page ─────────────────────────────────────────────────────────
 
 def fetch_podebconf_page(language: str = "sv") -> str | None:
     """Fetch the po-debconf statistics page from debian.org."""
     url = f"https://www.debian.org/international/l10n/po-debconf/{language}"
-    try:
-        import requests
-        resp = requests.get(url, timeout=20)
-        resp.raise_for_status()
-        return resp.text
-    except Exception as exc:
-        log.warning("Failed to fetch %s: %s", url, exc)
-        return None
+    data = _fetch_url(url, timeout=20)
+    if data is not None:
+        return data.decode("utf-8", errors="replace")
+    return None
 
 
 # ── Parse page ─────────────────────────────────────────────────────────
 
 def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageStatus]:
-    """Parse the Debian po-debconf statistics page.
-
-    Extracts:
-    - "To do" section: packages with no translation
-    - Table rows with score (Nt;Nf;Nu): packages with partial/full translations
-    """
+    """Parse the Debian po-debconf statistics page."""
     results: list[L10nPackageStatus] = []
 
     # Parse "to do" packages
@@ -143,16 +155,14 @@ def parse_podebconf_html(html: str, language: str = "sv") -> list[L10nPackageSta
 
 def download_po_file(url: str, dest_dir: str | None = None) -> str | None:
     """Download a .po or .po.gz file and return the local path."""
-    try:
-        import requests
-        resp = requests.get(url, timeout=30)
-        resp.raise_for_status()
-    except Exception as exc:
-        log.error("Failed to download %s: %s", url, exc)
+    data = _fetch_url(url, timeout=30)
+    if data is None:
         return None
 
     if dest_dir is None:
         dest_dir = tempfile.mkdtemp(prefix="debconf-l10n-")
+
+    Path(dest_dir).mkdir(parents=True, exist_ok=True)
 
     filename = url.rsplit("/", 1)[-1]
     if filename.endswith(".gz"):
@@ -162,12 +172,12 @@ def download_po_file(url: str, dest_dir: str | None = None) -> str | None:
 
     try:
         if url.endswith(".gz"):
-            content = gzip.decompress(resp.content)
+            content = gzip.decompress(data)
             with open(dest_path, "wb") as f:
                 f.write(content)
         else:
             with open(dest_path, "wb") as f:
-                f.write(resp.content)
+                f.write(data)
     except Exception as exc:
         log.error("Failed to save %s: %s", dest_path, exc)
         return None
@@ -193,14 +203,10 @@ def fetch_and_parse(language: str = "sv") -> list[L10nPackageStatus]:
 def fetch_ranking_page() -> str | None:
     """Fetch the po-debconf ranking page."""
     url = "https://www.debian.org/international/l10n/po-debconf/rank"
-    try:
-        import requests
-        resp = requests.get(url, timeout=20)
-        resp.raise_for_status()
-        return resp.text
-    except Exception as exc:
-        log.warning("Failed to fetch ranking: %s", exc)
-        return None
+    data = _fetch_url(url, timeout=20)
+    if data is not None:
+        return data.decode("utf-8", errors="replace")
+    return None
 
 
 def parse_ranking_html(html: str) -> list[dict]:

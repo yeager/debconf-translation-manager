@@ -1,8 +1,9 @@
-"""Package List Page — main view showing all untranslated packages."""
+"""Package List View — main content showing all packages needing translation."""
 
 from __future__ import annotations
 
 import gettext
+import subprocess
 import threading
 from typing import TYPE_CHECKING
 
@@ -15,6 +16,7 @@ from gi.repository import Adw, GLib, Gtk, Pango
 
 from debconf_translation_manager.services.l10n_debian import (
     L10nPackageStatus,
+    download_po_file,
     fetch_and_parse,
 )
 from debconf_translation_manager.services.settings import Settings
@@ -24,56 +26,49 @@ if TYPE_CHECKING:
 
 _ = gettext.gettext
 
-# Sort modes
 SORT_NAME = 0
 SORT_PERCENT = 1
 SORT_UNTRANSLATED = 2
 
 
-class PackageListPage(Adw.NavigationPage):
-    """Main page: list of packages needing translation."""
+class PackageListView(Gtk.Box):
+    """Package list content panel."""
 
     def __init__(self, window: MainWindow) -> None:
-        super().__init__(title=_("Packages"))
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self._window = window
         self._packages: list[L10nPackageStatus] = []
         self._filtered: list[L10nPackageStatus] = []
         self._sort_mode = SORT_PERCENT
-        self._sort_ascending = True
         self._search_text = ""
+        self._selected_pkg: L10nPackageStatus | None = None
         self._build_ui()
 
     def _build_ui(self) -> None:
-        toolbar_view = Adw.ToolbarView()
-
         # Header bar
         header = Adw.HeaderBar()
-        header.set_title_widget(Gtk.Label(label=_("Debconf Translation Manager")))
+        header.set_title_widget(Gtk.Label(label=_("Packages")))
 
-        # Refresh button
         refresh_btn = Gtk.Button(icon_name="view-refresh-symbolic")
         refresh_btn.set_tooltip_text(_("Refresh package list"))
         refresh_btn.connect("clicked", self._on_refresh)
         header.pack_start(refresh_btn)
 
-        # Stats button
-        stats_btn = Gtk.Button(icon_name="org.gnome.Usage-symbolic")
-        stats_btn.set_tooltip_text(_("Statistics"))
-        stats_btn.connect("clicked", self._on_stats)
-        header.pack_end(stats_btn)
+        # Sync TX button
+        sync_btn = Gtk.Button(icon_name="emblem-synchronizing-symbolic")
+        sync_btn.set_tooltip_text(_("Sync TX (tx push -s)"))
+        sync_btn.connect("clicked", self._on_sync_tx)
+        header.pack_end(sync_btn)
 
-        # Preferences button
-        prefs_btn = Gtk.Button(icon_name="preferences-system-symbolic")
-        prefs_btn.set_tooltip_text(_("Preferences"))
-        prefs_btn.connect("clicked", self._on_preferences)
-        header.pack_end(prefs_btn)
+        # Download PO button
+        download_btn = Gtk.Button(icon_name="folder-download-symbolic")
+        download_btn.set_tooltip_text(_("Download PO for selected package"))
+        download_btn.connect("clicked", self._on_download_po)
+        header.pack_end(download_btn)
 
-        toolbar_view.add_top_bar(header)
+        self.append(header)
 
-        # Main content
-        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-
-        # Search bar
+        # Search + filter bar
         search_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         search_box.set_margin_start(12)
         search_box.set_margin_end(12)
@@ -86,7 +81,6 @@ class PackageListPage(Adw.NavigationPage):
         self._search_entry.connect("search-changed", self._on_search_changed)
         search_box.append(self._search_entry)
 
-        # Sort dropdown
         sort_model = Gtk.StringList.new([
             _("Sort by Name"),
             _("Sort by Percentage"),
@@ -97,54 +91,52 @@ class PackageListPage(Adw.NavigationPage):
         self._sort_dropdown.connect("notify::selected", self._on_sort_changed)
         search_box.append(self._sort_dropdown)
 
-        main_box.append(search_box)
+        self.append(search_box)
 
-        # Info bar with stats
+        # Info label
         self._info_label = Gtk.Label(xalign=0)
         self._info_label.add_css_class("dim-label")
         self._info_label.add_css_class("caption")
         self._info_label.set_margin_start(16)
         self._info_label.set_margin_bottom(4)
-        main_box.append(self._info_label)
+        self.append(self._info_label)
 
-        main_box.append(Gtk.Separator())
+        self.append(Gtk.Separator())
 
-        # Scrolled list
+        # Stack: list vs status
+        self._stack = Gtk.Stack()
+
+        # List view
         scroll = Gtk.ScrolledWindow()
         scroll.set_vexpand(True)
 
         self._list_box = Gtk.ListBox()
-        self._list_box.set_selection_mode(Gtk.SelectionMode.NONE)
+        self._list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self._list_box.add_css_class("boxed-list")
         self._list_box.set_margin_start(12)
         self._list_box.set_margin_end(12)
         self._list_box.set_margin_top(8)
         self._list_box.set_margin_bottom(8)
+        self._list_box.connect("row-selected", self._on_row_selected)
 
         scroll.set_child(self._list_box)
+        self._stack.add_named(scroll, "list")
 
-        # Empty state
+        # Status page (loading/empty)
         self._status_page = Adw.StatusPage()
         self._status_page.set_title(_("Loading Packages"))
         self._status_page.set_description(_("Fetching translation data from debian.org…"))
         self._status_page.set_icon_name("emblem-synchronizing-symbolic")
-
-        self._stack = Gtk.Stack()
-        self._stack.add_named(scroll, "list")
         self._stack.add_named(self._status_page, "status")
         self._stack.set_visible_child_name("status")
 
-        main_box.append(self._stack)
-        toolbar_view.set_content(main_box)
-        self.set_child(toolbar_view)
+        self.append(self._stack)
 
     def load_data(self) -> None:
-        """Start async data fetch."""
         self._status_page.set_title(_("Loading Packages"))
         self._status_page.set_description(_("Fetching translation data from debian.org…"))
         self._status_page.set_icon_name("emblem-synchronizing-symbolic")
         self._stack.set_visible_child_name("status")
-
         thread = threading.Thread(target=self._fetch_data, daemon=True)
         thread.start()
 
@@ -154,9 +146,7 @@ class PackageListPage(Adw.NavigationPage):
         GLib.idle_add(self._on_data_loaded, results)
 
     def _on_data_loaded(self, results: list[L10nPackageStatus]) -> bool:
-        # Filter out 100% translated packages
         self._packages = [p for p in results if p.score < 100]
-
         if not self._packages:
             self._status_page.set_title(_("No Packages Found"))
             self._status_page.set_description(
@@ -167,7 +157,6 @@ class PackageListPage(Adw.NavigationPage):
         else:
             self._apply_filter_and_sort()
             self._stack.set_visible_child_name("list")
-
         return False
 
     def _apply_filter_and_sort(self) -> None:
@@ -176,19 +165,15 @@ class PackageListPage(Adw.NavigationPage):
             p for p in self._packages
             if not query or query in p.package.lower()
         ]
-
-        # Sort
         if self._sort_mode == SORT_NAME:
             self._filtered.sort(key=lambda p: p.package)
         elif self._sort_mode == SORT_PERCENT:
             self._filtered.sort(key=lambda p: p.score)
         elif self._sort_mode == SORT_UNTRANSLATED:
             self._filtered.sort(key=lambda p: p.untranslated, reverse=True)
-
         self._rebuild_list()
 
     def _rebuild_list(self) -> None:
-        # Clear
         while True:
             row = self._list_box.get_row_at_index(0)
             if row is None:
@@ -210,6 +195,7 @@ class PackageListPage(Adw.NavigationPage):
     def _make_row(self, pkg: L10nPackageStatus) -> Gtk.ListBoxRow:
         row = Gtk.ListBoxRow()
         row.set_activatable(True)
+        row._pkg = pkg  # store reference
 
         main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
         main_box.set_margin_start(12)
@@ -263,22 +249,12 @@ class PackageListPage(Adw.NavigationPage):
             pct_label.add_css_class("success")
         main_box.append(pct_label)
 
-        # Arrow
-        arrow = Gtk.Image.new_from_icon_name("go-next-symbolic")
-        arrow.add_css_class("dim-label")
-        main_box.append(arrow)
-
         row.set_child(main_box)
-
-        # Click handler via gesture
-        gesture = Gtk.GestureClick()
-        gesture.connect("released", lambda g, n, x, y: self._on_package_clicked(pkg))
-        row.add_controller(gesture)
-
         return row
 
-    def _on_package_clicked(self, pkg: L10nPackageStatus) -> None:
-        self._window.show_package_detail(pkg)
+    def _on_row_selected(self, listbox: Gtk.ListBox, row: Gtk.ListBoxRow | None) -> None:
+        if row is not None and hasattr(row, '_pkg'):
+            self._selected_pkg = row._pkg
 
     def _on_search_changed(self, entry: Gtk.SearchEntry) -> None:
         self._search_text = entry.get_text()
@@ -291,8 +267,48 @@ class PackageListPage(Adw.NavigationPage):
     def _on_refresh(self, btn: Gtk.Button) -> None:
         self.load_data()
 
-    def _on_stats(self, btn: Gtk.Button) -> None:
-        self._window.show_stats()
+    def _on_sync_tx(self, btn: Gtk.Button) -> None:
+        """Push .pot files to Transifex."""
+        self._window.show_toast(_("Running tx push -s…"))
+        thread = threading.Thread(target=self._do_sync_tx, daemon=True)
+        thread.start()
 
-    def _on_preferences(self, btn: Gtk.Button) -> None:
-        self._window.show_preferences()
+    def _do_sync_tx(self) -> None:
+        try:
+            result = subprocess.run(
+                ["tx", "push", "-s"],
+                capture_output=True, text=True, timeout=60
+            )
+            msg = result.stdout or result.stderr or _("Done")
+            GLib.idle_add(self._window.show_toast, msg[:200])
+        except FileNotFoundError:
+            GLib.idle_add(self._window.show_toast, _("tx CLI not found. Install transifex-client."))
+        except Exception as exc:
+            GLib.idle_add(self._window.show_toast, str(exc)[:200])
+
+    def _on_download_po(self, btn: Gtk.Button) -> None:
+        """Download PO file for selected package and open in editor."""
+        pkg = self._selected_pkg
+        if pkg is None:
+            self._window.show_toast(_("Select a package first"))
+            return
+        if not pkg.po_url:
+            self._window.show_toast(_("No PO download URL available for this package"))
+            return
+
+        self._window.show_toast(_("Downloading PO file for %s…") % pkg.package)
+        thread = threading.Thread(target=self._do_download, args=(pkg,), daemon=True)
+        thread.start()
+
+    def _do_download(self, pkg: L10nPackageStatus) -> None:
+        cache_dir = str(Settings.get().cache_dir / "po_files")
+        path = download_po_file(pkg.po_url, cache_dir)
+        if path:
+            GLib.idle_add(self._on_download_done, path, pkg)
+        else:
+            GLib.idle_add(self._window.show_toast, _("Download failed"))
+
+    def _on_download_done(self, path: str, pkg: L10nPackageStatus) -> bool:
+        self._window.show_toast(_("Downloaded: %s") % path)
+        self._window.open_po_in_editor(path, pkg)
+        return False

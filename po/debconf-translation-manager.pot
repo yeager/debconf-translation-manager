@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Daniel Nylander
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the debconf-translation-manager package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: debconf-translation-manager 1.0.0\n"
+"Project-Id-Version: debconf-translation-manager 0.6.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-06 07:46+0100\n"
+"POT-Creation-Date: 2026-03-06 07:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,76 +21,6 @@ msgstr ""
 msgid ""
 "Manage translations of Debian debconf templates.\n"
 "Browse, translate, and submit translations in one workflow."
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:37
-msgid "Packages"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:51
-msgid "Debconf Translation Manager"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:55
-msgid "Refresh package list"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:61
-#: debconf_translation_manager/views/stats_page.py:36
-msgid "Statistics"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:67
-msgid "Preferences"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:84
-msgid "Filter packages…"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:91
-msgid "Sort by Name"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:92
-msgid "Sort by Percentage"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:93
-msgid "Sort by Untranslated"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:128
-#: debconf_translation_manager/views/package_list_page.py:143
-msgid "Loading Packages"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:129
-#: debconf_translation_manager/views/package_list_page.py:144
-msgid "Fetching translation data from debian.org…"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:161
-msgid "No Packages Found"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:163
-msgid "All packages are fully translated, or data could not be fetched."
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:202
-#, python-format
-msgid "%(shown)d of %(total)d packages needing translation (%(lang)s)"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:240
-#, python-format
-msgid "%(translated)d/%(total)d translated, %(untranslated)d untranslated"
-msgstr ""
-
-#: debconf_translation_manager/views/package_list_page.py:246
-#, python-format
-msgid ", %(fuzzy)d fuzzy"
 msgstr ""
 
 #: debconf_translation_manager/views/package_detail_page.py:65
@@ -244,6 +174,76 @@ msgstr ""
 msgid "Download and translate a PO file first"
 msgstr ""
 
+#: debconf_translation_manager/views/package_list_page.py:37
+msgid "Packages"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:51
+msgid "Debconf Translation Manager"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:55
+msgid "Refresh package list"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:61
+#: debconf_translation_manager/views/stats_page.py:36
+msgid "Statistics"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:67
+msgid "Preferences"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:84
+msgid "Filter packages…"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:91
+msgid "Sort by Name"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:92
+msgid "Sort by Percentage"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:93
+msgid "Sort by Untranslated"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:128
+#: debconf_translation_manager/views/package_list_page.py:143
+msgid "Loading Packages"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:129
+#: debconf_translation_manager/views/package_list_page.py:144
+msgid "Fetching translation data from debian.org…"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:161
+msgid "No Packages Found"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:163
+msgid "All packages are fully translated, or data could not be fetched."
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:202
+#, python-format
+msgid "%(shown)d of %(total)d packages needing translation (%(lang)s)"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:240
+#, python-format
+msgid "%(translated)d/%(total)d translated, %(untranslated)d untranslated"
+msgstr ""
+
+#: debconf_translation_manager/views/package_list_page.py:246
+#, python-format
+msgid ", %(fuzzy)d fuzzy"
+msgstr ""
+
 #: debconf_translation_manager/views/po_editor_page.py:36
 #, python-format
 msgid "Translate: %s"
@@ -321,47 +321,83 @@ msgstr ""
 msgid "Save failed: %s"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:50
-msgid "Send"
+#: debconf_translation_manager/views/preferences.py:64
+#: debconf_translation_manager/views/preferences.py:72
+msgid "Language"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:68
+#: debconf_translation_manager/views/preferences.py:68
+msgid "Translation Language"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:69
+msgid "Select the language you are translating to"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:84
+msgid "Your name and email for PO headers"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:87
+msgid "Name"
+msgstr ""
+
 #: debconf_translation_manager/views/preferences.py:91
 #: debconf_translation_manager/views/preferences.py:99
+#: debconf_translation_manager/views/submit_dialog.py:68
 msgid "Email"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:71
-msgid "To"
+#: debconf_translation_manager/views/preferences.py:104
+msgid "Email Settings"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:76
-msgid "CC"
+#: debconf_translation_manager/views/preferences.py:107
+msgid "From address"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:81
-msgid "Subject"
+#: debconf_translation_manager/views/preferences.py:111
+msgid "Default CC"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:91
-msgid "Message Body"
+#: debconf_translation_manager/views/preferences.py:118
+msgid "SMTP Server"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:121
-msgid "Attachment"
+#: debconf_translation_manager/views/preferences.py:121
+msgid "Server"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:146
-msgid "Recipient is required"
+#: debconf_translation_manager/views/preferences.py:125
+msgid "Port"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:178
-msgid "Translation submitted successfully!"
+#: debconf_translation_manager/views/preferences.py:129
+msgid "Username"
 msgstr ""
 
-#: debconf_translation_manager/views/submit_dialog.py:181
-#, python-format
-msgid "Send failed: %s"
+#: debconf_translation_manager/views/preferences.py:133
+msgid "Password"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:137
+msgid "Use TLS"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:144
+msgid "Use Gmail SMTP Preset"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:156
+msgid "Storage"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:160
+msgid "Cache"
+msgstr ""
+
+#: debconf_translation_manager/views/preferences.py:163
+msgid "Cache directory"
 msgstr ""
 
 #: debconf_translation_manager/views/stats_page.py:47
@@ -443,75 +479,39 @@ msgstr ""
 msgid "Exported to %s"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:64
-#: debconf_translation_manager/views/preferences.py:72
-msgid "Language"
+#: debconf_translation_manager/views/submit_dialog.py:50
+msgid "Send"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:68
-msgid "Translation Language"
+#: debconf_translation_manager/views/submit_dialog.py:71
+msgid "To"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:69
-msgid "Select the language you are translating to"
+#: debconf_translation_manager/views/submit_dialog.py:76
+msgid "CC"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:84
-msgid "Your name and email for PO headers"
+#: debconf_translation_manager/views/submit_dialog.py:81
+msgid "Subject"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:87
-msgid "Name"
+#: debconf_translation_manager/views/submit_dialog.py:91
+msgid "Message Body"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:104
-msgid "Email Settings"
+#: debconf_translation_manager/views/submit_dialog.py:121
+msgid "Attachment"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:107
-msgid "From address"
+#: debconf_translation_manager/views/submit_dialog.py:146
+msgid "Recipient is required"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:111
-msgid "Default CC"
+#: debconf_translation_manager/views/submit_dialog.py:178
+msgid "Translation submitted successfully!"
 msgstr ""
 
-#: debconf_translation_manager/views/preferences.py:118
-msgid "SMTP Server"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:121
-msgid "Server"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:125
-msgid "Port"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:129
-msgid "Username"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:133
-msgid "Password"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:137
-msgid "Use TLS"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:144
-msgid "Use Gmail SMTP Preset"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:156
-msgid "Storage"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:160
-msgid "Cache"
-msgstr ""
-
-#: debconf_translation_manager/views/preferences.py:163
-msgid "Cache directory"
+#: debconf_translation_manager/views/submit_dialog.py:181
+#, python-format
+msgid "Send failed: %s"
 msgstr ""

@@ -268,23 +268,52 @@ class PackageListView(Gtk.Box):
         self.load_data()
 
     def _on_sync_tx(self, btn: Gtk.Button) -> None:
-        """Push .pot files to Transifex."""
-        self._window.show_toast(_("Running tx push -s…"))
-        thread = threading.Thread(target=self._do_sync_tx, daemon=True)
+        """Sync with Transifex: push sources and pull translations."""
+        self._window.show_toast(_("Syncing with Transifex…"))
+        btn.set_sensitive(False)  # Disable button during sync
+        thread = threading.Thread(target=self._do_sync_tx, args=(btn,), daemon=True)
         thread.start()
 
-    def _do_sync_tx(self) -> None:
+    def _do_sync_tx(self, btn: Gtk.Button) -> None:
+        """Run TX sync commands in background."""
         try:
-            result = subprocess.run(
+            # First push sources
+            GLib.idle_add(self._window.show_toast, _("Pushing source strings…"))
+            push_result = subprocess.run(
                 ["tx", "push", "-s"],
-                capture_output=True, text=True, timeout=60
+                capture_output=True, text=True, timeout=120
             )
-            msg = result.stdout or result.stderr or _("Done")
-            GLib.idle_add(self._window.show_toast, msg[:200])
+            
+            if push_result.returncode != 0:
+                error_msg = push_result.stderr or _("Push failed")
+                GLib.idle_add(self._window.show_toast, f"TX push error: {error_msg[:150]}")
+                return
+            
+            # Then pull translations
+            from debconf_translation_manager.services.settings import Settings
+            lang_code = Settings.get().language_code
+            
+            GLib.idle_add(self._window.show_toast, _(f"Pulling {lang_code} translations…"))
+            pull_result = subprocess.run(
+                ["tx", "pull", "-l", lang_code, "--minimum-perc", "20"],
+                capture_output=True, text=True, timeout=180
+            )
+            
+            if pull_result.returncode == 0:
+                GLib.idle_add(self._window.show_toast, _("TX sync completed successfully"))
+            else:
+                error_msg = pull_result.stderr or _("Pull failed")
+                GLib.idle_add(self._window.show_toast, f"TX pull error: {error_msg[:150]}")
+                
         except FileNotFoundError:
             GLib.idle_add(self._window.show_toast, _("tx CLI not found. Install transifex-client."))
+        except subprocess.TimeoutExpired:
+            GLib.idle_add(self._window.show_toast, _("TX sync timed out"))
         except Exception as exc:
-            GLib.idle_add(self._window.show_toast, str(exc)[:200])
+            GLib.idle_add(self._window.show_toast, f"TX sync error: {str(exc)[:150]}")
+        finally:
+            # Re-enable button
+            GLib.idle_add(btn.set_sensitive, True)
 
     def _on_download_po(self, btn: Gtk.Button) -> None:
         """Download PO file for selected package and open in editor."""

@@ -18,6 +18,7 @@ SIDEBAR_ITEMS = [
     ("packages", "package-x-generic-symbolic", _("Packages")),
     ("editor", "document-edit-symbolic", _("Editor")),
     ("statistics", "org.gnome.Usage-symbolic", _("Statistics")),
+    ("queue", "mail-send-symbolic", _("Queue")),
     ("settings", "preferences-system-symbolic", _("Settings")),
 ]
 
@@ -149,6 +150,9 @@ class MainWindow(Adw.ApplicationWindow):
             from debconf_translation_manager.views.stats_view import StatsView
             view = StatsView(self)
             view.load_data()
+        elif item_id == "queue":
+            from debconf_translation_manager.views.queue_view import QueueView
+            view = QueueView(self)
         elif item_id == "settings":
             from debconf_translation_manager.views.settings_view import SettingsView
             view = SettingsView(self)
@@ -177,3 +181,23 @@ class MainWindow(Adw.ApplicationWindow):
         """Programmatically switch to a view."""
         if item_id in self._sidebar_buttons:
             self._sidebar_buttons[item_id].set_active(True)
+    
+    def add_to_queue(self, package: str, po_path: str, translated: int, fuzzy: int, untranslated: int) -> bool:
+        """Add a package to the submission queue."""
+        from debconf_translation_manager.services.submission_queue import SubmissionQueue
+        queue = SubmissionQueue.get()
+        
+        if queue.add_package(package, po_path, translated, fuzzy, untranslated):
+            self.show_toast(_("Added %(package)s to submission queue") % {"package": package})
+            # Refresh queue view if it exists
+            if self._views.get("queue") is not None:
+                self._views["queue"].refresh()
+            return True
+        else:
+            self.show_toast(_("%(package)s is already in the queue") % {"package": package})
+            return False
+    
+    def refresh_queue_view(self) -> None:
+        """Refresh the queue view if it's loaded."""
+        if self._views.get("queue") is not None:
+            self._views["queue"].refresh()

@@ -53,6 +53,12 @@ class PoEditorView(Gtk.Box):
         save_btn.connect("clicked", self._on_save)
         header.pack_end(save_btn)
 
+        queue_btn = Gtk.Button(label=_("Save & Queue"))
+        queue_btn.add_css_class("suggested-action")
+        queue_btn.set_tooltip_text(_("Save and add to submission queue"))
+        queue_btn.connect("clicked", self._on_save_and_queue)
+        header.pack_end(queue_btn)
+
         open_ext_btn = Gtk.Button(icon_name="text-editor-symbolic")
         open_ext_btn.set_tooltip_text(_("Open in external editor"))
         open_ext_btn.connect("clicked", self._on_open_external)
@@ -426,6 +432,32 @@ class PoEditorView(Gtk.Box):
                 self._update_status()
             except Exception as exc:
                 self._window.show_toast(_("Save failed: %s") % str(exc))
+    
+    def _on_save_and_queue(self, btn) -> None:
+        """Save current file and add to submission queue."""
+        self._save_current_entry()
+        if not self._po_file or not self._po_path or not self._pkg:
+            self._window.show_toast(_("No file loaded"))
+            return
+        
+        try:
+            # Save first
+            self._po_file.save(self._po_path)
+            self._update_status()
+            
+            # Calculate stats
+            translated = sum(1 for entry in self._po_file if entry.msgstr and "fuzzy" not in entry.flags)
+            fuzzy = sum(1 for entry in self._po_file if "fuzzy" in entry.flags)
+            untranslated = sum(1 for entry in self._po_file if not entry.msgstr and "fuzzy" not in entry.flags)
+            
+            # Add to queue
+            package_name = getattr(self._pkg, 'package', str(self._pkg))
+            if self._window.add_to_queue(package_name, self._po_path, translated, fuzzy, untranslated):
+                # Switch to queue view
+                self._window.switch_to_view("queue")
+            
+        except Exception as exc:
+            self._window.show_toast(_("Failed to save and queue: %s") % str(exc))
 
     def _on_open_external(self, btn) -> None:
         """Open the LOCAL .po file in the system's default editor."""

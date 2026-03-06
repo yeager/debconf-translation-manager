@@ -1,64 +1,11 @@
-debconf-translation-manager (0.6.2-1) stable; urgency=medium
+debconf-translation-manager (0.6.3-1) stable; urgency=medium
 
-  * Fix startup hang: move network fetches to background threads
-  * Swedish translation sync from TX (100%)
+  * Complete rewrite with workflow-based NavigationView UI
+  * PackageListPage: sortable, searchable, color-coded untranslated packages
+  * PackageDetailPage: download PO, translate, lint, submit actions
+  * PoEditorPage: side-by-side msgid/msgstr, fuzzy highlighting
+  * SubmitDialog: one-click email with standard Debian l10n format
+  * StatsPage: SQLite history, language rankings, CSV export
+  * Settings: language, SMTP, Gmail preset
 
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 16:10:00 +0100
-
-debconf-translation-manager (0.6.1-1) stable; urgency=medium
-
-  * Add SMTP password field in settings
-  * Swedish translation sync from TX
-
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 14:55:00 +0100
-
-debconf-translation-manager (0.6.0-1) stable; urgency=medium
-
-  * New: Submission Queue view with preview, edit, send, send-all
-  * New: Preview Dialog (Adw.Dialog) for email before submission
-  * New: Tags, bug number, and notes fields in submission history
-  * New: "Queue for Submission" button in Coordination view
-  * Full workflow: coordination → queue → preview → send → history
-
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 14:40:00 +0100
-
-debconf-translation-manager (0.5.0-1) stable; urgency=medium
-
-  * Replace mock data with real l10n.debian.org data in all views
-  * Statistics, Review Board, Coordination, DDTSS use real data
-  * Remove all "(simulated)" labels from UI
-  * Improved Gmail SMTP button with App Password instructions
-  * Updated .pot (247 strings)
-
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 10:00:00 +0100
-
-debconf-translation-manager (0.4.0-1) stable; urgency=medium
-
-  * Real data from l10n.debian.org (457 packages)
-  * Download .po.gz files from i18n.debian.org
-  * Template browser fetches live package data
-  * Swedish man page translation 100%
-
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 09:10:00 +0100
-
-debconf-translation-manager (0.3.0-1) stable; urgency=medium
-
-  * Gmail SMTP preset button
-  * Man page with po4a i18n support
-  * Fixed locale/i18n (.mo installed to system path)
-  * App icon (SVG) in About dialog and .desktop
-  * All 95 Debian debconf languages in settings dropdown
-  * Swedish translation 100% (217 strings)
-
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 07:45:00 +0100
-
-debconf-translation-manager (0.2.0-1) stable; urgency=medium
-
-  * Initial release.
-  * Settings view with persistent preferences
-  * Email preview popup with edit/save in BTS workflow
-  * Submission history log for previously filed bugs
-  * Reusable progress dialog
-  * PO header editor with translator credits
-
- -- Daniel Nylander <daniel@danielnylander.se>  Thu, 05 Mar 2026 07:00:00 +0100
+ -- Daniel Nylander <daniel@danielnylander.se>  Thu, 06 Mar 2026 07:48:00 +0100

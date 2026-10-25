@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "debconf-translation-manager"
-version = "0.8.0"
+version = "1.0.1"
 description = "Manage translations of Debian debconf templates"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -21,7 +21,6 @@ classifiers = [
     "Topic :: Software Development :: Localization",
 ]
 dependencies = [
-    "PyGObject>=3.42",
     "polib>=1.2",
 ]
 

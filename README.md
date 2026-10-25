@@ -22,7 +22,8 @@ templates. Built for translators who work with the Debian l10n infrastructure.
 
 - Python 3.10+
 - GTK4 and libadwaita
-- Python packages: PyGObject, requests, beautifulsoup4, polib
+- Python packages: requests, beautifulsoup4, polib
+- System package: PyGObject (`python3-gi`)
 
 ### Ubuntu/Debian
 
@@ -31,6 +32,17 @@ sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 python3-requests python3
 ```
 
 ## Installation
+
+### PyPI / pipx (Debian/Ubuntu)
+
+Install GTK4, libadwaita and the system PyGObject bindings first; pip cannot
+install these native system libraries:
+
+```bash
+sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 pipx
+pipx install --system-site-packages debconf-translation-manager
+```
+
 
 ```bash
 # From source
